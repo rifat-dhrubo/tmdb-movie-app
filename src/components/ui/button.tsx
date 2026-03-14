@@ -1,9 +1,12 @@
 import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
 import { Slot } from 'radix-ui';
-import type React from 'react';
+import React from 'react';
 
+import { Icon } from '@/components/icon';
 import { cn } from '@/lib/utils';
+
+type ButtonState = 'idle' | 'loading' | 'success';
 
 const buttonVariants = cva(
 	"group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -42,27 +45,85 @@ const buttonVariants = cva(
 	},
 );
 
+interface ButtonProps
+	extends React.ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
+	asChild?: boolean;
+	isLoading?: boolean;
+	loadingText?: string;
+	successDuration?: number;
+	onSuccessComplete?: () => void;
+}
+
 function Button({
 	asChild = false,
+	children,
 	className,
+	isLoading = false,
+	loadingText,
+	onSuccessComplete,
 	size = 'default',
+	successDuration = 1500,
 	variant = 'default',
 	...props
-}: React.ComponentProps<'button'> &
-	VariantProps<typeof buttonVariants> & {
-		asChild?: boolean;
-	}) {
+}: ButtonProps) {
+	const [state, setState] = React.useState<ButtonState>('idle');
+	const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+	const wasLoadingRef = React.useRef(false);
+
+	React.useEffect(() => {
+		if (isLoading) {
+			setState('loading');
+			wasLoadingRef.current = true;
+		} else if (wasLoadingRef.current) {
+			setState('success');
+			wasLoadingRef.current = false;
+			timeoutRef.current = setTimeout(() => {
+				setState('idle');
+				onSuccessComplete?.();
+			}, successDuration);
+		}
+
+		return () => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+		};
+	}, [isLoading, successDuration, onSuccessComplete]);
+
+	const isBusy = state === 'loading' || state === 'success';
 	const Comp = asChild ? Slot.Root : 'button';
 
 	return (
 		<Comp
-			className={cn(buttonVariants({ variant, size, className }))}
+			data-loading={state === 'loading'}
 			data-size={size}
 			data-slot="button"
+			data-state={state}
+			data-success={state === 'success'}
 			data-variant={variant}
+			disabled={props.disabled ?? isBusy}
+			className={cn(
+				buttonVariants({ variant, size, className }),
+				isBusy ? 'cursor-not-allowed' : '',
+			)}
 			{...props}
-		/>
+		>
+			{state === 'loading' ? (
+				<>
+					<Icon className="size-4 animate-spin" name="spinner_bold" />
+					{loadingText ?? children}
+				</>
+			) : state === 'success' ? (
+				<Icon
+					className="size-4 animate-in duration-500 fade-in zoom-in"
+					name="check"
+				/>
+			) : (
+				children
+			)}
+		</Comp>
 	);
 }
 
 export { Button, buttonVariants };
+export type { ButtonProps, ButtonState };

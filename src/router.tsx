@@ -6,7 +6,7 @@ import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx';
 import { routeTree } from './routeTree.gen.ts';
 
-import { AuthContextProvider } from '@/auth.tsx';
+import { AuthContextProvider } from '@/features/auth';
 
 // Create a new router instance
 export const getRouter = () => {

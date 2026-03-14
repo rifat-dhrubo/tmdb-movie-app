@@ -9,7 +9,7 @@ const IMAGES = [
 	'/niNdhTpPHSgw22tK0PLjQMV640v.jpg',
 ];
 
-export function PosterStack() {
+export function AuthPosterStack() {
 	return (
 		<div className="flex items-end gap-3">
 			{IMAGES.map((path, i) => (
