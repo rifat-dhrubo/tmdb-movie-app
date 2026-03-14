@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router';
 
-import { PosterStack, SignInForm } from '@/features/auth';
+import { Spacer } from '@/components/spacer';
+import { AuthLayout, SignInForm } from '@/features/auth';
 
 export const Route = createFileRoute('/sign-in')({
 	component: SignInPage,
@@ -8,43 +9,30 @@ export const Route = createFileRoute('/sign-in')({
 
 function SignInPage() {
 	return (
-		<div className="grid min-h-svh lg:grid-cols-2">
-			<div className="hidden flex-col overflow-hidden bg-(--card-dark) lg:flex">
-				<div className="p-10">
-					<img alt="Cine Logo" className="size-5" src="/logo192.png" />
-				</div>
+		<AuthLayout
+			quote={{
+				text: 'The only place to keep track of every film I actually want to watch.',
+				attribution: '4.8 stars · 2,400+ cinephiles',
+			}}
+		>
+			<h1 className="text-center font-serif text-4xl font-bold">
+				Welcome back
+			</h1>
+			<Spacer size={6}></Spacer>
+			<p className="text-center text-base text-balance text-muted-foreground">
+				Sign in to your account
+			</p>
 
-				<div className="flex flex-1 items-end justify-between gap-6 p-10">
-					<div>
-						<blockquote className="mb-3 max-w-sm font-serif text-xl leading-snug font-light text-primary-foreground/85 italic">
-							&ldquo;The only place to keep track of every film I actually want
-							to watch.&rdquo;
-						</blockquote>
-						<p className="text-xs tracking-wide text-primary-foreground/40">
-							&mdash; 4.8 stars &middot; 2,400+ cinephiles
-						</p>
-					</div>
+			<SignInForm />
 
-					<PosterStack />
-				</div>
-			</div>
+			<Spacer size={12}></Spacer>
 
-			<div className="flex flex-col gap-4 p-6 md:p-10">
-				<div className="flex justify-center gap-2 md:justify-start">
-					<Link
-						className="flex items-center gap-2 font-serif text-lg font-bold text-foreground"
-						to="/"
-					>
-						<img alt="Cine Logo" className="size-5" src="/logo192.png" />
-					</Link>
-				</div>
-
-				<div className="flex flex-1 items-center justify-center">
-					<div className="w-full max-w-sm lg:max-w-xs">
-						<SignInForm />
-					</div>
-				</div>
-			</div>
-		</div>
+			<p className="text-center text-sm text-muted-foreground">
+				Don&apos;t have an account?{' '}
+				<Link className="underline underline-offset-4" to="/sign-up">
+					Sign up
+				</Link>
+			</p>
+		</AuthLayout>
 	);
 }

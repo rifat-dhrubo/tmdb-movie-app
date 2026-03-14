@@ -1,18 +1,17 @@
-import { Link, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import { Loader2 } from 'lucide-react';
 import React from 'react';
 
 import { useAuth } from '@/auth';
 import { Button } from '@/components/ui/button';
-import {
-	Field,
-	FieldDescription,
-	FieldGroup,
-	FieldLabel,
-} from '@/components/ui/field';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
-export function SignInForm() {
+interface SignInFormProps {
+	onError?: (error: string) => void;
+}
+
+export function SignInForm({ onError }: SignInFormProps) {
 	const { signInWithEmail } = useAuth();
 	const navigate = useNavigate();
 
@@ -28,7 +27,10 @@ export function SignInForm() {
 		signInWithEmail(email, password)
 			.then(() => navigate({ to: '/' }))
 			.catch((err: unknown) => {
-				setError(err instanceof Error ? err.message : 'Failed to sign in');
+				const message =
+					err instanceof Error ? err.message : 'Failed to sign in';
+				setError(message);
+				onError?.(message);
 			})
 			.finally(() => setIsLoading(false));
 	};
@@ -36,13 +38,6 @@ export function SignInForm() {
 	return (
 		<form className="flex flex-col gap-6" onSubmit={handleEmailSignIn}>
 			<FieldGroup>
-				<div className="flex flex-col items-center gap-1 text-center">
-					<h1 className="font-serif text-2xl font-bold">Welcome back</h1>
-					<p className="text-sm text-balance text-muted-foreground">
-						Sign in to your account
-					</p>
-				</div>
-
 				{error ? (
 					<div className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2.5 text-sm text-destructive">
 						{error}
@@ -54,7 +49,6 @@ export function SignInForm() {
 					<Input
 						required
 						autoComplete="email"
-						className="bg-background"
 						id="email"
 						placeholder="you@example.com"
 						type="email"
@@ -66,17 +60,16 @@ export function SignInForm() {
 				<Field>
 					<div className="flex items-center">
 						<FieldLabel htmlFor="password">Password</FieldLabel>
-						<button
+						{/* <button
 							className="ml-auto text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
 							type="button"
 						>
 							Forgot password?
-						</button>
+						</button> */}
 					</div>
 					<Input
 						required
 						autoComplete="current-password"
-						className="bg-background"
 						id="password"
 						type="password"
 						value={password}
@@ -89,15 +82,6 @@ export function SignInForm() {
 						{isLoading ? <Loader2 className="size-4 animate-spin" /> : null}
 						{isLoading ? 'Signing in\u2026' : 'Sign in'}
 					</Button>
-				</Field>
-
-				<Field>
-					<FieldDescription className="text-center">
-						Don&apos;t have an account?{' '}
-						<Link className="underline underline-offset-4" to="/sign-up">
-							Sign up
-						</Link>
-					</FieldDescription>
 				</Field>
 			</FieldGroup>
 		</form>

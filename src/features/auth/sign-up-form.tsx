@@ -1,18 +1,17 @@
-import { Link, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import { Loader2 } from 'lucide-react';
 import React from 'react';
 
 import { useAuth } from '@/auth';
 import { Button } from '@/components/ui/button';
-import {
-	Field,
-	FieldDescription,
-	FieldGroup,
-	FieldLabel,
-} from '@/components/ui/field';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
-export function SignUpForm() {
+interface SignUpFormProps {
+	onError?: (error: string) => void;
+}
+
+export function SignUpForm({ onError }: SignUpFormProps) {
 	const { signUpWithEmail } = useAuth();
 	const navigate = useNavigate();
 
@@ -29,9 +28,10 @@ export function SignUpForm() {
 		signUpWithEmail(email, password)
 			.then(() => navigate({ to: '/' }))
 			.catch((err: unknown) => {
-				setError(
-					err instanceof Error ? err.message : 'Failed to create account',
-				);
+				const message =
+					err instanceof Error ? err.message : 'Failed to create account';
+				setError(message);
+				onError?.(message);
 			})
 			.finally(() => setIsLoading(false));
 	};
@@ -39,13 +39,6 @@ export function SignUpForm() {
 	return (
 		<form className="flex flex-col gap-6" onSubmit={handleEmailSignUp}>
 			<FieldGroup>
-				<div className="flex flex-col items-center gap-1 text-center">
-					<h1 className="font-serif text-2xl font-bold">Create your account</h1>
-					<p className="text-sm text-balance text-muted-foreground">
-						Start curating your personal cinema journal
-					</p>
-				</div>
-
 				{error ? (
 					<div className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2.5 text-sm text-destructive">
 						{error}
@@ -57,7 +50,6 @@ export function SignUpForm() {
 					<Input
 						required
 						autoComplete="name"
-						className="bg-background"
 						id="name"
 						placeholder="Jane Doe"
 						type="text"
@@ -71,7 +63,6 @@ export function SignUpForm() {
 					<Input
 						required
 						autoComplete="email"
-						className="bg-background"
 						id="email"
 						placeholder="you@example.com"
 						type="email"
@@ -85,7 +76,6 @@ export function SignUpForm() {
 					<Input
 						required
 						autoComplete="new-password"
-						className="bg-background"
 						id="password"
 						minLength={6}
 						placeholder="At least 6 characters"
@@ -100,15 +90,6 @@ export function SignUpForm() {
 						{isLoading ? <Loader2 className="size-4 animate-spin" /> : null}
 						{isLoading ? 'Creating account\u2026' : 'Create account'}
 					</Button>
-				</Field>
-
-				<Field>
-					<FieldDescription className="text-center">
-						Already have an account?{' '}
-						<Link className="underline underline-offset-4" to="/sign-in">
-							Sign in
-						</Link>
-					</FieldDescription>
 				</Field>
 			</FieldGroup>
 		</form>
