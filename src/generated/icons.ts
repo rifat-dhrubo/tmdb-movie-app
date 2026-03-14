@@ -2,13 +2,17 @@
 
 export const iconNames = [
 	'x',
+	'x_circle_bold',
+	'warning_bold',
 	'spinner_bold',
 	'logo',
+	'info_bold',
 	'eye',
 	'eye_closed',
 	'eye_closed_bold',
 	'eye_bold',
 	'check',
+	'check_circle_bold',
 	'check_bold',
 	'caret_right',
 ] as const;

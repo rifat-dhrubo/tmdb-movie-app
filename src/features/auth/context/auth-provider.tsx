@@ -8,18 +8,9 @@ import type { User } from 'firebase/auth';
 import React from 'react';
 import { flushSync } from 'react-dom';
 
+import { AuthContext } from './auth-context';
+
 import { auth } from '@/lib/firebase/config';
-
-export interface AuthContextType {
-	isAuthenticated: boolean;
-	isInitialLoading: boolean;
-	logout: () => Promise<void>;
-	signInWithEmail: (email: string, password: string) => Promise<void>;
-	signUpWithEmail: (email: string, password: string) => Promise<void>;
-	user: User | null;
-}
-
-const AuthContext = React.createContext<AuthContextType | null>(null);
 
 export function AuthContextProvider({
 	children,
@@ -77,12 +68,4 @@ export function AuthContextProvider({
 			{children}
 		</AuthContext.Provider>
 	);
-}
-
-export function useAuth() {
-	const context = React.useContext(AuthContext);
-	if (!context) {
-		throw new Error('useAuth must be used within an AuthProvider');
-	}
-	return context;
 }

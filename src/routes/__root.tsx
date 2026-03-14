@@ -13,8 +13,9 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { queryDevtools as TanStackQueryDevtools } from '../integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
 
-import type { AuthContextType } from '@/auth';
+import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import type { AuthContextType } from '@/features/auth';
 import { ThemeProvider } from '@/integrations/theme-provider';
 
 interface MyRouterContext {
@@ -74,6 +75,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 							]}
 						/>
 					</TooltipProvider>
+					<Toaster />
 				</ThemeProvider>
 				<Scripts />
 			</body>

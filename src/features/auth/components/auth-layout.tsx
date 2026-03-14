@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import type React from 'react';
 
-import { PosterStack } from './poster-stack';
+import { AuthPosterStack } from './auth-poster-stack';
 
 interface AuthLayoutProps {
 	children: React.ReactNode;
@@ -29,11 +29,11 @@ export function AuthLayout({ children, quote }: AuthLayoutProps) {
 						</p>
 					</div>
 
-					<PosterStack />
+					<AuthPosterStack />
 				</div>
 			</div>
 
-			<div className="flex flex-col gap-4 p-6 md:p-10">
+			<div className="flex flex-col gap-4 bg-background p-6 md:p-10">
 				<div className="flex justify-center gap-2 md:justify-start">
 					<Link
 						className="flex items-center gap-2 font-serif text-lg font-bold text-foreground"
