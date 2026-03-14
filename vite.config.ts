@@ -5,11 +5,11 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { resolve } from 'node:path';
 
+import { cloudflare } from '@cloudflare/vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import viteReact from '@vitejs/plugin-react';
-import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
 import type { Plugin } from 'vite';
 import { iconsSpritesheet } from 'vite-plugin-icons-spritesheet';
@@ -134,7 +134,8 @@ export default defineConfig({
 			projects: ['./tsconfig.json'],
 		}),
 		tanstackStart(),
-		nitro(),
+		cloudflare({ viteEnvironment: { name: 'ssr' } }),
+
 		svgr(),
 		viteReact({
 			babel: {
