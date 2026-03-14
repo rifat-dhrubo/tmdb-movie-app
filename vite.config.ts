@@ -5,13 +5,16 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { resolve } from 'node:path';
 
+import { cloudflare } from '@cloudflare/vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
-import { tanstackRouter } from '@tanstack/router-plugin/vite';
+import { devtools } from '@tanstack/devtools-vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import viteReact from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import type { Plugin } from 'vite';
 import { iconsSpritesheet } from 'vite-plugin-icons-spritesheet';
 import svgr from 'vite-plugin-svgr';
+import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 function snakeCase(str: string) {
 	const wordSeparators =
@@ -126,7 +129,13 @@ function replaceIconReferencesPlugin(hashedFile: string): Plugin {
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
-		tanstackRouter({ autoCodeSplitting: true, target: 'react' }),
+		devtools(),
+		viteTsConfigPaths({
+			projects: ['./tsconfig.json'],
+		}),
+		tanstackStart(),
+		cloudflare({ viteEnvironment: { name: 'ssr' } }),
+
 		svgr(),
 		viteReact({
 			babel: {
