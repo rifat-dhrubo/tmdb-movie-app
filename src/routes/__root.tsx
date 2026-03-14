@@ -1,4 +1,5 @@
-import '@fontsource-variable/geist';
+import '@fontsource-variable/dm-sans';
+import '@fontsource-variable/geist-mono';
 
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import type { QueryClient } from '@tanstack/react-query';
@@ -12,10 +13,13 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { queryDevtools as TanStackQueryDevtools } from '../integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
 
+import type { AuthContextType } from '@/auth';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/integrations/theme-provider';
 
 interface MyRouterContext {
 	queryClient: QueryClient;
+	auth?: AuthContextType;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -34,6 +38,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				href: '/apple-touch-icon.png',
 				sizes: '180x180',
 			},
+			{},
+		],
+		meta: [
+			{
+				name: 'viewport',
+				content: 'width=device-width, initial-scale=1.0',
+			},
 		],
 	}),
 
@@ -47,20 +58,22 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ThemeProvider>
-					{children}
-					<TanStackDevtools
-						config={{
-							position: 'bottom-right',
-						}}
-						plugins={[
-							{
-								name: 'Tanstack Router',
-								render: <TanStackRouterDevtoolsPanel />,
-							},
-							TanStackQueryDevtools,
-						]}
-					/>
+				<ThemeProvider forcedTheme="light">
+					<TooltipProvider>
+						{children}
+						<TanStackDevtools
+							config={{
+								position: 'bottom-right',
+							}}
+							plugins={[
+								{
+									name: 'Tanstack Router',
+									render: <TanStackRouterDevtoolsPanel />,
+								},
+								TanStackQueryDevtools,
+							]}
+						/>
+					</TooltipProvider>
 				</ThemeProvider>
 				<Scripts />
 			</body>
