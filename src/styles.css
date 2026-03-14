@@ -94,6 +94,15 @@ code {
 	--shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
 	--tracking-normal: 0em;
 	--spacing: 0.3rem;
+
+	--info: oklch(0.45 0.18 255);
+	--info-foreground: oklch(0.45 0.18 255);
+
+	--success: oklch(0.42 0.12 135);
+	--success-foreground: oklch(0.32 0.1 135);
+
+	--warning: oklch(0.44 0.13 58);
+	--warning-foreground: oklch(0.38 0.11 58);
 }
 
 .dark {
@@ -152,6 +161,15 @@ code {
 	--shadow-xl:
 		0px 4px 8px -1px hsl(0 0% 0% / 0.1), 0px 8px 10px -2px hsl(0 0% 0% / 0.1);
 	--shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
+
+	--info: oklch(0.25 0.09 255);
+	--info-foreground: oklch(0.74 0.15 255);
+
+	--success: oklch(0.2 0.07 135);
+	--success-foreground: oklch(0.73 0.15 135);
+
+	--warning: oklch(0.18 0.06 58);
+	--warning-foreground: oklch(0.85 0.17 85);
 }
 
 @theme inline {
@@ -187,6 +205,15 @@ code {
 	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
+
+	--color-info: var(--info);
+	--color-info-foreground: var(--info-foreground);
+
+	--color-success: var(--success);
+	--color-success-foreground: var(--success-foreground);
+
+	--color-warning: var(--warning);
+	--color-warning-foreground: var(--warning-foreground);
 
 	--font-sans: var(--font-sans);
 	--font-mono: var(--font-mono);

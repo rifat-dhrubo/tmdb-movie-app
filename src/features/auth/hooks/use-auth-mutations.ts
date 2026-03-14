@@ -1,7 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import {
+	confirmPasswordReset,
 	createUserWithEmailAndPassword,
+	sendPasswordResetEmail,
 	signInWithEmailAndPassword,
+	verifyPasswordResetCode,
 } from 'firebase/auth';
 import { useNavigate } from 'node_modules/@tanstack/react-router/dist/esm/useNavigate';
 
@@ -36,6 +39,42 @@ export function useSignUpMutation() {
 				password,
 			);
 			return result.user;
+		},
+		onSuccess() {
+			void navigate({ to: '/sign-in' });
+		},
+	});
+}
+
+export function useForgotPasswordMutation() {
+	return useMutation({
+		mutationFn: async (email: string) => {
+			await sendPasswordResetEmail(auth, email);
+		},
+	});
+}
+
+export function useVerifyResetCode() {
+	return useMutation({
+		mutationFn: async (code: string) => {
+			const email = await verifyPasswordResetCode(auth, code);
+			return email;
+		},
+	});
+}
+
+export function useResetPasswordMutation() {
+	const navigate = useNavigate();
+
+	return useMutation({
+		mutationFn: async ({
+			code,
+			password,
+		}: {
+			code: string;
+			password: string;
+		}) => {
+			await confirmPasswordReset(auth, code, password);
 		},
 		onSuccess() {
 			void navigate({ to: '/sign-in' });

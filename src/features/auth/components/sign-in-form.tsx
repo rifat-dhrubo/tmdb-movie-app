@@ -1,5 +1,5 @@
 import { useForm } from '@tanstack/react-form';
-import { useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { toast } from 'sonner';
 
@@ -95,8 +95,14 @@ export function SignInForm({ onError }: SignInFormProps) {
 							field.state.meta.isTouched && !field.state.meta.isValid;
 						return (
 							<Field data-invalid={isInvalid}>
-								<div className="flex items-center">
+								<div className="flex items-center justify-between">
 									<FieldLabel htmlFor={field.name}>Password</FieldLabel>
+									<Link
+										className="text-xs text-muted-foreground hover:text-foreground"
+										to="/forgot-password"
+									>
+										Forgot password?
+									</Link>
 								</div>
 								<InputGroup>
 									<InputGroupInput
