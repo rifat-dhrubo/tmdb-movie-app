@@ -3,18 +3,25 @@
 export const iconNames = [
 	'x',
 	'x_circle_bold',
+	'warning_octagon_bold',
 	'warning_bold',
 	'spinner_bold',
 	'logo',
 	'info_bold',
+	'house_bold',
 	'eye',
 	'eye_closed',
 	'eye_closed_bold',
 	'eye_bold',
+	'copy_bold',
 	'check',
 	'check_circle_bold',
 	'check_bold',
 	'caret_right',
+	'caret_down_bold',
+	'bug_droid',
+	'bug_droid_bold',
+	'arrow_clockwise_bold',
 ] as const;
 
 export type IconName = (typeof iconNames)[number];
