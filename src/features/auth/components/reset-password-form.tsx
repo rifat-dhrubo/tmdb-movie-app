@@ -1,17 +1,12 @@
 import { useForm } from '@tanstack/react-form';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { toast } from 'sonner';
 
-import {
-	useResetPasswordMutation,
-	useVerifyResetCode,
-} from '../hooks/use-auth-mutations';
+import { useResetPasswordMutation } from '../hooks/use-auth-mutations';
 import { RESET_PASSWORD_DEFAULT_VALUES, resetPasswordSchema } from '../schemas';
 
 import { Icon } from '@/components/icon';
-import { Spacer } from '@/components/spacer';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
 	Field,
@@ -28,31 +23,14 @@ import {
 
 interface ResetPasswordFormProps {
 	oobCode: string;
+	email: string;
 }
 
-export function ResetPasswordForm({ oobCode }: ResetPasswordFormProps) {
+export function ResetPasswordForm({ email, oobCode }: ResetPasswordFormProps) {
 	const resetPasswordMutation = useResetPasswordMutation();
-	const verifyResetCode = useVerifyResetCode();
 	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = React.useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
-	const [isVerified, setIsVerified] = React.useState(false);
-	const [verificationError, setVerificationError] = React.useState<
-		string | null
-	>(null);
-
-	React.useEffect(() => {
-		verifyResetCode.mutate(oobCode, {
-			onSuccess: () => {
-				setIsVerified(true);
-			},
-			onError: (err: unknown) => {
-				const message =
-					err instanceof Error ? err.message : 'Invalid or expired reset link';
-				setVerificationError(message);
-			},
-		});
-	}, [oobCode, verifyResetCode]);
 
 	const form = useForm({
 		defaultValues: RESET_PASSWORD_DEFAULT_VALUES,
@@ -81,39 +59,6 @@ export function ResetPasswordForm({ oobCode }: ResetPasswordFormProps) {
 		},
 	});
 
-	if (verifyResetCode.isPending) {
-		return (
-			<div className="flex flex-col items-center justify-center gap-4 py-8">
-				<Icon
-					className="size-8 animate-spin text-muted-foreground"
-					name="spinner_bold"
-				/>
-				<p className="text-sm text-muted-foreground">Verifying reset link...</p>
-			</div>
-		);
-	}
-
-	if (verificationError) {
-		return (
-			<Alert variant="destructive">
-				<Icon className="size-4" name="warning_bold" />
-				<AlertTitle>Invalid or expired link</AlertTitle>
-				<AlertDescription>
-					This password reset link is invalid or has expired. Please request a
-					new one.
-					<Spacer size={16} />
-					<Link className="underline underline-offset-4" to="/forgot-password">
-						Request new reset link
-					</Link>
-				</AlertDescription>
-			</Alert>
-		);
-	}
-
-	if (!isVerified) {
-		return null;
-	}
-
 	return (
 		<form
 			className="flex flex-col gap-6"
@@ -123,6 +68,11 @@ export function ResetPasswordForm({ oobCode }: ResetPasswordFormProps) {
 				void form.handleSubmit();
 			}}
 		>
+			<p className="text-center text-sm text-muted-foreground">
+				Resetting password for:{' '}
+				<span className="font-medium text-foreground">{email}</span>
+			</p>
+
 			<FieldGroup>
 				<form.Field name="password">
 					{(field) => {

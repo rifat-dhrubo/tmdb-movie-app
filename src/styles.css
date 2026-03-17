@@ -29,12 +29,6 @@ code {
 		monospace;
 }
 
-@import 'tailwindcss';
-
-@import 'tw-animate-css';
-
-@custom-variant dark (&:is(.dark *));
-
 :root {
 	--background: hsl(40 20% 97.0588%);
 	--foreground: hsl(25.7143 13.7255% 10%);
@@ -103,6 +97,12 @@ code {
 
 	--warning: oklch(0.44 0.13 58);
 	--warning-foreground: oklch(0.38 0.11 58);
+
+	--motion-fast: 160ms;
+	--motion-base: 240ms;
+	--motion-slow: 360ms;
+	--ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-exit: cubic-bezier(0.4, 0, 1, 1);
 }
 
 .dark {
@@ -241,56 +241,157 @@ code {
 	body {
 		@apply bg-background text-foreground;
 	}
-}
-
-@theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
-	--color-card: var(--card);
-	--color-card-foreground: var(--card-foreground);
-	--color-popover: var(--popover);
-	--color-popover-foreground: var(--popover-foreground);
-	--color-primary: var(--primary);
-	--color-primary-foreground: var(--primary-foreground);
-	--color-secondary: var(--secondary);
-	--color-secondary-foreground: var(--secondary-foreground);
-	--color-muted: var(--muted);
-	--color-muted-foreground: var(--muted-foreground);
-	--color-accent: var(--accent);
-	--color-accent-foreground: var(--accent-foreground);
-	--color-destructive: var(--destructive);
-	--color-destructive-foreground: var(--destructive-foreground);
-	--color-border: var(--border);
-	--color-input: var(--input);
-	--color-ring: var(--ring);
-	--color-chart-1: var(--chart-1);
-	--color-chart-2: var(--chart-2);
-	--color-chart-3: var(--chart-3);
-	--color-chart-4: var(--chart-4);
-	--color-chart-5: var(--chart-5);
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
-	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) + 4px);
-	--color-sidebar: var(--sidebar);
-	--color-sidebar-foreground: var(--sidebar-foreground);
-	--color-sidebar-primary: var(--sidebar-primary);
-	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-	--color-sidebar-accent: var(--sidebar-accent);
-	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-	--color-sidebar-border: var(--sidebar-border);
-	--color-sidebar-ring: var(--sidebar-ring);
-}
-
-@layer base {
-	* {
-		@apply border-border outline-ring/50;
-	}
-	body {
-		@apply bg-background text-foreground;
-	}
 
 	button {
 		@apply hover:cursor-pointer;
+	}
+}
+
+@keyframes fade-in-up {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes check-pop {
+	0% {
+		opacity: 0;
+		transform: scale(0.85);
+	}
+	70% {
+		opacity: 1;
+		transform: scale(1.08);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes route-out {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity: 0.92;
+		transform: translateX(-10px);
+	}
+}
+
+@keyframes route-in {
+	from {
+		opacity: 0;
+		transform: translateX(14px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+.animate-fade-in {
+	animation: fade-in var(--motion-fast) var(--ease-standard) both;
+}
+
+.animate-fade-in-up {
+	animation: fade-in-up var(--motion-base) var(--ease-standard) both;
+}
+
+.animate-check-pop {
+	animation: check-pop var(--motion-base) var(--ease-standard) both;
+}
+
+.animation-delay-0 {
+	animation-delay: 0ms;
+}
+
+.animation-delay-40 {
+	animation-delay: 40ms;
+}
+
+.animation-delay-80 {
+	animation-delay: 80ms;
+}
+
+.animation-delay-120 {
+	animation-delay: 120ms;
+}
+
+.stagger-children > * {
+	opacity: 0;
+	animation: fade-in-up var(--motion-base) var(--ease-standard) both;
+}
+
+.stagger-children > :nth-child(1) {
+	animation-delay: 0ms;
+}
+
+.stagger-children > :nth-child(2) {
+	animation-delay: 40ms;
+}
+
+.stagger-children > :nth-child(3) {
+	animation-delay: 80ms;
+}
+
+.stagger-children > :nth-child(4) {
+	animation-delay: 120ms;
+}
+
+.stagger-children > :nth-child(5) {
+	animation-delay: 160ms;
+}
+
+.stagger-children > :nth-child(6) {
+	animation-delay: 200ms;
+}
+
+.stagger-children > :nth-child(7) {
+	animation-delay: 240ms;
+}
+
+.stagger-children > :nth-child(8) {
+	animation-delay: 280ms;
+}
+
+/* ::view-transition-old(root) {
+	animation: route-out var(--motion-fast) var(--ease-exit) both;
+}
+
+::view-transition-new(root) {
+	animation: route-in var(--motion-base) var(--ease-standard) both;
+} */
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 1ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 1ms !important;
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-duration: 1ms !important;
+	}
+
+	.stagger-children > * {
+		opacity: 1;
 	}
 }
