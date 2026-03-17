@@ -51,11 +51,8 @@ export function ForgotPasswordForm({ onError }: ForgotPasswordFormProps) {
 
 	if (isSuccess) {
 		return (
-			<Alert className="border-success/20 bg-success">
-				<Icon
-					className="size-4 text-success-foreground"
-					name="check_circle_bold"
-				/>
+			<Alert className="border-success/20 bg-card text-success-foreground">
+				<Icon className="size-4" name="check_circle_bold" />
 				<AlertTitle>Check your email</AlertTitle>
 				<AlertDescription>
 					We&apos;ve sent you a link to reset your password. The link will

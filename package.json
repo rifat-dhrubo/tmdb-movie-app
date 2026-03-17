@@ -8,6 +8,7 @@
 		"serve": "vite preview",
 		"test": "vitest run",
 		"lint": "eslint",
+		"deploy": "pnpm run build && wrangler deploy",
 		"lint:fix": "eslint --fix --cache && prettier --write .",
 		"format": "prettier",
 		"type:check": "tsc --noEmit",

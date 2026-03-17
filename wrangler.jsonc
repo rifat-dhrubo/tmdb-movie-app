@@ -1,15 +1,28 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "movie-watch-list",
-  "compatibility_date": "2025-09-02",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "main": "@tanstack/react-start/server-entry",
-  "routes": [
-    {
-      "pattern": "movies.rifathossain.dev",
-      "custom_domain": true,
-    },
-  ],
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "tmdb-movie-app",
+	"compatibility_date": "2025-09-02",
+	"compatibility_flags": ["nodejs_compat"],
+	"main": "@tanstack/react-start/server-entry",
+	"routes": [
+		{
+			"pattern": "movies.rifathossain.dev",
+			"custom_domain": true,
+		},
+	],
+	"observability": {
+		"enabled": false,
+		"head_sampling_rate": 1,
+		"logs": {
+			"enabled": true,
+			"head_sampling_rate": 1,
+			"persist": true,
+			"invocation_logs": true,
+		},
+		"traces": {
+			"enabled": false,
+			"persist": true,
+			"head_sampling_rate": 1,
+		},
+	},
 }

@@ -2,11 +2,11 @@ import { defineConfig } from 'orval';
 
 export default defineConfig({
 	graphbit: {
-		input: 'https://dev-platform-api.graphbit.ai/openapi.json',
+		input: 'https://developer.themoviedb.org/openapi/tmdb-api.json',
 		output: {
 			client: 'react-query',
-			mode: 'single',
-			target: './src/generated/graphbit.ts',
+			mode: 'tags-split',
+			target: './src/generated/tmdb',
 			httpClient: 'axios',
 			override: {
 				query: {
@@ -15,7 +15,7 @@ export default defineConfig({
 					useSuspenseQuery: true,
 				},
 				mutator: {
-					path: './src/services/api-client.ts',
+					path: './src/services/tmdb-api-client.ts',
 					name: 'customInstance',
 				},
 				header: (info) => [
