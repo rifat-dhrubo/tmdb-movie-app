@@ -48,15 +48,15 @@ export function AuthLayout({ children, quote }: AuthLayoutProps) {
 							repeatType: 'reverse',
 						}}
 					/>
-					<img alt="Cine Logo" className="size-5" src="/logo192.png" />
+					<img alt="Cine Logo" className="size-10" src="/logo192.png" />
 				</div>
 
 				<div className="flex flex-1 items-end justify-between gap-6 p-10">
 					<div>
-						<blockquote className="mb-3 max-w-sm font-serif text-xl leading-snug font-light text-primary-foreground/85 italic">
+						<blockquote className="mb-3 max-w-sm font-serif text-xl leading-snug font-light text-primary-foreground/85 italic dark:text-foreground">
 							&ldquo;{quote.text}&rdquo;
 						</blockquote>
-						<p className="text-xs tracking-wide text-primary-foreground/40">
+						<p className="text-xs tracking-wide text-primary-foreground/40 dark:text-muted-foreground">
 							&mdash; {quote.attribution}
 						</p>
 					</div>
@@ -66,12 +66,12 @@ export function AuthLayout({ children, quote }: AuthLayoutProps) {
 			</div>
 
 			<div className="flex flex-col gap-4 bg-background p-6 md:p-10">
-				<div className="flex justify-center gap-2 md:justify-start">
+				<div className="flex justify-start">
 					<Link
 						className="flex items-center gap-2 font-serif text-lg font-bold text-foreground"
 						to="/"
 					>
-						<img alt="Cine Logo" className="size-5" src="/logo192.png" />
+						<img alt="Cine Logo" className="size-10" src="/logo192.png" />
 					</Link>
 				</div>
 

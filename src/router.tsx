@@ -6,6 +6,7 @@ import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx';
 import { routeTree } from './routeTree.gen.ts';
 
+import { RouterErrorComponent } from '@/components/route-error-component';
 import { AuthContextProvider } from '@/features/auth';
 
 // Create a new router instance
@@ -17,6 +18,9 @@ export const getRouter = () => {
 		context: { ...rqContext, auth: undefined },
 		defaultPreload: 'intent',
 		defaultViewTransition: true,
+		defaultErrorComponent: (errorProps) => (
+			<RouterErrorComponent {...errorProps} />
+		),
 		Wrap: (props: { children: React.ReactNode }) => {
 			return (
 				<AuthContextProvider>
