@@ -3,9 +3,12 @@
 export const iconNames = [
 	'x',
 	'x_circle_bold',
+	'x_bold',
 	'warning_octagon_bold',
 	'warning_bold',
 	'spinner_bold',
+	'pencil_bold',
+	'magnifying_glass_bold',
 	'logo',
 	'info_bold',
 	'house_bold',
@@ -21,6 +24,9 @@ export const iconNames = [
 	'caret_down_bold',
 	'bug_droid',
 	'bug_droid_bold',
+	'bookmark_bold',
+	'book_bold',
+	'arrow_right_bold',
 	'arrow_clockwise_bold',
 ] as const;
 
