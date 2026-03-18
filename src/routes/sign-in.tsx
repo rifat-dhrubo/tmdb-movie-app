@@ -16,7 +16,7 @@ function SignInPage() {
 			}}
 		>
 			<div className="stagger-children">
-				<h1 className="text-center font-serif text-4xl font-bold tracking-tight">
+				<h1 className="text-center font-serif text-4xl tracking-[-0.04em]">
 					Welcome back
 				</h1>
 				<Spacer size={6}></Spacer>
