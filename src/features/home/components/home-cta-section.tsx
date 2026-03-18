@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/features/auth';
 
@@ -8,7 +9,6 @@ export function HomeCtaSection() {
 
 	return (
 		<section className="relative overflow-hidden bg-[#0F0D0B] py-24 md:py-32">
-			{/* Atmospheric background texture */}
 			<div className="pointer-events-none absolute inset-0 opacity-[0.03]">
 				<div
 					className="absolute inset-0"
@@ -18,18 +18,16 @@ export function HomeCtaSection() {
 				/>
 			</div>
 
-			{/* Gradient overlay for depth */}
 			<div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
 
 			<div className="relative container mx-auto px-4 md:px-6">
 				<div className="flex flex-col items-center text-center">
-					{/* Eyebrow pill - light on dark */}
 					<span className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs tracking-wider text-white/60 uppercase backdrop-blur-sm">
 						<span className="size-1.5 rounded-full bg-primary" />
 						{user ? 'Welcome Back' : 'Free Forever'}
 					</span>
 
-					{user ? (
+					{!user ? (
 						<>
 							<h2 className="font-serif text-4xl leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
 								Continue your{' '}
@@ -73,23 +71,11 @@ export function HomeCtaSection() {
 								>
 									<Link to="/sign-in">
 										Sign in
-										<svg
-											className="size-4"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth={2}
-											viewBox="0 0 24 24"
-										>
-											<path
-												d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-											/>
-										</svg>
+										<Icon className="size-4" name="arrow_right_bold" />
 									</Link>
 								</Button>
 							</div>
-							<p className="mt-6 text-sm text-white/40">
+							<p className="mt-6 text-sm text-foreground/40">
 								No card required · Free forever
 							</p>
 						</>

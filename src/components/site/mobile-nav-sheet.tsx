@@ -38,7 +38,7 @@ export function MobileNavSheet() {
 					/>
 				</svg>
 			</SheetTrigger>
-			<SheetContent className="w-[300px] border-border/40" side="right">
+			<SheetContent side="right">
 				<SheetHeader>
 					<SheetTitle>
 						<SiteLogo />

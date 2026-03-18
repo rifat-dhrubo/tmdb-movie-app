@@ -27,7 +27,6 @@ export function EditorialShelf({ index = 0, shelf }: EditorialShelfProps) {
 				<p className="mt-1 text-sm text-muted-foreground">{shelf.subtitle}</p>
 			</div>
 
-			{/* Mobile: Horizontal scroll with snap */}
 			<div className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:hidden">
 				{shelf.movies.map((movie) => (
 					<div key={movie.id} className="snap-start">
@@ -42,7 +41,6 @@ export function EditorialShelf({ index = 0, shelf }: EditorialShelfProps) {
 				))}
 			</div>
 
-			{/* Desktop: Grid */}
 			<div className="hidden gap-6 md:grid md:grid-cols-4 lg:grid-cols-6">
 				{shelf.movies.map((movie) => (
 					<div key={movie.id} className="w-full">
