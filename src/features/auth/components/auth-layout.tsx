@@ -4,6 +4,8 @@ import type React from 'react';
 
 import { AuthPosterStack } from './auth-poster-stack';
 
+import { SiteLogo } from '@/components/site';
+
 interface AuthLayoutProps {
 	children: React.ReactNode;
 	quote: {
@@ -48,7 +50,7 @@ export function AuthLayout({ children, quote }: AuthLayoutProps) {
 							repeatType: 'reverse',
 						}}
 					/>
-					<img alt="Cine Logo" className="size-10" src="/logo192.png" />
+					<SiteLogo />
 				</div>
 
 				<div className="flex flex-1 items-end justify-between gap-6 p-10">
@@ -71,7 +73,7 @@ export function AuthLayout({ children, quote }: AuthLayoutProps) {
 						className="flex items-center gap-2 font-serif text-lg text-foreground"
 						to="/"
 					>
-						<img alt="Cine Logo" className="size-10" src="/logo192.png" />
+						<SiteLogo />
 					</Link>
 				</div>
 
