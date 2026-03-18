@@ -61,120 +61,138 @@ export interface ShelfMovie {
 	title: string;
 	year: number;
 	posterPath: string;
+	rating?: number;
 }
 
 export interface Shelf {
 	title: string;
 	subtitle: string;
 	movies: Array<ShelfMovie>;
+	badge?: string;
 }
 
 export const SHELVES: Array<Shelf> = [
 	{
-		title: 'Tonight',
-		subtitle: 'Films that reward your full attention',
+		title: 'Trending',
+		subtitle: 'What people are watching right now.',
 		movies: [
 			{
 				id: 1,
 				title: 'There Will Be Blood',
 				year: 2007,
 				posterPath: '/fa0RDkAlCec0STeMNAhPaF89q6U.jpg',
+				rating: 8.2,
 			},
 			{
 				id: 2,
 				title: 'No Country for Old Men',
 				year: 2007,
 				posterPath: '/6d5XOczc226jECq0LIX0siKtgHR.jpg',
+				rating: 8.2,
 			},
 			{
 				id: 3,
 				title: 'The Master',
 				year: 2012,
 				posterPath: '/rUSjbyvYWN9H4az8xt0tDtU7I6v.jpg',
+				rating: 7.2,
 			},
 			{
 				id: 4,
 				title: 'Zodiac',
 				year: 2007,
 				posterPath: '/6YmeO4pB7XTh8P8F960O1uA14JO.jpg',
+				rating: 7.7,
 			},
 			{
 				id: 5,
 				title: 'Prisoners',
 				year: 2013,
 				posterPath: '/jsS3a3ep2KyBVmmiwaz3LvK49b1.jpg',
+				rating: 8.2,
 			},
 			{
 				id: 6,
 				title: 'Nightcrawler',
 				year: 2014,
 				posterPath: '/j9HrX8f7GbZQm1BrBiR40uFQZSb.jpg',
+				rating: 7.8,
 			},
 			{
 				id: 7,
 				title: 'Drive',
 				year: 2011,
 				posterPath: '/602vevIURmpDfzbnv5Ubi6wIkQm.jpg',
+				rating: 7.8,
 			},
 			{
 				id: 8,
 				title: 'Whiplash',
 				year: 2014,
 				posterPath: '/7fn624j5lj3xTme2SgiLCeuedmO.jpg',
+				rating: 8.5,
 			},
 		],
 	},
 	{
-		title: 'For Rainy Sundays',
-		subtitle: 'Comfort classics and gentle discoveries',
+		title: 'Popular',
+		subtitle: 'The ones people keep coming back to.',
 		movies: [
 			{
 				id: 9,
 				title: 'Before Sunrise',
 				year: 1995,
 				posterPath: '/kf1Jb1c2JAOqjuzA3H4oDM263uB.jpg',
+				rating: 8.1,
 			},
 			{
 				id: 10,
 				title: 'The Grand Budapest Hotel',
 				year: 2014,
 				posterPath: '/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg',
+				rating: 8.1,
 			},
 			{
 				id: 11,
 				title: 'Amélie',
 				year: 2001,
 				posterPath: '/nSxDa3M9aMvGVLoItzWTepQ5h5d.jpg',
+				rating: 8.3,
 			},
 			{
 				id: 12,
 				title: 'La La Land',
 				year: 2016,
 				posterPath: '/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg',
+				rating: 8.0,
 			},
 			{
 				id: 13,
 				title: 'Midnight in Paris',
 				year: 2011,
 				posterPath: '/4wBG5kbfagTQclETblPRRGihk0I.jpg',
+				rating: 7.7,
 			},
 			{
 				id: 14,
 				title: 'Her',
 				year: 2013,
 				posterPath: '/eCOtqtfvn7mxGl6nfmq4b1exJRc.jpg',
+				rating: 8.0,
 			},
 			{
 				id: 15,
 				title: 'Lost in Translation',
 				year: 2003,
 				posterPath: '/3jCLmYDIIiSMPujbwygNpqdpM8N.jpg',
+				rating: 7.7,
 			},
 			{
 				id: 16,
 				title: 'Eternal Sunshine',
 				year: 2004,
 				posterPath: '/5MwkWH9tYHv3mV9OdYTMR5qreIz.jpg',
+				rating: 8.3,
 			},
 		],
 	},

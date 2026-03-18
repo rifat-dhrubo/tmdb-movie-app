@@ -387,6 +387,101 @@ code {
 	transform: scale(0.97);
 }
 
+@keyframes cta-marquee-forward {
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		transform: translate3d(-50%, 0, 0);
+	}
+}
+
+@keyframes cta-marquee-reverse {
+	from {
+		transform: translate3d(-50%, 0, 0);
+	}
+
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes cta-glow-drift-a {
+	0% {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+
+	50% {
+		transform: translate3d(20px, -18px, 0) scale(1.06);
+	}
+
+	100% {
+		transform: translate3d(-12px, 14px, 0) scale(0.98);
+	}
+}
+
+@keyframes cta-glow-drift-b {
+	0% {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+
+	50% {
+		transform: translate3d(-18px, 16px, 0) scale(1.08);
+	}
+
+	100% {
+		transform: translate3d(12px, -10px, 0) scale(0.97);
+	}
+}
+
+@keyframes cta-glow-drift-c {
+	0% {
+		transform: translate3d(-50%, 0, 0) scale(1);
+	}
+
+	50% {
+		transform: translate3d(calc(-50% + 12px), -12px, 0) scale(1.04);
+	}
+
+	100% {
+		transform: translate3d(calc(-50% - 8px), 10px, 0) scale(0.98);
+	}
+}
+
+.cta-marquee-track {
+	backface-visibility: hidden;
+	transform: translate3d(0, 0, 0);
+	will-change: transform;
+	width: max-content;
+}
+
+.animate-cta-marquee {
+	animation: cta-marquee-forward 34s linear infinite;
+	backface-visibility: hidden;
+	transform: translate3d(0, 0, 0);
+	will-change: transform;
+}
+
+.animate-cta-marquee-reverse {
+	animation: cta-marquee-reverse 40s linear infinite;
+	backface-visibility: hidden;
+	transform: translate3d(0, 0, 0);
+	will-change: transform;
+}
+
+.animate-cta-glow-a {
+	animation: cta-glow-drift-a 14s var(--ease-in-out) infinite alternate;
+}
+
+.animate-cta-glow-b {
+	animation: cta-glow-drift-b 17s var(--ease-in-out) infinite alternate;
+}
+
+.animate-cta-glow-c {
+	animation: cta-glow-drift-c 12s var(--ease-in-out) infinite alternate;
+}
+
 /* Poster card hover - gated to hover-capable fine pointers */
 .poster-card {
 	transition:
