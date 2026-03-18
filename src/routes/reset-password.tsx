@@ -77,43 +77,45 @@ function ResetPasswordPage() {
 				attribution: 'Create a new password to continue',
 			}}
 		>
-			<h1 className="text-center font-serif text-4xl font-bold italic">
-				{heading}
-			</h1>
-			<Spacer size={6}></Spacer>
-			<p className="text-center text-base text-balance text-muted-foreground">
-				{subheading}
-			</p>
+			<div className="stagger-children">
+				<h1 className="text-center font-serif text-4xl font-bold tracking-tight">
+					{heading}
+				</h1>
+				<Spacer size={6}></Spacer>
+				<p className="max-w-xs text-center text-base text-balance text-muted-foreground">
+					{subheading}
+				</p>
 
-			<Spacer size={8}></Spacer>
+				<Spacer size={8}></Spacer>
 
-			{isVerifying ? (
-				<div className="animate-fade-in flex flex-col items-center justify-center gap-4 py-8">
-					<Icon
-						className="size-8 animate-spin text-muted-foreground"
-						name="spinner_bold"
-					/>
-				</div>
-			) : error ? (
-				<div className="stagger-children flex flex-col items-center gap-6 py-6 text-center">
-					<div className="h-1 w-12 rounded-full bg-primary/60" />
-
-					<p className="max-w-xs font-sans text-base leading-relaxed font-light text-pretty text-muted-foreground">
-						{error.description}
-					</p>
-
-					<div className="pt-2">
-						<Link
-							className="font-sans text-sm font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80"
-							to="/forgot-password"
-						>
-							Request new reset link
-						</Link>
+				{isVerifying ? (
+					<div className="animate-fade-in flex flex-col items-center justify-center gap-4 py-8">
+						<Icon
+							className="size-8 animate-spin text-muted-foreground"
+							name="spinner_bold"
+						/>
 					</div>
-				</div>
-			) : email ? (
-				<ResetPasswordForm email={email} oobCode={oobCode} />
-			) : null}
+				) : error ? (
+					<div className="stagger-children flex flex-col items-center gap-6 py-6 text-center">
+						<div className="h-1 w-12 rounded-full bg-primary/60" />
+
+						<p className="max-w-xs font-sans text-base leading-relaxed font-light text-pretty text-muted-foreground">
+							{error.description}
+						</p>
+
+						<div className="pt-2">
+							<Link
+								className="font-sans text-sm font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80"
+								to="/forgot-password"
+							>
+								Request new reset link
+							</Link>
+						</div>
+					</div>
+				) : email ? (
+					<ResetPasswordForm email={email} oobCode={oobCode} />
+				) : null}
+			</div>
 		</AuthLayout>
 	);
 }

@@ -75,7 +75,7 @@ export function AuthLayout({ children, quote }: AuthLayoutProps) {
 					</Link>
 				</div>
 
-				<div className="flex flex-1 items-center justify-center">
+				<div className="animate-fade-in flex flex-1 items-center justify-center">
 					<div className="w-full max-w-sm lg:max-w-md">{children}</div>
 				</div>
 			</div>

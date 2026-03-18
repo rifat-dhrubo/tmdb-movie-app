@@ -140,13 +140,11 @@ export function SignInForm({ onError }: SignInFormProps) {
 
 				<Button
 					className="w-full"
-					disabled={signInMutation.isPending}
+					isLoading={signInMutation.isPending}
+					loadingText="Signing in..."
 					type="submit"
 				>
-					{signInMutation.isPending ? (
-						<Icon className="size-4 animate-spin" name="spinner_bold" />
-					) : null}
-					{signInMutation.isPending ? 'Signing in\u2026' : 'Sign in'}
+					Sign in
 				</Button>
 			</FieldGroup>
 		</form>
