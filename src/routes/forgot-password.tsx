@@ -15,26 +15,31 @@ function ForgotPasswordPage() {
 				attribution: 'Your personal cinema journal awaits',
 			}}
 		>
-			<h1 className="text-center font-serif text-4xl font-bold">
-				Forgot password?
-			</h1>
-			<Spacer size={6}></Spacer>
-			<p className="text-center text-base text-balance text-muted-foreground">
-				No worries, we&apos;ll send you reset instructions
-			</p>
+			<div className="stagger-children">
+				<h1 className="text-center font-serif text-4xl tracking-[-0.04em]">
+					Forgot password?
+				</h1>
+				<Spacer size={6}></Spacer>
+				<p className="text-center text-base text-balance text-muted-foreground">
+					No worries, we&apos;ll send you reset instructions
+				</p>
 
-			<Spacer size={8}></Spacer>
+				<Spacer size={8}></Spacer>
 
-			<ForgotPasswordForm />
+				<ForgotPasswordForm />
 
-			<Spacer size={12}></Spacer>
+				<Spacer size={6}></Spacer>
 
-			<p className="text-center text-sm text-muted-foreground">
-				Remember your password?{' '}
-				<Link className="underline underline-offset-4" to="/sign-in">
-					Sign in
-				</Link>
-			</p>
+				<p className="text-center text-sm text-muted-foreground">
+					Remember your password?{' '}
+					<Link
+						className="text-foreground underline underline-offset-4 transition-colors hover:text-foreground/80"
+						to="/sign-in"
+					>
+						Sign in
+					</Link>
+				</p>
+			</div>
 		</AuthLayout>
 	);
 }

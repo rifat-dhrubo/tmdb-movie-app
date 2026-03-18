@@ -99,8 +99,14 @@ code {
 	--warning-foreground: oklch(0.38 0.11 58);
 
 	--motion-fast: 160ms;
+	--motion-tooltip: 140ms;
+	--motion-popover: 180ms;
 	--motion-base: 240ms;
+	--motion-sheet: 300ms;
 	--motion-slow: 360ms;
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+	--ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 	--ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
 	--ease-exit: cubic-bezier(0.4, 0, 1, 1);
 }
@@ -281,28 +287,6 @@ code {
 	}
 }
 
-@keyframes route-out {
-	from {
-		opacity: 1;
-		transform: translateX(0);
-	}
-	to {
-		opacity: 0.92;
-		transform: translateX(-10px);
-	}
-}
-
-@keyframes route-in {
-	from {
-		opacity: 0;
-		transform: translateX(14px);
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-}
-
 .animate-fade-in {
 	animation: fade-in var(--motion-fast) var(--ease-standard) both;
 }
@@ -368,13 +352,39 @@ code {
 	animation-delay: 280ms;
 }
 
-/* ::view-transition-old(root) {
-	animation: route-out var(--motion-fast) var(--ease-exit) both;
+.motion-overlay {
+	animation-duration: var(--motion-fast);
+	animation-timing-function: var(--ease-out);
 }
 
-::view-transition-new(root) {
-	animation: route-in var(--motion-base) var(--ease-standard) both;
-} */
+.motion-popover {
+	animation-duration: var(--motion-popover);
+	animation-timing-function: var(--ease-out);
+	will-change: opacity, transform;
+}
+
+.motion-tooltip {
+	animation-duration: var(--motion-tooltip);
+	animation-timing-function: var(--ease-out);
+	will-change: opacity, transform;
+}
+
+.motion-sheet {
+	animation-duration: var(--motion-sheet);
+	animation-timing-function: var(--ease-drawer);
+	will-change: opacity, transform;
+}
+
+.motion-pressable {
+	transition-duration: var(--motion-fast);
+	transition-property:
+		transform, background-color, border-color, color, box-shadow, opacity;
+	transition-timing-function: var(--ease-out);
+}
+
+.motion-pressable:active {
+	transform: scale(0.97);
+}
 
 @media (prefers-reduced-motion: reduce) {
 	*,
@@ -393,5 +403,9 @@ code {
 
 	.stagger-children > * {
 		opacity: 1;
+	}
+
+	.motion-pressable:active {
+		transform: none;
 	}
 }

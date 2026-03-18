@@ -68,14 +68,14 @@ export function AuthLayout({ children, quote }: AuthLayoutProps) {
 			<div className="flex flex-col gap-4 bg-background p-6 md:p-10">
 				<div className="flex justify-start">
 					<Link
-						className="flex items-center gap-2 font-serif text-lg font-bold text-foreground"
+						className="flex items-center gap-2 font-serif text-lg text-foreground"
 						to="/"
 					>
 						<img alt="Cine Logo" className="size-10" src="/logo192.png" />
 					</Link>
 				</div>
 
-				<div className="flex flex-1 items-center justify-center">
+				<div className="animate-fade-in flex flex-1 items-center justify-center">
 					<div className="w-full max-w-sm lg:max-w-md">{children}</div>
 				</div>
 			</div>

@@ -160,13 +160,11 @@ export function ResetPasswordForm({ email, oobCode }: ResetPasswordFormProps) {
 
 				<Button
 					className="w-full"
-					disabled={resetPasswordMutation.isPending}
+					isLoading={resetPasswordMutation.isPending}
+					loadingText="Resetting..."
 					type="submit"
 				>
-					{resetPasswordMutation.isPending ? (
-						<Icon className="size-4 animate-spin" name="spinner_bold" />
-					) : null}
-					{resetPasswordMutation.isPending ? 'Resetting...' : 'Reset password'}
+					Reset password
 				</Button>
 			</FieldGroup>
 		</form>

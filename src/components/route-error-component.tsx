@@ -231,7 +231,7 @@ export function RouterErrorComponent({
 				</motion.div>
 
 				<div className="relative space-y-6 pt-16">
-					<h1 className="font-serif text-3xl leading-tight font-semibold tracking-tight text-foreground">
+					<h1 className="font-serif text-3xl leading-tight tracking-[-0.04em] text-foreground">
 						{title.split(subtitle)[0]}
 						{title.includes(subtitle) ? (
 							<em className="text-primary">{subtitle}</em>
