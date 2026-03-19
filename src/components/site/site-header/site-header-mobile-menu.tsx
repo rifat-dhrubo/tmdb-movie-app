@@ -2,6 +2,8 @@ import { Link } from '@tanstack/react-router';
 
 import { siteHeaderNavItems } from './site-header-nav-items';
 
+import { Icon } from '@/components/icon';
+
 interface SiteHeaderMobileMenuProps {
 	onNavigate: () => void;
 }
@@ -12,7 +14,6 @@ export function SiteHeaderMobileMenu({
 	return (
 		<nav aria-label="Mobile" className="flex flex-col gap-2 py-6">
 			{siteHeaderNavItems.map((item) => {
-				const Icon = item.icon;
 				const baseClasses =
 					'rounded-[1.25rem] border px-4 py-4 transition-colors duration-[var(--motion-fast)] border-transparent text-foreground hover:border-border/50 hover:bg-secondary/55';
 				const activeClasses =
@@ -32,9 +33,10 @@ export function SiteHeaderMobileMenu({
 						{(props: { isActive?: boolean }) => (
 							<div className="flex items-center justify-between gap-4">
 								<div className="flex items-center gap-3">
-									{Icon ? (
-										<Icon className="size-5 text-muted-foreground" />
-									) : null}
+									<Icon
+										className="size-5 text-muted-foreground"
+										name={item.icon}
+									/>
 									<div className="flex flex-col items-start gap-1 text-left">
 										<span className="font-serif text-[1.35rem] tracking-[-0.03em]">
 											{item.label}

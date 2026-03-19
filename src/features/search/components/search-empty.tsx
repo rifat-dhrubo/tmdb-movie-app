@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import {
 	Empty,
@@ -25,8 +26,21 @@ export function SearchEmpty() {
 					<p className="text-sm text-muted-foreground">
 						Not sure what to watch?
 					</p>
-					<Button asChild variant="outline">
-						<Link to="/discover">Explore in Discover</Link>
+					<Button
+						asChild
+						className="group/btn relative gap-2"
+						variant="outline"
+					>
+						<Link to="/discover">
+							<span className="relative">
+								Explore in Discover
+								<span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-right scale-x-0 bg-primary transition-transform duration-200 group-hover/btn:origin-left group-hover/btn:scale-x-100" />
+							</span>
+							<Icon
+								className="size-3 transition-transform duration-200 group-hover/btn:translate-x-1"
+								name="arrow_right_bold"
+							/>
+						</Link>
 					</Button>
 				</EmptyContent>
 			</Empty>

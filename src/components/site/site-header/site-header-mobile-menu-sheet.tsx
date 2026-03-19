@@ -1,10 +1,11 @@
-import { SignOut, User } from '@phosphor-icons/react';
 import { Link } from '@tanstack/react-router';
+import type React from 'react';
 
 import { SiteHeaderMobileMenu } from './site-header-mobile-menu';
 import { SoundToggle } from './sound-toggle';
 import { ThemeToggle } from './theme-toggle';
 
+import { Icon } from '@/components/icon';
 import { SiteLogo } from '@/components/site/site-logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -89,7 +90,7 @@ export function SiteHeaderMobileMenuSheet({
 										variant="outline"
 										onClick={onSignOut}
 									>
-										<SignOut className="mr-2 size-4" weight="regular" />
+										<Icon className="mr-2 size-4" name="sign_out" />
 										Sign out
 									</Button>
 								</CardFooter>
@@ -98,7 +99,7 @@ export function SiteHeaderMobileMenuSheet({
 							<div className="flex flex-col gap-2">
 								<Button asChild>
 									<Link to="/sign-in" onClick={onNavigate}>
-										<User className="mr-2 size-4" weight="regular" />
+										<Icon className="mr-2 size-4" name="user" />
 										Sign in
 									</Link>
 								</Button>

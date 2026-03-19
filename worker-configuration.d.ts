@@ -16,10 +16,25 @@ declare namespace Cloudflare {
 }
 interface Env extends Cloudflare.Env {}
 type StringifyValues<EnvType extends Record<string, unknown>> = {
-	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
+	[Binding in keyof EnvType]: EnvType[Binding] extends string
+		? EnvType[Binding]
+		: string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "VITE_PUBLIC_FIREBASE_API_KEY" | "VITE_PUBLIC_FIREBASE_AUTH_DOMAIN" | "VITE_PUBLIC_FIREBASE_PROJECT_ID" | "VITE_PUBLIC_FIREBASE_STORAGE_BUCKET" | "VITE_PUBLIC_FIREBASE_MESSAGING_SENDER_ID" | "VITE_PUBLIC_FIREBASE_APP_ID" | "VITE_TMDB_API_KEY" | "VITE_PUBLIC_SITE_URL" | "VITE_PUBLIC_DEFAULT_OG_IMAGE">> {}
+	interface ProcessEnv extends StringifyValues<
+		Pick<
+			Cloudflare.Env,
+			| 'VITE_PUBLIC_FIREBASE_API_KEY'
+			| 'VITE_PUBLIC_FIREBASE_AUTH_DOMAIN'
+			| 'VITE_PUBLIC_FIREBASE_PROJECT_ID'
+			| 'VITE_PUBLIC_FIREBASE_STORAGE_BUCKET'
+			| 'VITE_PUBLIC_FIREBASE_MESSAGING_SENDER_ID'
+			| 'VITE_PUBLIC_FIREBASE_APP_ID'
+			| 'VITE_TMDB_API_KEY'
+			| 'VITE_PUBLIC_SITE_URL'
+			| 'VITE_PUBLIC_DEFAULT_OG_IMAGE'
+		>
+	> {}
 }
 
 // Begin runtime types

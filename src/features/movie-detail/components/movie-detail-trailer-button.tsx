@@ -1,6 +1,6 @@
-import { PlayIcon } from '@phosphor-icons/react';
 import React from 'react';
 
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { MovieDetailTrailerDialog } from '@/features/movie-detail/components/movie-detail-trailer-dialog';
 import { useMovieVideos } from '@/generated/tmdb/default/default';
@@ -37,7 +37,7 @@ export function MovieDetailTrailerButton({
 	return trailer ? (
 		<>
 			<Button size="lg" variant="contrast" onClick={() => setOpen(true)}>
-				<PlayIcon weight="fill" />
+				<Icon name="play_fill" />
 				Watch Trailer
 			</Button>
 			<MovieDetailTrailerDialog

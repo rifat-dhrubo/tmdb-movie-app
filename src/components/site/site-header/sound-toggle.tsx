@@ -1,5 +1,4 @@
-import { SpeakerHigh, SpeakerSlash } from '@phosphor-icons/react';
-
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { useSoundPreferences } from '@/integrations/sound-preferences';
 
@@ -16,9 +15,9 @@ export function SoundToggle() {
 			onClick={toggleSoundEnabled}
 		>
 			{soundEnabled ? (
-				<SpeakerHigh className="h-[1.2rem] w-[1.2rem]" />
+				<Icon className="h-[1.2rem] w-[1.2rem]" name="speaker_high" />
 			) : (
-				<SpeakerSlash className="h-[1.2rem] w-[1.2rem]" />
+				<Icon className="h-[1.2rem] w-[1.2rem]" name="speaker_slash" />
 			)}
 		</Button>
 	);

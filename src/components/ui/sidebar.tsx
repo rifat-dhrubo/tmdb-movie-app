@@ -1,12 +1,12 @@
 'use client';
 
-import { SidebarIcon } from '@phosphor-icons/react';
 import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
 import { Slot } from 'radix-ui';
 // eslint-disable-next-line no-restricted-imports
 import * as React from 'react';
 
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
@@ -272,7 +272,7 @@ function SidebarTrigger({
 			}}
 			{...props}
 		>
-			<SidebarIcon />
+			<Icon name="sidebar" />
 			<span className="sr-only">Toggle Sidebar</span>
 		</Button>
 	);

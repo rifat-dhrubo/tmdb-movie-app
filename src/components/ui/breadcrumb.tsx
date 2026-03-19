@@ -1,8 +1,8 @@
-import { CaretRightIcon, DotsThreeIcon } from '@phosphor-icons/react';
 import { Slot } from 'radix-ui';
 // eslint-disable-next-line no-restricted-imports
 import type * as React from 'react';
 
+import { Icon } from '@/components/icon';
 import { cn } from '@/lib/utils';
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<'nav'>) {
@@ -83,7 +83,7 @@ function BreadcrumbSeparator({
 			role="presentation"
 			{...props}
 		>
-			{children ?? <CaretRightIcon />}
+			{children ?? <Icon name="caret_right" />}
 		</li>
 	);
 }
@@ -103,7 +103,7 @@ function BreadcrumbEllipsis({
 			)}
 			{...props}
 		>
-			<DotsThreeIcon />
+			<Icon name="dots_three" />
 			<span className="sr-only">More</span>
 		</span>
 	);

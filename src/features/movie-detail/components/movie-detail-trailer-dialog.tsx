@@ -31,7 +31,7 @@ export function MovieDetailTrailerDialog({
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="w-[min(calc(100vw-1rem),72rem)] max-w-none overflow-hidden border-border/60 bg-background p-0 sm:w-[min(calc(100vw-2rem),72rem)]">
+			<DialogContent className="sm:max-w-4xl">
 				<DialogHeader className="border-b border-border/60 bg-background/95 px-4 pt-4 pr-14 pb-3 backdrop-blur-xl sm:px-6 sm:pt-5 sm:pr-16">
 					<DialogTitle>{title}</DialogTitle>
 					<DialogDescription>{description}</DialogDescription>

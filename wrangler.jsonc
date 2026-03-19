@@ -2,15 +2,13 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "tmdb-movie-app",
 	"compatibility_date": "2025-09-02",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
+	"compatibility_flags": ["nodejs_compat"],
 	"main": "@tanstack/react-start/server-entry",
 	"routes": [
 		{
 			"pattern": "movies.rifathossain.dev",
-			"custom_domain": true
-		}
+			"custom_domain": true,
+		},
 	],
 	"observability": {
 		"enabled": true,
@@ -19,12 +17,12 @@
 			"enabled": true,
 			"head_sampling_rate": 1,
 			"persist": true,
-			"invocation_logs": true
+			"invocation_logs": true,
 		},
 		"traces": {
 			"enabled": true,
 			"persist": true,
-			"head_sampling_rate": 1
-		}
-	}
+			"head_sampling_rate": 1,
+		},
+	},
 }
