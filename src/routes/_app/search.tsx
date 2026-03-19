@@ -4,7 +4,10 @@ import { z } from 'zod';
 
 import { SearchResults } from '@/features/search/components/search-results';
 import { useSearchMovies } from '@/features/search/hooks/use-search-movies';
-import { useToggleWatchlistItemMutation } from '@/features/watchlist';
+import {
+	useToggleWatchlistItemMutation,
+	useWatchlistSavedIds,
+} from '@/features/watchlist';
 import { useGenreMovieList } from '@/generated/tmdb/default/default';
 import { useDebouncedSearchParam } from '@/hooks/use-debounced-search-param';
 
@@ -29,7 +32,8 @@ function SearchPage() {
 		setValue: setQuery,
 	} = useDebouncedSearchParam(Route, 'q');
 
-	const { toggle } = useToggleWatchlistItemMutation();
+	const { savedIds } = useWatchlistSavedIds();
+	const { isPending, toggle } = useToggleWatchlistItemMutation();
 	const { data: genresData } = useGenreMovieList();
 
 	const genreMap = React.useMemo(() => {
@@ -95,7 +99,9 @@ function SearchPage() {
 				isError={isError}
 				isFetchingNextPage={isFetchingNextPage}
 				isLoading={isLoading}
+				isTogglingMovie={isPending}
 				query={query}
+				savedIds={savedIds}
 				year={year}
 				onLoadMore={() => void fetchNextPage()}
 				onQueryChange={setQuery}

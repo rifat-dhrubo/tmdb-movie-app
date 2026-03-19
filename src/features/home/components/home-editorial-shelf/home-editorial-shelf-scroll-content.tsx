@@ -5,7 +5,10 @@ import { MovieCard, MovieCardSkeleton } from '@/components/movie-card';
 import type { Shelf } from '@/features/home/constants';
 
 interface HomeEditorialShelfScrollContentProps {
+	isTogglingMovie: (movieId: number) => boolean;
 	movies: Shelf['movies'];
+	onToggleWatchlist: (movieId: number) => void;
+	savedIds: ReadonlySet<number>;
 	variants: Variants;
 	isLoading?: boolean;
 	isError?: boolean;
@@ -28,10 +31,16 @@ function LoadingSkeletons({ variants }: { variants: Variants }) {
 }
 
 function MovieList({
+	isTogglingMovie,
 	movies,
+	onToggleWatchlist,
+	savedIds,
 	variants,
 }: {
+	isTogglingMovie: (movieId: number) => boolean;
 	movies: Shelf['movies'];
+	onToggleWatchlist: (movieId: number) => void;
+	savedIds: ReadonlySet<number>;
 	variants: Variants;
 }) {
 	return (
@@ -43,14 +52,14 @@ function MovieList({
 						director={movie.director}
 						genres={movie.genres}
 						id={movie.id}
+						isPending={isTogglingMovie(movie.id)}
+						isSaved={savedIds.has(movie.id)}
 						posterPath={movie.posterPath}
 						rating={movie.rating}
 						size="lg"
 						title={movie.title}
 						year={movie.year}
-						onAddToWatchlist={() => {
-							console.log('Add to watchlist:', movie.id);
-						}}
+						onToggleWatchlist={() => onToggleWatchlist(movie.id)}
 					/>
 				</motion.div>
 			))}
@@ -61,7 +70,10 @@ function MovieList({
 export function HomeEditorialShelfScrollContent({
 	isError,
 	isLoading,
+	isTogglingMovie,
 	movies,
+	onToggleWatchlist,
+	savedIds,
 	variants,
 }: HomeEditorialShelfScrollContentProps) {
 	if (isError) {
@@ -87,7 +99,13 @@ export function HomeEditorialShelfScrollContent({
 			{isLoading ? (
 				<LoadingSkeletons variants={variants} />
 			) : (
-				<MovieList movies={movies} variants={variants} />
+				<MovieList
+					isTogglingMovie={isTogglingMovie}
+					movies={movies}
+					savedIds={savedIds}
+					variants={variants}
+					onToggleWatchlist={onToggleWatchlist}
+				/>
 			)}
 		</motion.div>
 	);

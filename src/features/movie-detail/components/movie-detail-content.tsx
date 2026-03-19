@@ -22,7 +22,7 @@ interface MovieDetailContentProps {
 
 export function MovieDetailContent({ movieId }: MovieDetailContentProps) {
 	const { savedIds } = useWatchlistSavedIds();
-	const { toggle } = useToggleWatchlistItemMutation();
+	const { isPending, toggle } = useToggleWatchlistItemMutation();
 
 	const { data: movie } = useMovieDetailsSuspense(movieId);
 
@@ -38,6 +38,7 @@ export function MovieDetailContent({ movieId }: MovieDetailContentProps) {
 	return (
 		<div className="animate-in duration-700 fade-in slide-in-from-bottom-4">
 			<MovieDetailHero
+				isPending={isPending(movieId)}
 				movie={movie}
 				saved={saved}
 				onToggleSave={() => {

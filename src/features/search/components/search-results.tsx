@@ -27,6 +27,8 @@ interface SearchResultsProps {
 	onRetry: () => void;
 	onToggleSave: (id: number) => void;
 	genreMap: Map<number, string>;
+	isTogglingMovie: (id: number) => boolean;
+	savedIds: ReadonlySet<number>;
 }
 
 export function SearchResults({
@@ -37,6 +39,7 @@ export function SearchResults({
 	isError,
 	isFetchingNextPage,
 	isLoading,
+	isTogglingMovie,
 	onLoadMore,
 	onQueryChange,
 	onRetry,
@@ -44,6 +47,7 @@ export function SearchResults({
 	onToggleSave,
 	onYearChange,
 	query,
+	savedIds,
 	year,
 }: SearchResultsProps) {
 	const allResults = data?.pages.flatMap((page) => page.results ?? []) ?? [];
@@ -88,6 +92,8 @@ export function SearchResults({
 							hasNextPage={hasNextPage}
 							isError={isError}
 							isFetchingNextPage={isFetchingNextPage}
+							isTogglingMovie={isTogglingMovie}
+							savedIds={savedIds}
 							onLoadMore={onLoadMore}
 							onRetry={onRetry}
 							onToggleSave={onToggleSave}

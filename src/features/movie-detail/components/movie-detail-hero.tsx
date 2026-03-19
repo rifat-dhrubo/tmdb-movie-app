@@ -4,12 +4,14 @@ import { MovieDetailHeroPoster } from './movie-detail-hero-poster';
 import type { MovieDetails200 } from '@/generated/tmdb/tmdbApi.schemas';
 
 interface MovieDetailHeroProps {
+	isPending: boolean;
 	movie: MovieDetails200;
 	saved: boolean;
 	onToggleSave: () => void;
 }
 
 export function MovieDetailHero({
+	isPending,
 	movie,
 	onToggleSave,
 	saved,
@@ -25,6 +27,7 @@ export function MovieDetailHero({
 
 					<MovieDetailHeroInfo
 						homepage={movie.homepage}
+						isPending={isPending}
 						movie={movie}
 						saved={saved}
 						onToggleSave={onToggleSave}

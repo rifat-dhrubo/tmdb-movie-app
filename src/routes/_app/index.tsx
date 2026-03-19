@@ -8,6 +8,10 @@ import { ValuePropsSection } from '@/features/home/components/value-props-sectio
 import { usePopularShelf } from '@/features/home/hooks/use-popular-shelf';
 import { useTrendingShelf } from '@/features/home/hooks/use-trending-shelf';
 import {
+	useToggleWatchlistItemMutation,
+	useWatchlistSavedIds,
+} from '@/features/watchlist';
+import {
 	getGenreMovieListQueryOptions,
 	getMoviePopularListQueryOptions,
 	getTrendingMoviesQueryOptions,
@@ -40,6 +44,8 @@ function HomePage() {
 		isLoading: isPopularLoading,
 		movies: popularMovies,
 	} = usePopularShelf();
+	const { savedIds } = useWatchlistSavedIds();
+	const { isPending, toggle } = useToggleWatchlistItemMutation();
 
 	const trendingShelf = {
 		title: 'Trending',
@@ -64,8 +70,13 @@ function HomePage() {
 							key={JSON.stringify(trendingShelf)}
 							isError={isTrendingError}
 							isLoading={isTrendingLoading}
+							isTogglingMovie={isPending}
 							layout="text-left"
+							savedIds={savedIds}
 							shelf={trendingShelf}
+							onToggleWatchlist={(movieId) => {
+								void toggle(movieId);
+							}}
 						/>
 					</div>
 				</section>
@@ -76,8 +87,13 @@ function HomePage() {
 							key={JSON.stringify(popularShelf)}
 							isError={isPopularError}
 							isLoading={isPopularLoading}
+							isTogglingMovie={isPending}
 							layout="text-right"
+							savedIds={savedIds}
 							shelf={popularShelf}
+							onToggleWatchlist={(movieId) => {
+								void toggle(movieId);
+							}}
 						/>
 					</div>
 				</section>

@@ -17,8 +17,11 @@ const {
 } = homeVariants.section;
 
 interface HomeEditorialShelfProps {
+	isTogglingMovie: (movieId: number) => boolean;
 	shelf: Shelf;
 	layout: 'text-left' | 'text-right';
+	onToggleWatchlist: (movieId: number) => void;
+	savedIds: ReadonlySet<number>;
 	isLoading?: boolean;
 	isError?: boolean;
 }
@@ -26,7 +29,10 @@ interface HomeEditorialShelfProps {
 export function HomeEditorialShelf({
 	isError,
 	isLoading,
+	isTogglingMovie,
 	layout,
+	onToggleWatchlist,
+	savedIds,
 	shelf,
 }: HomeEditorialShelfProps) {
 	const initial = useReducedMotionInitial();
@@ -50,8 +56,11 @@ export function HomeEditorialShelf({
 				<HomeEditorialShelfScrollContent
 					isError={isError}
 					isLoading={isLoading}
+					isTogglingMovie={isTogglingMovie}
 					movies={shelf.movies}
+					savedIds={savedIds}
 					variants={itemVariants}
+					onToggleWatchlist={onToggleWatchlist}
 				/>
 			</div>
 
@@ -72,8 +81,11 @@ export function HomeEditorialShelf({
 						<HomeEditorialShelfScrollContent
 							isError={isError}
 							isLoading={isLoading}
+							isTogglingMovie={isTogglingMovie}
 							movies={shelf.movies}
+							savedIds={savedIds}
 							variants={itemVariants}
+							onToggleWatchlist={onToggleWatchlist}
 						/>
 					</>
 				) : (
@@ -81,8 +93,11 @@ export function HomeEditorialShelf({
 						<HomeEditorialShelfScrollContent
 							isError={isError}
 							isLoading={isLoading}
+							isTogglingMovie={isTogglingMovie}
 							movies={shelf.movies}
+							savedIds={savedIds}
 							variants={itemVariants}
+							onToggleWatchlist={onToggleWatchlist}
 						/>
 						<HomeEditorialShelfTextContent
 							badge={shelf.badge}

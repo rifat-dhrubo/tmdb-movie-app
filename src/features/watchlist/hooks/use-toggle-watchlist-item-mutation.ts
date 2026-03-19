@@ -14,6 +14,11 @@ export function useToggleWatchlistItemMutation() {
 	const addMutation = useAddWatchlistItemMutation();
 	const removeMutation = useRemoveWatchlistItemMutation();
 	const { savedIds } = useWatchlistSavedIds();
+	const pendingMovieId = addMutation.isPending
+		? addMutation.variables
+		: removeMutation.isPending
+			? removeMutation.variables
+			: null;
 
 	const toggle = React.useCallback(
 		async (movieId: number) => {
@@ -33,9 +38,16 @@ export function useToggleWatchlistItemMutation() {
 		[addMutation, navigate, removeMutation, savedIds, user?.uid],
 	);
 
+	const isPending = React.useCallback(
+		(movieId: number) => pendingMovieId === movieId,
+		[pendingMovieId],
+	);
+
 	return {
 		toggle,
-		isPending: addMutation.isPending || removeMutation.isPending,
+		isPending,
+		pendingMovieId,
+		isAnyPending: addMutation.isPending || removeMutation.isPending,
 		addMutation,
 		removeMutation,
 	};

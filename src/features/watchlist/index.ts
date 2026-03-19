@@ -5,6 +5,7 @@ export { WatchlistListCard } from './components/watchlist-list-card';
 export { WatchlistLiveSyncProvider } from './components/watchlist-live-sync-provider';
 export { WatchlistLoadingState } from './components/watchlist-loading-state';
 export { WatchlistSidebar } from './components/watchlist-sidebar';
+export { WatchlistToggleButton } from './components/watchlist-toggle-button';
 export { WatchlistViewToggle } from './components/watchlist-view-toggle';
 export { useAddWatchlistItemMutation } from './hooks/use-add-watchlist-item-mutation';
 export { useRemoveWatchlistItemMutation } from './hooks/use-remove-watchlist-item-mutation';
