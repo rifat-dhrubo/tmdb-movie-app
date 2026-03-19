@@ -6,8 +6,6 @@ interface MovieGridProps {
 }
 
 export function MovieGrid({ children, columns = 'search' }: MovieGridProps) {
-	// Search: 6 columns desktop
-	// Discover: 5 columns desktop
 	const columnClasses =
 		columns === 'search'
 			? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'

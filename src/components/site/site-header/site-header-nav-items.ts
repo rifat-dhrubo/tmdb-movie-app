@@ -14,6 +14,11 @@ export const siteHeaderNavItems = [
 		icon: undefined satisfies typeof House | undefined,
 	}),
 	linkOptions({
+		label: 'Discover',
+		to: '/discover',
+		icon: undefined satisfies typeof House | undefined,
+	}),
+	linkOptions({
 		label: 'Watchlist',
 		to: '/watchlist',
 		icon: undefined satisfies typeof House | undefined,

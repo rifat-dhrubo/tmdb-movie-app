@@ -1,9 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { env } from '@/env';
+import { DiscoverPage as DiscoverFeaturePage } from '@/features/discover';
+import { discoverSearchSchema } from '@/features/discover/constants';
 
 export const Route = createFileRoute('/_app/discover')({
 	component: DiscoverPage,
+	validateSearch: discoverSearchSchema,
 	head: () => ({
 		meta: [
 			{ title: 'Discover Movies — Cine' },
@@ -38,11 +41,8 @@ export const Route = createFileRoute('/_app/discover')({
 
 function DiscoverPage() {
 	return (
-		<main className="container mx-auto px-4 py-8 md:px-6 md:py-12">
-			<h1 className="font-serif text-3xl tracking-tight md:text-4xl">
-				Discover
-			</h1>
-			<p className="mt-2 text-muted-foreground">Coming soon...</p>
+		<main className="pb-16">
+			<DiscoverFeaturePage />
 		</main>
 	);
 }
