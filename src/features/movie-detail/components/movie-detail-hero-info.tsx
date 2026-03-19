@@ -2,6 +2,7 @@ import { Icon } from '@/components/icon';
 import { Spacer } from '@/components/spacer';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { MovieDetailTrailerButton } from '@/features/movie-detail/components/movie-detail-trailer-button';
 import { WatchlistToggleButton } from '@/features/watchlist';
 import type { MovieDetails200 } from '@/generated/tmdb/tmdbApi.schemas';
 import { formatRuntime } from '@/lib/utils';
@@ -94,6 +95,13 @@ export function MovieDetailHeroInfo({
 					saved={saved}
 					onClick={onToggleSave}
 				/>
+
+				{movie.id ? (
+					<MovieDetailTrailerButton
+						movieId={movie.id}
+						movieTitle={movie.title ?? undefined}
+					/>
+				) : null}
 
 				{homepage ? (
 					<Button asChild size="lg" variant="outline">
