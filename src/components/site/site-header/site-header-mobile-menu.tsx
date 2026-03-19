@@ -1,19 +1,23 @@
 import { Link } from '@tanstack/react-router';
 
-import { siteHeaderNavItems } from './site-header-nav-items';
+import { getSiteHeaderNavItems } from './site-header-nav-items';
 
 import { Icon } from '@/components/icon';
 
 interface SiteHeaderMobileMenuProps {
 	onNavigate: () => void;
+	showWatchlist: boolean;
 }
 
 export function SiteHeaderMobileMenu({
 	onNavigate,
+	showWatchlist,
 }: SiteHeaderMobileMenuProps) {
+	const navItems = getSiteHeaderNavItems(showWatchlist);
+
 	return (
 		<nav aria-label="Mobile" className="flex flex-col gap-2 py-6">
-			{siteHeaderNavItems.map((item) => {
+			{navItems.map((item) => {
 				const baseClasses =
 					'rounded-[1.25rem] border px-4 py-4 transition-colors duration-[var(--motion-fast)] border-transparent text-foreground hover:border-border/50 hover:bg-secondary/55';
 				const activeClasses =

@@ -25,6 +25,12 @@ export const siteHeaderNavItems = [
 	}),
 ];
 
+export function getSiteHeaderNavItems(showWatchlist: boolean) {
+	return showWatchlist
+		? siteHeaderNavItems
+		: siteHeaderNavItems.filter((item) => item.to !== '/watchlist');
+}
+
 export interface SiteHeaderNavItem {
 	label: string;
 	to: string;

@@ -23,6 +23,7 @@ interface SiteHeaderMobileMenuSheetProps {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	onNavigate: () => void;
+	showWatchlist: boolean;
 	user: {
 		photoURL?: string | null;
 		email: string;
@@ -40,6 +41,7 @@ export function SiteHeaderMobileMenuSheet({
 	onOpenChange,
 	onSignOut,
 	open,
+	showWatchlist,
 	user,
 }: SiteHeaderMobileMenuSheetProps) {
 	return (
@@ -59,7 +61,10 @@ export function SiteHeaderMobileMenuSheet({
 				</SheetHeader>
 
 				<div className="flex flex-1 flex-col px-6 pb-6">
-					<SiteHeaderMobileMenu onNavigate={onNavigate} />
+					<SiteHeaderMobileMenu
+						showWatchlist={showWatchlist}
+						onNavigate={onNavigate}
+					/>
 
 					<div className="mt-auto border-t border-border/40 pt-5">
 						{user ? (

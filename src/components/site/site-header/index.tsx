@@ -45,7 +45,7 @@ export function SiteHeader() {
 						<SiteLogo />
 					</div>
 
-					<SiteHeaderDesktopMenu />
+					<SiteHeaderDesktopMenu showWatchlist={!!user} />
 
 					<ClientOnly>
 						<div className="hidden items-center justify-end gap-2 md:flex">
@@ -110,6 +110,7 @@ export function SiteHeader() {
 							displayName={displayName}
 							initials={initials}
 							open={mobileOpen}
+							showWatchlist={!!user}
 							user={
 								user
 									? {
