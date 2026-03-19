@@ -1,12 +1,9 @@
 import { HomeCtaSectionPosterSegment } from './home-cta-section-poster-segment';
 import type { PosterSource } from './types';
 
+import { ctaPosterSizeClasses } from '@/features/home/lib/poster-sizes';
+import type { CtaPosterSize } from '@/features/home/lib/poster-sizes';
 import { cn } from '@/lib/utils';
-
-const sizeClasses = {
-	sm: 'w-20 lg:w-24 xl:w-28',
-	md: 'w-24 lg:w-28 xl:w-32',
-} as const;
 
 const directionClasses = {
 	forward: 'animate-cta-marquee',
@@ -20,7 +17,7 @@ interface HomeCtaSectionPosterRailProps {
 	posters: Array<PosterSource>;
 	seed: number;
 	direction: 'forward' | 'reverse';
-	size: 'sm' | 'md';
+	size: CtaPosterSize;
 	className?: string;
 	disableAnimation?: boolean;
 }
@@ -33,7 +30,7 @@ export function HomeCtaSectionPosterRail({
 	seed,
 	size,
 }: HomeCtaSectionPosterRailProps) {
-	const sizeClass = sizeClasses[size];
+	const sizeClass = ctaPosterSizeClasses[size];
 	const animationClass = disableAnimation ? '' : directionClasses[direction];
 	const imageClassName = cn(baseClasses, sizeClass, className);
 
