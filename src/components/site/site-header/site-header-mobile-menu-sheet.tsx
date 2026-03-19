@@ -1,8 +1,9 @@
-import { Moon, SignOut, Sun, User } from '@phosphor-icons/react';
+import { SignOut, User } from '@phosphor-icons/react';
 import { Link } from '@tanstack/react-router';
-import { useTheme } from 'next-themes';
 
 import { SiteHeaderMobileMenu } from './site-header-mobile-menu';
+import { SoundToggle } from './sound-toggle';
+import { ThemeToggle } from './theme-toggle';
 
 import { SiteLogo } from '@/components/site/site-logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -40,16 +41,6 @@ export function SiteHeaderMobileMenuSheet({
 	open,
 	user,
 }: SiteHeaderMobileMenuSheetProps) {
-	const { resolvedTheme, setTheme } = useTheme();
-
-	function toggleTheme() {
-		if (resolvedTheme === 'light') {
-			setTheme('dark');
-		} else {
-			setTheme('light');
-		}
-	}
-
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
 			<SheetTrigger asChild>{children}</SheetTrigger>
@@ -59,15 +50,10 @@ export function SiteHeaderMobileMenuSheet({
 						<SheetTitle className="flex items-center gap-3">
 							<SiteLogo />
 						</SheetTitle>
-						<Button
-							aria-label="Toggle theme"
-							size="icon"
-							variant="ghost"
-							onClick={toggleTheme}
-						>
-							<Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-							<Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-						</Button>
+						<div className="flex items-center gap-1">
+							<SoundToggle />
+							<ThemeToggle />
+						</div>
 					</div>
 				</SheetHeader>
 

@@ -5,10 +5,13 @@ import { watchlistKeys } from '../lib/watchlist-keys';
 import type { WatchlistItem } from '../types/watchlist-types';
 
 import { useAuth } from '@/features/auth';
+import { useSound } from '@/hooks/use-sound';
+import { confirmation001Sound } from '@/lib/confirmation-001';
 
 export function useRemoveWatchlistItemMutation() {
 	const queryClient = useQueryClient();
 	const { user } = useAuth();
+	const [playConfirmation] = useSound(confirmation001Sound);
 
 	return useMutation({
 		mutationFn: async (movieId: number) => {
@@ -48,6 +51,9 @@ export function useRemoveWatchlistItemMutation() {
 				watchlistKeys.items(user.uid),
 				context.previousItems,
 			);
+		},
+		onSuccess: () => {
+			playConfirmation();
 		},
 	});
 }
