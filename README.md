@@ -26,7 +26,7 @@ The product intentionally avoids the feel of a generic streaming dashboard. Its 
 
 ## Demo Video
 
-- Google Drive: `[Add demo video link here]`
+- Google Drive: https://drive.google.com/file/d/1qoMMZl4_qHqmd04ScyhMJOfDguKahozx/view?usp=sharing
 
 ### Key Features
 
