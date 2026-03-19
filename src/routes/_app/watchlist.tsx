@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { useAuth } from '@/features/auth';
 import {
 	WatchlistEmptyState,
@@ -52,48 +53,66 @@ function WatchlistPage() {
 		});
 	}
 
+	const pageHeading = (
+		<div>
+			<p className="text-xs font-medium tracking-[0.32em] text-muted-foreground uppercase">
+				Your collection . {String(stats.moviesSaved).padStart(3, '0')} stubs
+			</p>
+			<h1 className="mt-2 font-serif text-4xl tracking-tight text-foreground md:text-5xl">
+				Watchlist
+			</h1>
+			<p className="mt-3 max-w-2xl text-sm text-muted-foreground md:text-base">
+				A live, per-user archive of films you want to revisit next.
+			</p>
+		</div>
+	);
+
 	return (
 		<main className="container mx-auto px-4 py-8 md:px-6 md:py-12">
-			<div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-				<div>
-					<p className="text-xs font-medium tracking-[0.32em] text-muted-foreground uppercase">
-						Your collection . {String(stats.moviesSaved).padStart(3, '0')} stubs
-					</p>
-					<h1 className="mt-2 font-serif text-4xl tracking-tight text-foreground md:text-5xl">
-						Watchlist
-					</h1>
-					<p className="mt-3 max-w-2xl text-sm text-muted-foreground md:text-base">
-						A live, per-user archive of films you want to revisit next.
-					</p>
-				</div>
-
-				<WatchlistViewToggle
-					view={view}
-					onViewChange={(nextView) => updateSearch({ view: nextView })}
-				/>
-			</div>
-
 			{!user ? (
-				<WatchlistGuestState />
+				<>
+					{pageHeading}
+					<WatchlistGuestState />
+				</>
 			) : isPageLoading ? (
-				<WatchlistLoadingState />
+				<>
+					{pageHeading}
+					<WatchlistLoadingState />
+				</>
 			) : items.length === 0 ? (
-				<WatchlistEmptyState />
+				<>
+					{pageHeading}
+					<WatchlistEmptyState />
+				</>
 			) : (
-				<div className="mt-8 grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-					<WatchlistSidebar
-						direction={direction}
-						sortBy={sortBy}
-						stats={stats}
-						onSortChange={(nextSort) => updateSearch({ sort: nextSort })}
-						onDirectionChange={(nextDirection) =>
-							updateSearch({ dir: nextDirection })
-						}
-					/>
+				<Tabs
+					className="gap-8"
+					value={view}
+					onValueChange={(nextView) =>
+						updateSearch({ view: nextView as typeof view })
+					}
+				>
+					<div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+						{pageHeading}
 
-					<div className="space-y-4">
-						{view === 'list' ? (
-							<>
+						<div className="w-full max-w-[260px] lg:w-auto">
+							<WatchlistViewToggle />
+						</div>
+					</div>
+
+					<div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+						<WatchlistSidebar
+							direction={direction}
+							sortBy={sortBy}
+							stats={stats}
+							onSortChange={(nextSort) => updateSearch({ sort: nextSort })}
+							onDirectionChange={(nextDirection) =>
+								updateSearch({ dir: nextDirection })
+							}
+						/>
+
+						<div>
+							<TabsContent className="space-y-4" value="list">
 								{items.map((item, index) => (
 									<WatchlistListCard
 										key={item.tmdbId}
@@ -109,20 +128,22 @@ function WatchlistPage() {
 										}}
 									/>
 								))}
-							</>
-						) : (
-							<div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-								{items.map((item, index) => (
-									<WatchlistGridCard
-										key={item.tmdbId}
-										index={index}
-										item={item}
-									/>
-								))}
-							</div>
-						)}
+							</TabsContent>
+
+							<TabsContent value="grid">
+								<div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+									{items.map((item, index) => (
+										<WatchlistGridCard
+											key={item.tmdbId}
+											index={index}
+											item={item}
+										/>
+									))}
+								</div>
+							</TabsContent>
+						</div>
 					</div>
-				</div>
+				</Tabs>
 			)}
 		</main>
 	);
