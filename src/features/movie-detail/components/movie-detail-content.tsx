@@ -8,17 +8,21 @@ import { MovieDetailTechnicalSkeleton } from './movie-detail-technical-skeleton'
 
 import { Spacer } from '@/components/spacer';
 import {
+	useToggleWatchlistItemMutation,
+	useWatchlistSavedIds,
+} from '@/features/watchlist';
+import {
 	useMovieCredits,
 	useMovieDetailsSuspense,
 } from '@/generated/tmdb/default/default';
-import { useWatchlist } from '@/hooks/use-watchlist';
 
 interface MovieDetailContentProps {
 	movieId: number;
 }
 
 export function MovieDetailContent({ movieId }: MovieDetailContentProps) {
-	const { isSaved, toggleSave } = useWatchlist();
+	const { savedIds } = useWatchlistSavedIds();
+	const { toggle } = useToggleWatchlistItemMutation();
 
 	const { data: movie } = useMovieDetailsSuspense(movieId);
 
@@ -29,14 +33,16 @@ export function MovieDetailContent({ movieId }: MovieDetailContentProps) {
 		refetch: refetchCredits,
 	} = useMovieCredits(movieId, {});
 
-	const saved = isSaved(movieId);
+	const saved = savedIds.has(movieId);
 
 	return (
 		<div className="animate-in duration-700 fade-in slide-in-from-bottom-4">
 			<MovieDetailHero
 				movie={movie}
 				saved={saved}
-				onToggleSave={() => toggleSave(movieId)}
+				onToggleSave={() => {
+					void toggle(movieId);
+				}}
 			/>
 			<div className="container mx-auto px-4">
 				<section className="border-t border-border pt-6">

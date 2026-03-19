@@ -1,14 +1,13 @@
-import {
-	createFileRoute,
-	useNavigate,
-	useSearch,
-} from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { SearchResults } from '@/features/search/components/search-results';
 import { useSearchMovies } from '@/features/search/hooks/use-search-movies';
+import {
+	useToggleWatchlistItemMutation,
+	useWatchlistSavedIds,
+} from '@/features/watchlist';
 import { useDebouncedSearchParam } from '@/hooks/use-debounced-search-param';
-import { useWatchlist } from '@/hooks/use-watchlist';
 
 const searchSchema = z.object({
 	q: z.string().optional(),
@@ -22,7 +21,7 @@ export const Route = createFileRoute('/_app/search')({
 
 function SearchPage() {
 	const navigate = useNavigate();
-	const params = useSearch({ from: '/_app/search' });
+	const params = Route.useSearch();
 
 	const { year } = params;
 	const {
@@ -31,7 +30,8 @@ function SearchPage() {
 		setValue: setQuery,
 	} = useDebouncedSearchParam(Route, 'q');
 
-	const { savedIds, toggleSave } = useWatchlist();
+	const { savedIds } = useWatchlistSavedIds();
+	const { toggle } = useToggleWatchlistItemMutation();
 
 	const {
 		data,
@@ -91,8 +91,10 @@ function SearchPage() {
 				onQueryChange={setQuery}
 				onRetry={handleRetry}
 				onSubmit={handleSubmit}
-				onToggleSave={toggleSave}
 				onYearChange={handleYearChange}
+				onToggleSave={(id) => {
+					void toggle(id);
+				}}
 			/>
 		</main>
 	);
