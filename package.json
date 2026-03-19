@@ -1,5 +1,5 @@
 {
-	"name": "tanstack-template",
+	"name": "ttmdb-movie-app",
 	"private": true,
 	"type": "module",
 	"scripts": {
