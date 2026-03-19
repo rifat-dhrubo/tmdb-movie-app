@@ -134,9 +134,19 @@ export function MovieCard({
 			data-saved={isSaved}
 			className={cn(
 				movieCardVariants({ size }),
+				'cursor-pointer',
 				isSaved && 'border-primary border-r-primary border-l-primary shadow-sm',
 			)}
 		>
+			<Link
+				aria-label={`Open details for ${title}`}
+				className="absolute inset-0 z-10 rounded-sm focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden"
+				params={{ movieId: id }}
+				to="/movies/$movieId"
+			>
+				<span className="sr-only">Open details for {title}</span>
+			</Link>
+
 			<div className={cn('relative overflow-hidden', config.posterClass)}>
 				<Image
 					alt={`${title} (${year})`}
@@ -181,7 +191,7 @@ export function MovieCard({
 
 				<div
 					className={cn(
-						'movie-card-action absolute top-3 right-3 md:opacity-0',
+						'movie-card-action absolute top-3 right-3 z-20 md:opacity-0',
 						isSaved
 							? 'md:translate-y-0 md:scale-100 md:opacity-100'
 							: 'md:translate-y-2 md:scale-[0.96] md:opacity-0 md:group-focus-within:translate-y-0 md:group-focus-within:scale-100 md:group-focus-within:opacity-100 md:group-hover:translate-y-0 md:group-hover:scale-100 md:group-hover:opacity-100',
@@ -202,7 +212,11 @@ export function MovieCard({
 						className={cn({
 							'bg-primary/50': isSaved,
 						})}
-						onClick={onToggleWatchlist}
+						onClick={(event) => {
+							event.preventDefault();
+							event.stopPropagation();
+							onToggleWatchlist();
+						}}
 					>
 						{isPending ? (
 							<Icon
@@ -225,21 +239,25 @@ export function MovieCard({
 					config.padding,
 				)}
 			>
-				<Link
-					className="group/title relative w-full text-left"
-					params={{ movieId: id }}
-					to="/movies/$movieId"
-				>
+				<div className="relative flex items-start justify-between gap-3 pb-1">
 					<h3
 						className={cn(
-							'line-clamp-1 font-serif tracking-tight text-background dark:text-foreground',
+							'line-clamp-1 min-w-0 flex-1 font-serif tracking-tight text-background dark:text-foreground',
 							config.titleSize,
 						)}
 					>
 						{title}
 					</h3>
-					<span className="movie-card-title-underline absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-primary/60 group-hover/title:origin-left group-hover/title:scale-x-100" />
-				</Link>
+
+					<div className="pointer-events-none flex shrink-0 items-center gap-2 self-center text-background/55 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100 dark:text-foreground/60">
+						<Icon
+							className="size-3.5 transition-transform duration-200 group-focus-within:translate-x-1 group-hover:translate-x-1"
+							name="arrow_right_bold"
+						/>
+					</div>
+
+					<span className="absolute right-0 bottom-0 left-0 h-px origin-right scale-x-0 bg-primary transition-transform duration-200 group-focus-within:origin-left group-focus-within:scale-x-100 group-hover:origin-left group-hover:scale-x-100" />
+				</div>
 				<Spacer size={4}></Spacer>
 
 				<div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
