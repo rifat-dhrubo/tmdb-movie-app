@@ -36,7 +36,7 @@ export function ValuePropsSection() {
 				className="flex flex-col justify-center"
 				variants={itemVariants}
 			>
-				<ul className="list-c list-disc space-y-6">
+				<ul className="list-disc space-y-6 px-2">
 					<li>
 						<p className="text-base font-medium">Save any film instantly</p>
 						<p className="text-sm text-muted-foreground">
