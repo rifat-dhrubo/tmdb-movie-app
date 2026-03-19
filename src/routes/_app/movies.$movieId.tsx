@@ -1,8 +1,9 @@
-import { createFileRoute, useParams } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { env } from '@/env';
 import { MovieDetailContent } from '@/features/movie-detail/components/movie-detail-content';
+import { movieDetails } from '@/generated/tmdb/default/default';
 import { buildTmdbImageUrl } from '@/lib/tmdb/image-config';
 
 const movieDetailSchema = z.object({
@@ -15,7 +16,6 @@ export const Route = createFileRoute('/_app/movies/$movieId')({
 		parse: (params) => movieDetailSchema.parse(params),
 	},
 	loader: async ({ params }) => {
-		const { movieDetails } = await import('@/generated/tmdb/default/default');
 		const movie = await movieDetails(params.movieId);
 		return { movie };
 	},
@@ -24,7 +24,10 @@ export const Route = createFileRoute('/_app/movies/$movieId')({
 		if (!movie) {
 			return {
 				meta: [
-					{ title: 'Movie Not Found — Cine' },
+					{
+						title: 'Movie Not Found — Cine',
+						content: 'Movie Not Found — Cine',
+					},
 					{
 						name: 'description',
 						content: 'The requested movie could not be found.',
@@ -74,10 +77,7 @@ export const Route = createFileRoute('/_app/movies/$movieId')({
 });
 
 function MovieDetailPage() {
-	const { movieId } = useParams({
-		from: '/_app/movies/$movieId',
-		strict: true,
-	});
+	const { movieId } = Route.useParams();
 
 	return (
 		<main className="pb-16">

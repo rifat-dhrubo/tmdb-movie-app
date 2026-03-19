@@ -24,7 +24,9 @@ export const Route = createFileRoute('/_app/cast/$castId')({
 		if (!person) {
 			return {
 				meta: [
-					{ title: 'Person Not Found — Cine' },
+					{
+						title: 'Person Not Found — Cine',
+					},
 					{
 						name: 'description',
 						content: 'The requested person could not be found.',
@@ -43,13 +45,14 @@ export const Route = createFileRoute('/_app/cast/$castId')({
 			? person.biography.slice(0, 200) +
 				(person.biography.length > 200 ? '...' : '')
 			: `Discover ${name}'s filmography on Cine — your personal cinema journal.`;
-		const imageUrl = person.profile_path
-			? buildTmdbImageUrl({
-					type: 'profile',
-					path: person.profile_path,
-					size: 'h632',
-				})
-			: `${env.VITE_PUBLIC_SITE_URL}/og-image.svg`;
+		const imageUrl =
+			(person.profile_path
+				? buildTmdbImageUrl({
+						type: 'profile',
+						path: person.profile_path,
+						size: 'h632',
+					})
+				: null) ?? `${env.VITE_PUBLIC_SITE_URL}/og-image.svg`;
 		const url = `${env.VITE_PUBLIC_SITE_URL}/cast/${person.id}`;
 
 		return {
