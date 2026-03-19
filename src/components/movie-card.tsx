@@ -288,20 +288,20 @@ export function MovieCardSkeleton({ size = 'md' }: { size?: MovieCardSize }) {
 
 			<div
 				className={cn(
-					'border-t border-dashed border-background/20 bg-foreground',
+					'border-t border-dashed border-border bg-accent',
 					config.stubClass,
 					config.padding,
 				)}
 			>
-				<Skeleton className="h-6 w-3/4 bg-background/10" />
+				<Skeleton className="h-6 w-3/4" />
 				<div className="mt-3 space-y-2">
 					<div className="flex gap-3">
-						<Skeleton className="h-3 w-8 bg-background/10" />
-						<Skeleton className="h-4 w-12 bg-background/10" />
+						<Skeleton className="h-3 w-8" />
+						<Skeleton className="h-4 w-12" />
 					</div>
 					<div className="flex gap-3">
-						<Skeleton className="h-3 w-8 bg-background/10" />
-						<Skeleton className="h-4 w-24 bg-background/10" />
+						<Skeleton className="h-3 w-8" />
+						<Skeleton className="h-4 w-24" />
 					</div>
 				</div>
 			</div>
