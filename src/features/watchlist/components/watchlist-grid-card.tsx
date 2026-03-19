@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 
 import { Icon } from '@/components/icon';
+import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import type { WatchlistItem } from '@/features/watchlist';
 import {
@@ -12,10 +13,17 @@ import { cn } from '@/lib/utils';
 
 interface WatchlistGridCardProps {
 	index: number;
+	isRemoving: boolean;
 	item: WatchlistItem;
+	onRemove: (tmdbId: number) => void;
 }
 
-export function WatchlistGridCard({ index, item }: WatchlistGridCardProps) {
+export function WatchlistGridCard({
+	index,
+	isRemoving,
+	item,
+	onRemove,
+}: WatchlistGridCardProps) {
 	const imageUrl = buildTmdbImageUrl({
 		path: item.posterPath ?? null,
 		size: 'w342',
@@ -26,9 +34,25 @@ export function WatchlistGridCard({ index, item }: WatchlistGridCardProps) {
 		<Link
 			className="group block overflow-hidden rounded-xl border border-border bg-card-dark text-background shadow-lg transition-all hover:shadow-xl dark:bg-card"
 			params={{ movieId: item.tmdbId }}
-			to="/movies/$movieId"
+			to="/movie/$movieId"
 		>
 			<div className="relative aspect-3/4 overflow-hidden bg-muted">
+				<Button
+					aria-label={`Remove ${item.title} from watchlist`}
+					className="absolute top-3 right-3 z-10 size-7 rounded-full bg-black/40 text-background opacity-100 backdrop-blur-xs transition-all duration-200 hover:scale-110 hover:bg-black/60 md:opacity-0 md:group-hover:opacity-100 dark:text-foreground"
+					disabled={isRemoving}
+					size="icon"
+					type="button"
+					variant="ghost"
+					onClick={(event) => {
+						event.preventDefault();
+						event.stopPropagation();
+						onRemove(item.tmdbId);
+					}}
+				>
+					<Icon className="size-3.5" name="x" />
+				</Button>
+
 				{imageUrl ? (
 					<Image
 						alt={item.title}

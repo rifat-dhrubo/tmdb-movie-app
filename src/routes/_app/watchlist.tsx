@@ -185,6 +185,14 @@ function WatchlistPage() {
 											key={item.tmdbId}
 											index={index}
 											item={item}
+											isRemoving={
+												removeMutation.isPending
+													? removeMutation.variables === item.tmdbId
+													: false
+											}
+											onRemove={(tmdbId: number) => {
+												void removeMutation.mutateAsync(tmdbId);
+											}}
 										/>
 									))}
 								</div>
