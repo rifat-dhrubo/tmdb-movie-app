@@ -1,10 +1,35 @@
 import { Link, createFileRoute } from '@tanstack/react-router';
 
 import { Spacer } from '@/components/spacer';
+import { env } from '@/env';
 import { AuthLayout, SignInForm } from '@/features/auth';
 
 export const Route = createFileRoute('/sign-in')({
 	component: SignInPage,
+	head: () => ({
+		meta: [
+			{ title: 'Sign In — Cine' },
+			{
+				name: 'description',
+				content:
+					'Sign in to your Cine account to access your personal cinema journal.',
+			},
+			{ property: 'og:title', content: 'Sign In — Cine' },
+			{
+				property: 'og:description',
+				content:
+					'Sign in to your Cine account to access your personal cinema journal.',
+			},
+			{ property: 'og:type', content: 'website' },
+			{ property: 'og:url', content: `${env.VITE_PUBLIC_SITE_URL}/sign-in` },
+			{ name: 'twitter:title', content: 'Sign In — Cine' },
+			{
+				name: 'twitter:description',
+				content:
+					'Sign in to your Cine account to access your personal cinema journal.',
+			},
+		],
+	}),
 });
 
 function SignInPage() {

@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { Tabs, TabsContent } from '@/components/ui/tabs';
+import { env } from '@/env';
 import { useAuth } from '@/features/auth';
 import {
 	WatchlistEmptyState,
@@ -26,6 +27,36 @@ export const Route = createFileRoute('/_app/watchlist')({
 	component: WatchlistPage,
 	validateSearch: watchlistSearchSchema,
 	ssr: false,
+	head: () => ({
+		meta: [
+			{ title: 'Your Watchlist — Cine' },
+			{
+				name: 'description',
+				content:
+					'Keep track of movies you want to watch. Your personal cinema collection on Cine.',
+			},
+			{
+				property: 'og:title',
+				content: 'Your Watchlist — Cine',
+			},
+			{
+				property: 'og:description',
+				content:
+					'Keep track of movies you want to watch. Your personal cinema collection on Cine.',
+			},
+			{ property: 'og:type', content: 'website' },
+			{ property: 'og:url', content: `${env.VITE_PUBLIC_SITE_URL}/watchlist` },
+			{
+				name: 'twitter:title',
+				content: 'Your Watchlist — Cine',
+			},
+			{
+				name: 'twitter:description',
+				content:
+					'Keep track of movies you want to watch. Your personal cinema collection on Cine.',
+			},
+		],
+	}),
 });
 
 function WatchlistPage() {
