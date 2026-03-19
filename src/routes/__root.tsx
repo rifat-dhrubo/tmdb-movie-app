@@ -59,7 +59,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ThemeProvider forcedTheme="light">
+				<ThemeProvider>
 					<TooltipProvider>
 						{children}
 						<TanStackDevtools

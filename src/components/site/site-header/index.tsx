@@ -4,6 +4,7 @@ import React from 'react';
 
 import { SiteHeaderDesktopMenu } from './site-header-desktop-menu';
 import { SiteHeaderMobileMenuSheet } from './site-header-mobile-menu-sheet';
+import { ThemeToggle } from './theme-toggle';
 
 import { SiteLogo } from '@/components/site/site-logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -46,7 +47,8 @@ export function SiteHeader() {
 					<SiteHeaderDesktopMenu />
 
 					<ClientOnly>
-						<div className="hidden items-center justify-end md:flex">
+						<div className="hidden items-center justify-end gap-2 md:flex">
+							<ThemeToggle />
 							{user ? (
 								<DropdownMenu>
 									<DropdownMenuTrigger className="flex items-center gap-2">
