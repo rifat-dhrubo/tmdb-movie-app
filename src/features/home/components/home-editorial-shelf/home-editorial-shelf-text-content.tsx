@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { motion } from 'motion/react';
 import type { Variants } from 'motion/react';
 
@@ -10,10 +11,12 @@ interface HomeEditorialShelfTextContentProps {
 	title: string;
 	subtitle: string;
 	variants: Variants;
+	seeAllHref: string;
 }
 
 export function HomeEditorialShelfTextContent({
 	badge,
+	seeAllHref,
 	subtitle,
 	title,
 	variants,
@@ -36,16 +39,19 @@ export function HomeEditorialShelfTextContent({
 			</p>
 			<Spacer size={20}></Spacer>
 			<Button
+				asChild
 				className="group/btn relative w-fit px-0 pr-2 text-base hover:no-underline"
 				type="button"
 				variant="link"
 			>
-				See all{' '}
-				<Icon
-					className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1"
-					name="arrow_right_bold"
-				></Icon>
-				<span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-right scale-x-0 bg-primary transition-transform duration-200 group-hover/btn:origin-left group-hover/btn:scale-x-100" />
+				<Link to={seeAllHref}>
+					See all{' '}
+					<Icon
+						className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1"
+						name="arrow_right_bold"
+					></Icon>
+					<span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-right scale-x-0 bg-primary transition-transform duration-200 group-hover/btn:origin-left group-hover/btn:scale-x-100" />
+				</Link>
 			</Button>
 		</motion.div>
 	);

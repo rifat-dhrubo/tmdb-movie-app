@@ -1,9 +1,1 @@
-export { SearchResults } from './components/search-results';
-export { SearchInput } from './components/search-input';
-export { YearFilterPopover } from './components/year-filter-popover';
-export { SearchEmpty } from './components/search-empty';
-export { SearchLoading } from './components/search-loading';
-export { SearchError } from './components/search-error';
-export { SearchNoResults } from './components/search-no-results';
-export { SearchResultsList } from './components/search-results-list';
-export { useSearchMovies } from './hooks/use-search-movies';
+export { SearchPage } from './search-page';

@@ -11,11 +11,13 @@ import {
 	EmptyTitle,
 } from '@/components/ui/empty';
 
-interface SearchErrorProps {
+interface SearchResultsListErrorProps {
 	onRetry: () => void;
 }
 
-export function SearchError({ onRetry }: SearchErrorProps) {
+export function SearchResultsListError({
+	onRetry,
+}: SearchResultsListErrorProps) {
 	return (
 		<div className="mx-auto mt-16 max-w-md text-center">
 			<Empty className="border border-dashed border-destructive/30">

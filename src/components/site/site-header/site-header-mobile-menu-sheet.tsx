@@ -1,5 +1,6 @@
-import { SignOut, User } from '@phosphor-icons/react';
+import { Moon, SignOut, Sun, User } from '@phosphor-icons/react';
 import { Link } from '@tanstack/react-router';
+import { useTheme } from 'next-themes';
 
 import { SiteHeaderMobileMenu } from './site-header-mobile-menu';
 
@@ -39,14 +40,35 @@ export function SiteHeaderMobileMenuSheet({
 	open,
 	user,
 }: SiteHeaderMobileMenuSheetProps) {
+	const { resolvedTheme, setTheme } = useTheme();
+
+	function toggleTheme() {
+		if (resolvedTheme === 'light') {
+			setTheme('dark');
+		} else {
+			setTheme('light');
+		}
+	}
+
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
 			<SheetTrigger asChild>{children}</SheetTrigger>
 			<SheetContent className="flex w-full flex-col border-l border-border/60 bg-background/96 px-0 backdrop-blur-xl sm:max-w-sm">
 				<SheetHeader className="border-b border-border/40 px-6 pt-6 pb-5 text-left">
-					<SheetTitle className="flex items-center gap-3">
-						<SiteLogo />
-					</SheetTitle>
+					<div className="flex items-center justify-between">
+						<SheetTitle className="flex items-center gap-3">
+							<SiteLogo />
+						</SheetTitle>
+						<Button
+							aria-label="Toggle theme"
+							size="icon"
+							variant="ghost"
+							onClick={toggleTheme}
+						>
+							<Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+							<Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+						</Button>
+					</div>
 				</SheetHeader>
 
 				<div className="flex flex-1 flex-col px-6 pb-6">

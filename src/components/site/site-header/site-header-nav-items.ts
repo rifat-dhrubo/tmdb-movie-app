@@ -1,4 +1,4 @@
-import { House } from '@phosphor-icons/react';
+import { Compass, Heart, House, MagnifyingGlass } from '@phosphor-icons/react';
 import type { Icon } from '@phosphor-icons/react';
 import { linkOptions } from '@tanstack/react-router';
 
@@ -11,17 +11,17 @@ export const siteHeaderNavItems = [
 	linkOptions({
 		label: 'Search',
 		to: '/search',
-		icon: undefined satisfies typeof House | undefined,
+		icon: MagnifyingGlass satisfies typeof MagnifyingGlass,
 	}),
 	linkOptions({
 		label: 'Discover',
 		to: '/discover',
-		icon: undefined satisfies typeof House | undefined,
+		icon: Compass satisfies typeof Compass,
 	}),
 	linkOptions({
 		label: 'Watchlist',
 		to: '/watchlist',
-		icon: undefined satisfies typeof House | undefined,
+		icon: Heart satisfies typeof Heart,
 	}),
 ];
 

@@ -34,7 +34,7 @@ export function WatchlistListCard({
 	const director = item.displayDirector ?? 'Unknown director';
 
 	return (
-		<article className="grid gap-4 rounded-xl border border-border bg-card-dark p-3 text-background shadow-lg transition-all hover:shadow-xl md:grid-cols-[112px_minmax(0,1fr)_auto] md:items-center md:p-4">
+		<article className="grid gap-4 rounded-xl border border-border bg-card-dark p-3 text-background shadow-lg transition-all hover:shadow-xl md:grid-cols-[112px_minmax(0,1fr)_auto] md:items-center md:p-4 dark:bg-muted dark:text-card-foreground">
 			<Link
 				className="group relative overflow-hidden rounded-lg border border-border bg-muted"
 				params={{ movieId: item.tmdbId }}
@@ -66,29 +66,29 @@ export function WatchlistListCard({
 			<div className="min-w-0">
 				<div className="flex flex-wrap items-center gap-2">
 					<Link
-						className="font-serif text-2xl leading-none text-background transition-colors hover:text-primary/80"
+						className="font-serif text-2xl leading-none text-background transition-colors hover:text-primary/80 dark:text-card-foreground"
 						params={{ movieId: item.tmdbId }}
 						to="/movies/$movieId"
 					>
 						{item.title}
 					</Link>
-					<span className="rounded-full border border-border bg-background/10 px-2.5 py-1 text-[11px] tracking-wide text-background/70">
+					<span className="rounded-full border border-border bg-background/10 px-2.5 py-1 text-[11px] tracking-wide text-background/70 dark:bg-card dark:text-card-foreground/70">
 						{primaryGenre}
 					</span>
 				</div>
-				<p className="mt-3 text-sm tracking-[0.14em] text-background/55 uppercase">
+				<p className="mt-3 text-sm tracking-[0.14em] text-background/55 uppercase dark:text-card-foreground/55">
 					{releaseYear} . {director} .{' '}
 					{formatRuntime(item.runtimeMinutes ?? 0) || '-'}
 				</p>
 			</div>
 
 			<div className="flex items-center justify-between gap-4 border-t border-border pt-3 md:border-t-0 md:pt-0">
-				<div className="flex items-center gap-2 font-mono text-lg font-semibold text-background/85">
+				<div className="flex items-center gap-2 font-mono text-lg font-semibold text-background/85 dark:text-card-foreground/85">
 					<Icon className="size-3.5" name="star_fill" />
 					{(item.voteAverage ?? 0).toFixed(1)}
 				</div>
 				<Button
-					className="text-background/60 hover:bg-background/10 hover:text-background"
+					className="text-background/60 hover:bg-background/10 hover:text-background dark:text-card-foreground/60 dark:hover:bg-card dark:hover:text-card-foreground"
 					disabled={isRemoving}
 					size="sm"
 					type="button"
