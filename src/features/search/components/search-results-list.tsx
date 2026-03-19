@@ -1,4 +1,6 @@
 import type { InfiniteData } from '@tanstack/react-query';
+import React from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import { Icon } from '@/components/icon';
 import { MovieGrid } from '@/components/movie';
@@ -39,6 +41,17 @@ export function SearchResultsList({
 	onRetry,
 	onToggleSave,
 }: SearchResultsListProps) {
+	const { inView, ref: sentinelRef } = useInView({
+		rootMargin: '200px',
+		threshold: 0,
+	});
+
+	React.useEffect(() => {
+		if (inView && hasNextPage && !isFetchingNextPage && !isError) {
+			onLoadMore();
+		}
+	}, [inView, hasNextPage, isFetchingNextPage, isError, onLoadMore]);
+
 	const allResults = data?.pages.flatMap((page) => page.results ?? []) ?? [];
 	const totalResults = data?.pages[0]?.total_results ?? 0;
 
@@ -91,17 +104,8 @@ export function SearchResultsList({
 					</div>
 				) : null}
 
-				{hasNextPage && !isError && !isFetchingNextPage ? (
-					<div className="mt-8 flex justify-center">
-						<Button
-							size="lg"
-							type="button"
-							variant="outline"
-							onClick={onLoadMore}
-						>
-							Load more
-						</Button>
-					</div>
+				{hasNextPage && !isError ? (
+					<div ref={sentinelRef} aria-hidden="true" className="h-4" />
 				) : null}
 			</div>
 		</>
