@@ -1,4 +1,6 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
+import { onAuthStateChanged } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 import { z } from 'zod';
 
 import { Tabs, TabsContent } from '@/components/ui/tabs';
@@ -7,7 +9,6 @@ import { useAuth } from '@/features/auth';
 import {
 	WatchlistEmptyState,
 	WatchlistGridCard,
-	WatchlistGuestState,
 	WatchlistListCard,
 	WatchlistLoadingState,
 	WatchlistSidebar,
@@ -16,6 +17,7 @@ import {
 	useWatchlistItemsView,
 	useWatchlistStats,
 } from '@/features/watchlist';
+import { auth } from '@/lib/firebase/config';
 
 const watchlistSearchSchema = z.object({
 	dir: z.enum(['asc', 'desc']).optional(),
@@ -23,7 +25,27 @@ const watchlistSearchSchema = z.object({
 	view: z.enum(['list', 'grid']).optional(),
 });
 
+async function getResolvedUser() {
+	if (auth.currentUser) {
+		return auth.currentUser;
+	}
+
+	return await new Promise<User | null>((resolve) => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			unsubscribe();
+			resolve(user);
+		});
+	});
+}
+
 export const Route = createFileRoute('/_app/watchlist')({
+	beforeLoad: async () => {
+		const user = await getResolvedUser();
+
+		if (!user) {
+			throw redirect({ to: '/sign-in' });
+		}
+	},
 	component: WatchlistPage,
 	validateSearch: watchlistSearchSchema,
 	ssr: false,
@@ -71,7 +93,7 @@ function WatchlistPage() {
 
 	const { isLoading, items } = useWatchlistItemsView({ direction, sortBy });
 	const { stats } = useWatchlistStats();
-	const isPageLoading = isInitialLoading || (isLoading && !!user);
+	const isPageLoading = isInitialLoading || isLoading;
 
 	function updateSearch(next: Partial<typeof search>) {
 		void navigate({
@@ -100,12 +122,7 @@ function WatchlistPage() {
 
 	return (
 		<main className="container mx-auto px-4 py-8 md:px-6 md:py-12">
-			{!user ? (
-				<>
-					{pageHeading}
-					<WatchlistGuestState />
-				</>
-			) : isPageLoading ? (
+			{!user || isPageLoading ? (
 				<>
 					{pageHeading}
 					<WatchlistLoadingState />

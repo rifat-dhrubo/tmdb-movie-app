@@ -51,8 +51,8 @@ export function CastDetailHeroInfo({ person }: CastDetailHeroInfoProps) {
 			? `${biography.slice(0, 300)}...`
 			: biography;
 
-	const hasHomepage = person.homepage && typeof person.homepage === 'string';
-	const hasImdb = person.imdb_id && typeof person.imdb_id === 'string';
+	const homepage = typeof person.homepage === 'string' ? person.homepage : null;
+	const imdbId = typeof person.imdb_id === 'string' ? person.imdb_id : null;
 
 	return (
 		<div className="text-left lg:text-left">
@@ -114,10 +114,10 @@ export function CastDetailHeroInfo({ person }: CastDetailHeroInfoProps) {
 			<Spacer size={24} />
 
 			<div className="flex flex-wrap justify-start gap-3 lg:justify-start">
-				{hasImdb ? (
+				{imdbId ? (
 					<Button asChild size="lg" variant="outline">
 						<a
-							href={`https://www.imdb.com/name/${person.imdb_id}`}
+							href={`https://www.imdb.com/name/${imdbId}`}
 							rel="noopener noreferrer"
 							target="_blank"
 						>
@@ -127,13 +127,9 @@ export function CastDetailHeroInfo({ person }: CastDetailHeroInfoProps) {
 					</Button>
 				) : null}
 
-				{hasHomepage ? (
+				{homepage ? (
 					<Button asChild size="lg" variant="outline">
-						<a
-							href={person.homepage as string}
-							rel="noopener noreferrer"
-							target="_blank"
-						>
+						<a href={homepage} rel="noopener noreferrer" target="_blank">
 							<Icon className="mr-2 size-4" name="arrow_square_out" />
 							Website
 						</a>

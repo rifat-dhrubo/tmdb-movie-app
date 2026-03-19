@@ -1,4 +1,3 @@
-import { List, SignOut } from '@phosphor-icons/react';
 import { ClientOnly, Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 
@@ -7,6 +6,7 @@ import { SiteHeaderMobileMenuSheet } from './site-header-mobile-menu-sheet';
 import { SoundToggle } from './sound-toggle';
 import { ThemeToggle } from './theme-toggle';
 
+import { Icon } from '@/components/icon';
 import { SiteLogo } from '@/components/site/site-logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -45,7 +45,7 @@ export function SiteHeader() {
 						<SiteLogo />
 					</div>
 
-					<SiteHeaderDesktopMenu />
+					<SiteHeaderDesktopMenu showWatchlist={!!user} />
 
 					<ClientOnly>
 						<div className="hidden items-center justify-end gap-2 md:flex">
@@ -90,7 +90,7 @@ export function SiteHeader() {
 											className="text-destructive focus:text-destructive"
 											onClick={() => void handleSignOut()}
 										>
-											<SignOut className="mr-2 size-4" weight="regular" />
+											<Icon className="mr-2 size-4" name="sign_out" />
 											Sign out
 										</DropdownMenuItem>
 									</DropdownMenuContent>
@@ -110,6 +110,7 @@ export function SiteHeader() {
 							displayName={displayName}
 							initials={initials}
 							open={mobileOpen}
+							showWatchlist={!!user}
 							user={
 								user
 									? {
@@ -123,7 +124,7 @@ export function SiteHeader() {
 							onSignOut={handleSignOut}
 						>
 							<Button size="icon" variant="outline">
-								<List className="size-5" />
+								<Icon className="size-5" name="list" />
 							</Button>
 						</SiteHeaderMobileMenuSheet>
 					</div>

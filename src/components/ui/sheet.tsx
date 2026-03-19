@@ -1,7 +1,7 @@
-import { XIcon } from '@phosphor-icons/react';
 import { Dialog as SheetPrimitive } from 'radix-ui';
 import type React from 'react';
 
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -73,7 +73,7 @@ function SheetContent({
 							size="icon-sm"
 							variant="ghost"
 						>
-							<XIcon />
+							<Icon name="x" />
 							<span className="sr-only">Close</span>
 						</Button>
 					</SheetPrimitive.Close>

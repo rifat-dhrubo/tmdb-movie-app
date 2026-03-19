@@ -99,10 +99,16 @@ export function SearchInputSection() {
 						/>
 					</div>
 					<Link
-						className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+						className="group/btn relative text-sm text-muted-foreground transition-colors hover:text-foreground"
 						to="/discover"
 					>
-						Want to filter by genre? Try Discover →
+						<span className="relative">
+							Want to filter by genre? Try Discover
+							<span className="inline-block transition-transform duration-200 group-hover/btn:translate-x-1">
+								→
+							</span>
+							<span className="absolute -bottom-0.5 left-0 h-0.5 w-full origin-right scale-x-0 bg-primary transition-transform duration-200 group-hover/btn:origin-left group-hover/btn:scale-x-100" />
+						</span>
 					</Link>
 				</div>
 			) : null}

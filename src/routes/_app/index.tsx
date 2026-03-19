@@ -17,6 +17,27 @@ import {
 	getTrendingMoviesQueryOptions,
 } from '@/generated/tmdb/default/default';
 
+const CTA_POSTER_SOURCE_COUNT = 18;
+
+function getCtaPosters(
+	trendingMovies: Array<{ id: number; posterPath: string; title: string }>,
+	popularMovies: Array<{ id: number; posterPath: string; title: string }>,
+) {
+	const seenMovieIds = new Set<number>();
+
+	return [...trendingMovies, ...popularMovies]
+		.filter((movie) => {
+			if (!movie.posterPath || seenMovieIds.has(movie.id)) {
+				return false;
+			}
+
+			seenMovieIds.add(movie.id);
+			return true;
+		})
+		.slice(0, CTA_POSTER_SOURCE_COUNT)
+		.map(({ posterPath, title }) => ({ posterPath, title }));
+}
+
 export const Route = createFileRoute('/_app/')({
 	component: HomePage,
 	beforeLoad(ctx) {
@@ -58,6 +79,8 @@ function HomePage() {
 		subtitle: 'The ones people keep coming back to.',
 		movies: popularMovies,
 	};
+
+	const ctaPosters = getCtaPosters(trendingMovies, popularMovies);
 
 	return (
 		<>
@@ -106,7 +129,7 @@ function HomePage() {
 					</div>
 				</section>
 
-				<HomeCtaSection />
+				<HomeCtaSection posters={ctaPosters} />
 			</main>
 
 			<HomeFooter />

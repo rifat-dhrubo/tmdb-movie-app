@@ -9,6 +9,7 @@ import { DiscoverResultsListNoResults } from './discover-results-list-no-results
 import { Icon } from '@/components/icon';
 import { MovieGrid } from '@/components/movie';
 import { MovieCard } from '@/components/movie-card';
+import { MovieCardReveal } from '@/components/movie-card-reveal';
 import { Button } from '@/components/ui/button';
 import { getDiscoverSortBy } from '@/features/discover/constants';
 import { useDiscoverMovies } from '@/features/discover/hooks/use-discover-movies';
@@ -97,27 +98,28 @@ export function DiscoverResultsList() {
 
 					<div className="mx-auto mt-4 max-w-7xl">
 						<MovieGrid columns="search">
-							{allResults.map((movie) => {
+							{allResults.map((movie, index) => {
 								const movieId = movie.id ?? 0;
 								const movieYear = movie.release_date
 									? new Date(movie.release_date).getFullYear()
 									: 0;
 
 								return (
-									<MovieCard
-										key={movie.id}
-										genres={getGenresFromIds(movie.genre_ids, genreMap)}
-										id={movieId}
-										isPending={isPending(movieId)}
-										isSaved={savedIds.has(movieId)}
-										posterPath={movie.poster_path ?? null}
-										rating={movie.vote_average ?? 0}
-										title={movie.title ?? 'Unknown'}
-										year={movieYear}
-										onToggleWatchlist={() => {
-											void toggle(movieId);
-										}}
-									/>
+									<MovieCardReveal key={movie.id} index={index}>
+										<MovieCard
+											genres={getGenresFromIds(movie.genre_ids, genreMap)}
+											id={movieId}
+											isPending={isPending(movieId)}
+											isSaved={savedIds.has(movieId)}
+											posterPath={movie.poster_path ?? null}
+											rating={movie.vote_average ?? 0}
+											title={movie.title ?? 'Unknown'}
+											year={movieYear}
+											onToggleWatchlist={() => {
+												void toggle(movieId);
+											}}
+										/>
+									</MovieCardReveal>
 								);
 							})}
 						</MovieGrid>

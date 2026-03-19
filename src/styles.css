@@ -388,6 +388,74 @@ code {
 	transform: scale(0.97);
 }
 
+.movie-card {
+	transform: translate3d(0, 0, 0);
+	transition:
+		transform 220ms var(--ease-out),
+		box-shadow 220ms var(--ease-out),
+		border-color 220ms var(--ease-out);
+	will-change: transform, box-shadow;
+}
+
+.movie-card-poster {
+	transform: scale(1);
+	transition:
+		transform 280ms var(--ease-out),
+		filter 280ms var(--ease-out);
+	will-change: transform, filter;
+}
+
+.movie-card-veil {
+	opacity: 1;
+	transition: opacity 220ms var(--ease-out);
+}
+
+.movie-card-sheen {
+	opacity: 0;
+	transform: translate3d(-16%, 0, 0);
+	transition:
+		transform 320ms var(--ease-in-out),
+		opacity 220ms var(--ease-out);
+	will-change: transform, opacity;
+}
+
+.movie-card-stub {
+	transition:
+		background-color 220ms var(--ease-out),
+		border-color 220ms var(--ease-out);
+}
+
+.movie-card-title-underline {
+	transition: transform 180ms var(--ease-out);
+}
+
+.movie-card-action {
+	transition:
+		transform 180ms var(--ease-out),
+		opacity 180ms var(--ease-out),
+		filter 180ms var(--ease-out);
+	will-change: transform, opacity, filter;
+}
+
+.movie-card-reveal {
+	--movie-card-delay: 0ms;
+	opacity: 1;
+	transform: translate3d(0, 0, 0) scale(1);
+	filter: blur(0);
+	transition:
+		transform var(--motion-base) var(--ease-out),
+		opacity var(--motion-base) var(--ease-out),
+		filter var(--motion-fast) var(--ease-out);
+	transition-delay: var(--movie-card-delay);
+	will-change: transform, opacity, filter;
+
+	@starting-style {
+		opacity: 0;
+		transform: translate3d(0, 14px, 0) scale(0.985);
+		filter: blur(10px);
+	}
+}
+
 @keyframes cta-marquee-forward {
 	from {
 		transform: translate3d(0, 0, 0);
@@ -491,6 +559,29 @@ code {
 }
 
 @media (hover: hover) and (pointer: fine) {
+	.movie-card:hover,
+	.movie-card:focus-within {
+		transform: translate3d(0, -6px, 0);
+		box-shadow: var(--shadow-2xl);
+	}
+
+	.movie-card:hover .movie-card-poster,
+	.movie-card:focus-within .movie-card-poster {
+		transform: scale(1.06);
+		filter: saturate(1.04);
+	}
+
+	.movie-card:hover .movie-card-veil,
+	.movie-card:focus-within .movie-card-veil {
+		opacity: 0.86;
+	}
+
+	.movie-card:hover .movie-card-sheen,
+	.movie-card:focus-within .movie-card-sheen {
+		opacity: 0.42;
+		transform: translate3d(16%, 0, 0);
+	}
+
 	.poster-card:hover {
 		transform: translateY(-4px);
 		box-shadow: var(--shadow-md);

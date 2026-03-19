@@ -51,10 +51,13 @@ export function HomeCtaSectionContent({
 				<Button asChild size="xl">
 					<Link to={content.primaryCta.href}>{content.primaryCta.text}</Link>
 				</Button>
-				<Button asChild size="xl" variant="outline">
+				<Button asChild className="group/btn gap-2" size="xl" variant="outline">
 					<Link to={content.secondaryCta.href}>
 						{content.secondaryCta.text}
-						<Icon className="size-3.5" name="arrow_right_bold" />
+						<Icon
+							className="size-3.5 transition-transform duration-200 group-hover/btn:translate-x-1"
+							name="arrow_right_bold"
+						/>
 					</Link>
 				</Button>
 			</motion.div>

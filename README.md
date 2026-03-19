@@ -24,6 +24,10 @@
 
 The product intentionally avoids the feel of a generic streaming dashboard. Its visual language leans on warm editorial minimalism: serif-led hierarchy, restrained chrome, soft surfaces, and motion that supports atmosphere without getting in the way.
 
+## Demo Video
+
+- Google Drive: `[Add demo video link here]`
+
 ### Key Features
 
 - **Editorial home page** with a cinematic hero, trending picks, and popular shelves
