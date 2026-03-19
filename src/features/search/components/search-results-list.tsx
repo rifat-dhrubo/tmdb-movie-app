@@ -52,7 +52,7 @@ export function SearchResultsList({
 							}
 							onToggleSave={onToggleSave}
 							onViewDetails={(id) => {
-								window.location.href = `/film/${id}`;
+								window.location.href = `/movies/${id}`;
 							}}
 						/>
 					))}
