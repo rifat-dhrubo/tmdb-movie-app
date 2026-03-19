@@ -14,6 +14,7 @@ import {
 	FieldGroup,
 	FieldLabel,
 } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 import {
 	InputGroup,
 	InputGroupAddon,
@@ -71,19 +72,17 @@ export function SignUpForm({ onError }: SignUpFormProps) {
 						return (
 							<Field data-invalid={isInvalid}>
 								<FieldLabel htmlFor={field.name}>Email</FieldLabel>
-								<InputGroup>
-									<InputGroupInput
-										aria-invalid={isInvalid}
-										autoComplete="email"
-										id={field.name}
-										name={field.name}
-										placeholder="you@example.com"
-										type="email"
-										value={field.state.value}
-										onBlur={field.handleBlur}
-										onChange={(e) => field.handleChange(e.target.value)}
-									/>
-								</InputGroup>
+								<Input
+									aria-invalid={isInvalid}
+									autoComplete="email"
+									id={field.name}
+									name={field.name}
+									placeholder="you@example.com"
+									type="email"
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(e) => field.handleChange(e.target.value)}
+								/>
 								{isInvalid ? (
 									<FieldError errors={field.state.meta.errors} />
 								) : null}
@@ -180,15 +179,11 @@ export function SignUpForm({ onError }: SignUpFormProps) {
 
 				<Button
 					className="w-full"
-					disabled={signUpMutation.isPending}
+					isLoading={signUpMutation.isPending}
+					loadingText="Creating account..."
 					type="submit"
 				>
-					{signUpMutation.isPending ? (
-						<Icon className="size-4 animate-spin" name="spinner_bold" />
-					) : null}
-					{signUpMutation.isPending
-						? 'Creating account\u2026'
-						: 'Create account'}
+					Create account
 				</Button>
 			</FieldGroup>
 		</form>

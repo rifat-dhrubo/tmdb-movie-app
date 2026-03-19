@@ -15,7 +15,9 @@ import appCss from '../styles.css?url';
 
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { env } from '@/env';
 import type { AuthContextType } from '@/features/auth';
+import { SoundPreferencesProvider } from '@/integrations/sound-preferences';
 import { ThemeProvider } from '@/integrations/theme-provider';
 
 interface MyRouterContext {
@@ -39,12 +41,70 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				href: '/apple-touch-icon.png',
 				sizes: '180x180',
 			},
-			{},
 		],
 		meta: [
 			{
 				name: 'viewport',
 				content: 'width=device-width, initial-scale=1.0',
+			},
+			{
+				name: 'description',
+				content:
+					'Discover films and curate your personal cinema journal. Track what you want to watch and remember what you loved.',
+			},
+			{
+				property: 'og:site_name',
+				content: 'Cine',
+			},
+			{
+				property: 'og:type',
+				content: 'website',
+			},
+			{
+				property: 'og:url',
+				content: env.VITE_PUBLIC_SITE_URL,
+			},
+			{
+				property: 'og:title',
+				content: 'Cine — Curate Your Cinema',
+			},
+			{
+				property: 'og:description',
+				content:
+					'Discover films and curate your personal cinema journal. Track what you want to watch and remember what you loved.',
+			},
+			{
+				property: 'og:image',
+				content: env.VITE_PUBLIC_DEFAULT_OG_IMAGE,
+			},
+			{
+				property: 'og:image:width',
+				content: '1200',
+			},
+			{
+				property: 'og:image:height',
+				content: '630',
+			},
+			{
+				property: 'og:image:alt',
+				content: 'Cine - Curate Your Cinema',
+			},
+			{
+				name: 'twitter:card',
+				content: 'summary_large_image',
+			},
+			{
+				name: 'twitter:title',
+				content: 'Cine — Curate Your Cinema',
+			},
+			{
+				name: 'twitter:description',
+				content:
+					'Discover films and curate your personal cinema journal. Track what you want to watch and remember what you loved.',
+			},
+			{
+				name: 'twitter:image',
+				content: env.VITE_PUBLIC_DEFAULT_OG_IMAGE,
 			},
 		],
 	}),
@@ -59,23 +119,25 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<ThemeProvider forcedTheme="light">
-					<TooltipProvider>
-						{children}
-						<TanStackDevtools
-							config={{
-								position: 'bottom-right',
-							}}
-							plugins={[
-								{
-									name: 'Tanstack Router',
-									render: <TanStackRouterDevtoolsPanel />,
-								},
-								TanStackQueryDevtools,
-							]}
-						/>
-					</TooltipProvider>
-					<Toaster />
+				<ThemeProvider>
+					<SoundPreferencesProvider>
+						<TooltipProvider>
+							{children}
+							<TanStackDevtools
+								config={{
+									position: 'bottom-right',
+								}}
+								plugins={[
+									{
+										name: 'Tanstack Router',
+										render: <TanStackRouterDevtoolsPanel />,
+									},
+									TanStackQueryDevtools,
+								]}
+							/>
+						</TooltipProvider>
+						<Toaster />
+					</SoundPreferencesProvider>
 				</ThemeProvider>
 				<Scripts />
 			</body>

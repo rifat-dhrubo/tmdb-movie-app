@@ -13,7 +13,13 @@ import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteRouteImport } from './routes/_app/route'
+import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppWatchlistRouteImport } from './routes/_app/watchlist'
+import { Route as AppSearchRouteImport } from './routes/_app/search'
+import { Route as AppDiscoverRouteImport } from './routes/_app/discover'
+import { Route as AppMoviesMovieIdRouteImport } from './routes/_app/movies.$movieId'
+import { Route as AppCastCastIdRouteImport } from './routes/_app/cast.$castId'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -35,55 +41,121 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppWatchlistRoute = AppWatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSearchRoute = AppSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDiscoverRoute = AppDiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppMoviesMovieIdRoute = AppMoviesMovieIdRouteImport.update({
+  id: '/movies/$movieId',
+  path: '/movies/$movieId',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppCastCastIdRoute = AppCastCastIdRouteImport.update({
+  id: '/cast/$castId',
+  path: '/cast/$castId',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/discover': typeof AppDiscoverRoute
+  '/search': typeof AppSearchRoute
+  '/watchlist': typeof AppWatchlistRoute
+  '/': typeof AppIndexRoute
+  '/cast/$castId': typeof AppCastCastIdRoute
+  '/movies/$movieId': typeof AppMoviesMovieIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/discover': typeof AppDiscoverRoute
+  '/search': typeof AppSearchRoute
+  '/watchlist': typeof AppWatchlistRoute
+  '/': typeof AppIndexRoute
+  '/cast/$castId': typeof AppCastCastIdRoute
+  '/movies/$movieId': typeof AppMoviesMovieIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_app': typeof AppRouteRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/_app/discover': typeof AppDiscoverRoute
+  '/_app/search': typeof AppSearchRoute
+  '/_app/watchlist': typeof AppWatchlistRoute
+  '/_app/': typeof AppIndexRoute
+  '/_app/cast/$castId': typeof AppCastCastIdRoute
+  '/_app/movies/$movieId': typeof AppMoviesMovieIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/forgot-password'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
+    | '/discover'
+    | '/search'
+    | '/watchlist'
+    | '/'
+    | '/cast/$castId'
+    | '/movies/$movieId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/reset-password' | '/sign-in' | '/sign-up'
+  to:
+    | '/forgot-password'
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
+    | '/discover'
+    | '/search'
+    | '/watchlist'
+    | '/'
+    | '/cast/$castId'
+    | '/movies/$movieId'
   id:
     | '__root__'
-    | '/'
+    | '/_app'
     | '/forgot-password'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
+    | '/_app/discover'
+    | '/_app/search'
+    | '/_app/watchlist'
+    | '/_app/'
+    | '/_app/cast/$castId'
+    | '/_app/movies/$movieId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignInRoute: typeof SignInRoute
@@ -120,18 +192,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/': {
+      id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/watchlist': {
+      id: '/_app/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof AppWatchlistRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/search': {
+      id: '/_app/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof AppSearchRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/discover': {
+      id: '/_app/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof AppDiscoverRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/movies/$movieId': {
+      id: '/_app/movies/$movieId'
+      path: '/movies/$movieId'
+      fullPath: '/movies/$movieId'
+      preLoaderRoute: typeof AppMoviesMovieIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/cast/$castId': {
+      id: '/_app/cast/$castId'
+      path: '/cast/$castId'
+      fullPath: '/cast/$castId'
+      preLoaderRoute: typeof AppCastCastIdRouteImport
+      parentRoute: typeof AppRouteRoute
     }
   }
 }
 
+interface AppRouteRouteChildren {
+  AppDiscoverRoute: typeof AppDiscoverRoute
+  AppSearchRoute: typeof AppSearchRoute
+  AppWatchlistRoute: typeof AppWatchlistRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppCastCastIdRoute: typeof AppCastCastIdRoute
+  AppMoviesMovieIdRoute: typeof AppMoviesMovieIdRoute
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppDiscoverRoute: AppDiscoverRoute,
+  AppSearchRoute: AppSearchRoute,
+  AppWatchlistRoute: AppWatchlistRoute,
+  AppIndexRoute: AppIndexRoute,
+  AppCastCastIdRoute: AppCastCastIdRoute,
+  AppMoviesMovieIdRoute: AppMoviesMovieIdRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignInRoute: SignInRoute,

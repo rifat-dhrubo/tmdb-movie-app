@@ -51,7 +51,7 @@ export function ForgotPasswordForm({ onError }: ForgotPasswordFormProps) {
 
 	if (isSuccess) {
 		return (
-			<Alert className="border-success/20 bg-card text-success-foreground">
+			<Alert className="animate-fade-in border-success/20 bg-card text-success-foreground">
 				<Icon className="size-4" name="check_circle_bold" />
 				<AlertTitle>Check your email</AlertTitle>
 				<AlertDescription>
@@ -104,13 +104,11 @@ export function ForgotPasswordForm({ onError }: ForgotPasswordFormProps) {
 
 				<Button
 					className="w-full"
-					disabled={forgotPasswordMutation.isPending}
+					isLoading={forgotPasswordMutation.isPending}
+					loadingText="Sending..."
 					type="submit"
 				>
-					{forgotPasswordMutation.isPending ? (
-						<Icon className="size-4 animate-spin" name="spinner_bold" />
-					) : null}
-					{forgotPasswordMutation.isPending ? 'Sending...' : 'Send reset link'}
+					Send reset link
 				</Button>
 			</FieldGroup>
 		</form>
