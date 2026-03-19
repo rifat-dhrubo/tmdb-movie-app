@@ -17,6 +17,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { env } from '@/env';
 import type { AuthContextType } from '@/features/auth';
+import { SoundPreferencesProvider } from '@/integrations/sound-preferences';
 import { ThemeProvider } from '@/integrations/theme-provider';
 
 interface MyRouterContext {
@@ -119,22 +120,24 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ThemeProvider>
-					<TooltipProvider>
-						{children}
-						<TanStackDevtools
-							config={{
-								position: 'bottom-right',
-							}}
-							plugins={[
-								{
-									name: 'Tanstack Router',
-									render: <TanStackRouterDevtoolsPanel />,
-								},
-								TanStackQueryDevtools,
-							]}
-						/>
-					</TooltipProvider>
-					<Toaster />
+					<SoundPreferencesProvider>
+						<TooltipProvider>
+							{children}
+							<TanStackDevtools
+								config={{
+									position: 'bottom-right',
+								}}
+								plugins={[
+									{
+										name: 'Tanstack Router',
+										render: <TanStackRouterDevtoolsPanel />,
+									},
+									TanStackQueryDevtools,
+								]}
+							/>
+						</TooltipProvider>
+						<Toaster />
+					</SoundPreferencesProvider>
 				</ThemeProvider>
 				<Scripts />
 			</body>

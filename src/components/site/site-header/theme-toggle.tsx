@@ -2,11 +2,16 @@ import { Moon, Sun } from '@phosphor-icons/react';
 import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
+import { useSound } from '@/hooks/use-sound';
+import { hoverTickSound } from '@/lib/hover-tick';
 
 export function ThemeToggle() {
 	const { resolvedTheme, setTheme } = useTheme();
+	const [playHoverTick] = useSound(hoverTickSound);
 
 	function toggleTheme() {
+		playHoverTick();
+
 		if (resolvedTheme === 'light') {
 			setTheme('dark');
 		} else {

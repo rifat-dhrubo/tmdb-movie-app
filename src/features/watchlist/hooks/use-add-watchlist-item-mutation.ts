@@ -6,10 +6,13 @@ import { sortWatchlistItems } from '../lib/watchlist-selectors';
 import type { WatchlistItem } from '../types/watchlist-types';
 
 import { useAuth } from '@/features/auth';
+import { useSound } from '@/hooks/use-sound';
+import { confirmation003Sound } from '@/lib/confirmation-003';
 
 export function useAddWatchlistItemMutation() {
 	const queryClient = useQueryClient();
 	const { user } = useAuth();
+	const [playConfirmation] = useSound(confirmation003Sound);
 
 	return useMutation({
 		mutationFn: async (movieId: number) => {
@@ -20,6 +23,8 @@ export function useAddWatchlistItemMutation() {
 			return addWatchlistItem(user.uid, movieId);
 		},
 		onSuccess: (item) => {
+			playConfirmation();
+
 			if (!user?.uid) {
 				return;
 			}

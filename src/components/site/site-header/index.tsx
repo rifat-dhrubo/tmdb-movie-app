@@ -4,6 +4,7 @@ import React from 'react';
 
 import { SiteHeaderDesktopMenu } from './site-header-desktop-menu';
 import { SiteHeaderMobileMenuSheet } from './site-header-mobile-menu-sheet';
+import { SoundToggle } from './sound-toggle';
 import { ThemeToggle } from './theme-toggle';
 
 import { SiteLogo } from '@/components/site/site-logo';
@@ -48,6 +49,7 @@ export function SiteHeader() {
 
 					<ClientOnly>
 						<div className="hidden items-center justify-end gap-2 md:flex">
+							<SoundToggle />
 							<ThemeToggle />
 							{user ? (
 								<DropdownMenu>
