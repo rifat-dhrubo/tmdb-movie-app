@@ -7,7 +7,6 @@ import { Icon } from '@/components/icon';
 import { Spacer } from '@/components/spacer';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
-import { NoiseBackground } from '@/components/ui/noise-background';
 import { Skeleton } from '@/components/ui/skeleton';
 import { buildTmdbImageUrl } from '@/lib/tmdb/image-config';
 import { cn } from '@/lib/utils';
@@ -37,11 +36,11 @@ interface MovieCardProps extends Omit<
 > {
 	id: number;
 	title: string;
-	posterPath: string;
+	posterPath: string | null;
 	rating: number;
-	director: string;
+	director?: string;
 	year: number;
-	genres: Array<string>;
+	genres?: Array<string>;
 	catalogNumber?: string;
 	onAddToWatchlist: () => void;
 	isLoading?: boolean;
@@ -101,10 +100,17 @@ export function MovieCard({
 		size: config.imageSize,
 	});
 
-	const displayGenres =
-		genres.length > 2
-			? `${genres.slice(0, 2).join(' / ')}`
-			: genres.join(' / ');
+	function getDisplayGenres(genreList: Array<string> | undefined): string {
+		if (!genreList || genreList.length === 0) {
+			return '-';
+		}
+		if (genreList.length > 2) {
+			return genreList.slice(0, 2).join(' / ');
+		}
+		return genreList.join(' / ');
+	}
+
+	const displayGenres = getDisplayGenres(genres);
 
 	return (
 		<div
@@ -191,7 +197,7 @@ export function MovieCard({
 				<Spacer size={4}></Spacer>
 
 				<div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
-					<InfoSection label="dir" value={director} />
+					{director ? <InfoSection label="dir" value={director} /> : null}
 					<InfoSection label="year" value={year} />
 					<InfoSection label="genre" value={displayGenres} />
 				</div>
@@ -227,46 +233,31 @@ export function MovieCardSkeleton({ size = 'md' }: { size?: MovieCardSize }) {
 				movieCardVariants({ size }),
 			)}
 		>
-			<NoiseBackground
-				gradientColors={[
-					'rgb(255, 100, 150)',
-					'rgb(100, 150, 255)',
-					'rgb(255, 200, 100)',
-				]}
+			<div
+				className={cn('relative overflow-hidden bg-muted', config.posterClass)}
 			>
-				<div
-					className={cn(
-						'relative overflow-hidden bg-muted',
-						config.posterClass,
-					)}
-				>
-					<Skeleton className="absolute inset-0" />
-				</div>
+				<Skeleton className="absolute inset-0" />
+			</div>
 
-				<div
-					className={cn(
-						'border-t border-dashed border-background/20 bg-foreground',
-						config.stubClass,
-						config.padding,
-					)}
-				>
-					<Skeleton className="h-6 w-3/4 bg-background/10" />
-					<div className="mt-3 space-y-2">
-						<div className="flex gap-3">
-							<Skeleton className="h-3 w-6 bg-background/10" />
-							<Skeleton className="h-4 w-32 bg-background/10" />
-						</div>
-						<div className="flex gap-3">
-							<Skeleton className="h-3 w-8 bg-background/10" />
-							<Skeleton className="h-4 w-12 bg-background/10" />
-						</div>
-						<div className="flex gap-3">
-							<Skeleton className="h-3 w-8 bg-background/10" />
-							<Skeleton className="h-4 w-24 bg-background/10" />
-						</div>
+			<div
+				className={cn(
+					'border-t border-dashed border-background/20 bg-foreground',
+					config.stubClass,
+					config.padding,
+				)}
+			>
+				<Skeleton className="h-6 w-3/4 bg-background/10" />
+				<div className="mt-3 space-y-2">
+					<div className="flex gap-3">
+						<Skeleton className="h-3 w-8 bg-background/10" />
+						<Skeleton className="h-4 w-12 bg-background/10" />
+					</div>
+					<div className="flex gap-3">
+						<Skeleton className="h-3 w-8 bg-background/10" />
+						<Skeleton className="h-4 w-24 bg-background/10" />
 					</div>
 				</div>
-			</NoiseBackground>
+			</div>
 		</div>
 	);
 }

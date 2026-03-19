@@ -19,9 +19,16 @@ const {
 interface HomeEditorialShelfProps {
 	shelf: Shelf;
 	layout: 'text-left' | 'text-right';
+	isLoading?: boolean;
+	isError?: boolean;
 }
 
-export function HomeEditorialShelf({ layout, shelf }: HomeEditorialShelfProps) {
+export function HomeEditorialShelf({
+	isError,
+	isLoading,
+	layout,
+	shelf,
+}: HomeEditorialShelfProps) {
 	const initial = useReducedMotionInitial();
 	const isTextLeft = layout === 'text-left';
 
@@ -41,6 +48,8 @@ export function HomeEditorialShelf({ layout, shelf }: HomeEditorialShelfProps) {
 					variants={textVariants}
 				/>
 				<HomeEditorialShelfScrollContent
+					isError={isError}
+					isLoading={isLoading}
 					movies={shelf.movies}
 					variants={itemVariants}
 				/>
@@ -61,6 +70,8 @@ export function HomeEditorialShelf({ layout, shelf }: HomeEditorialShelfProps) {
 							variants={textVariants}
 						/>
 						<HomeEditorialShelfScrollContent
+							isError={isError}
+							isLoading={isLoading}
 							movies={shelf.movies}
 							variants={itemVariants}
 						/>
@@ -68,6 +79,8 @@ export function HomeEditorialShelf({ layout, shelf }: HomeEditorialShelfProps) {
 				) : (
 					<>
 						<HomeEditorialShelfScrollContent
+							isError={isError}
+							isLoading={isLoading}
 							movies={shelf.movies}
 							variants={itemVariants}
 						/>

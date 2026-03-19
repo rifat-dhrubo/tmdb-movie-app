@@ -62,7 +62,7 @@ export interface ShelfMovie {
 	year: number;
 	posterPath: string;
 	rating: number;
-	director: string;
+	director?: string;
 	genres: Array<string>;
 	catalogNumber?: string;
 }

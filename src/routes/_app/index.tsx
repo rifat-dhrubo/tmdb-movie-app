@@ -5,13 +5,54 @@ import { HomeEditorialShelf } from '@/features/home/components/home-editorial-sh
 import { HomeFooter } from '@/features/home/components/home-footer';
 import { HomeHero } from '@/features/home/components/home-hero';
 import { ValuePropsSection } from '@/features/home/components/value-props-section';
-import { SHELVES } from '@/features/home/constants';
+import { usePopularShelf } from '@/features/home/hooks/use-popular-shelf';
+import { useTrendingShelf } from '@/features/home/hooks/use-trending-shelf';
+import {
+	getGenreMovieListQueryOptions,
+	getMoviePopularListQueryOptions,
+	getTrendingMoviesQueryOptions,
+} from '@/generated/tmdb/default/default';
 
 export const Route = createFileRoute('/_app/')({
 	component: HomePage,
+	beforeLoad(ctx) {
+		void ctx.context.queryClient.ensureQueryData(
+			getTrendingMoviesQueryOptions(undefined, 'week'),
+		);
+		void ctx.context.queryClient.ensureQueryData(
+			getMoviePopularListQueryOptions(),
+		);
+		void ctx.context.queryClient.ensureQueryData(
+			getGenreMovieListQueryOptions(),
+		);
+	},
 });
 
 function HomePage() {
+	const {
+		isError: isTrendingError,
+		isLoading: isTrendingLoading,
+		movies: trendingMovies,
+	} = useTrendingShelf();
+
+	const {
+		isError: isPopularError,
+		isLoading: isPopularLoading,
+		movies: popularMovies,
+	} = usePopularShelf();
+
+	const trendingShelf = {
+		title: 'Trending',
+		subtitle: 'What people are watching right now.',
+		movies: trendingMovies,
+	};
+
+	const popularShelf = {
+		title: 'Popular',
+		subtitle: 'The ones people keep coming back to.',
+		movies: popularMovies,
+	};
+
 	return (
 		<>
 			<main>
@@ -19,13 +60,25 @@ function HomePage() {
 
 				<section className="border-t py-16 md:py-24">
 					<div className="container mx-auto px-4 md:px-6">
-						<HomeEditorialShelf layout="text-left" shelf={SHELVES[0]} />
+						<HomeEditorialShelf
+							key={JSON.stringify(trendingShelf)}
+							isError={isTrendingError}
+							isLoading={isTrendingLoading}
+							layout="text-left"
+							shelf={trendingShelf}
+						/>
 					</div>
 				</section>
 
 				<section className="border-t py-16 md:py-24">
 					<div className="container mx-auto px-4 md:px-6">
-						<HomeEditorialShelf layout="text-right" shelf={SHELVES[1]} />
+						<HomeEditorialShelf
+							key={JSON.stringify(popularShelf)}
+							isError={isPopularError}
+							isLoading={isPopularLoading}
+							layout="text-right"
+							shelf={popularShelf}
+						/>
 					</div>
 				</section>
 
