@@ -29,10 +29,8 @@ export function SiteHeader() {
 			}`}
 		>
 			<div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-				{/* Left - Logo */}
 				<SiteLogo />
 
-				{/* Center - Desktop nav */}
 				<nav className="hidden items-center gap-6 lg:flex">
 					<Link
 						className="text-sm font-medium transition-colors hover:text-primary"
@@ -48,7 +46,6 @@ export function SiteHeader() {
 					</Link>
 				</nav>
 
-				{/* Right - Auth state */}
 				<div className="flex items-center gap-4">
 					{user ? (
 						<div className="hidden items-center gap-4 lg:flex">
@@ -60,9 +57,6 @@ export function SiteHeader() {
 						<div className="hidden items-center gap-3 lg:flex">
 							<Button asChild variant="ghost">
 								<Link to="/sign-in">Sign in</Link>
-							</Button>
-							<Button asChild>
-								<Link to="/sign-up">Create account</Link>
 							</Button>
 						</div>
 					)}

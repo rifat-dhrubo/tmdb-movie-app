@@ -3,6 +3,7 @@ import React from 'react';
 
 import { SiteLogo } from './site-logo';
 
+import { Icon } from '@/components/icon';
 import {
 	Sheet,
 	SheetContent,
@@ -24,19 +25,7 @@ export function MobileNavSheet() {
 	return (
 		<Sheet open={open} onOpenChange={setOpen}>
 			<SheetTrigger className="motion-pressable flex size-10 items-center justify-center rounded-md hover:bg-muted lg:hidden">
-				<svg
-					className="size-5"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth={2}
-					viewBox="0 0 24 24"
-				>
-					<path
-						d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
+				<Icon className="size-5" name="list_bold" />
 			</SheetTrigger>
 			<SheetContent side="right">
 				<SheetHeader>
