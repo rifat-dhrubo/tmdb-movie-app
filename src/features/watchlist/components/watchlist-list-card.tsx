@@ -38,7 +38,7 @@ export function WatchlistListCard({
 			<Link
 				className="group relative overflow-hidden rounded-lg border border-border bg-muted"
 				params={{ movieId: item.tmdbId }}
-				to="/movies/$movieId"
+				to="/movie/$movieId"
 			>
 				<div className="relative aspect-[4/3] md:aspect-[3/4]">
 					{imageUrl ? (
@@ -68,7 +68,7 @@ export function WatchlistListCard({
 					<Link
 						className="font-serif text-2xl leading-none text-background transition-colors hover:text-primary/80 dark:text-card-foreground"
 						params={{ movieId: item.tmdbId }}
-						to="/movies/$movieId"
+						to="/movie/$movieId"
 					>
 						{item.title}
 					</Link>

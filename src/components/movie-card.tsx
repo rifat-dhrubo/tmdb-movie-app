@@ -142,7 +142,7 @@ export function MovieCard({
 				aria-label={`Open details for ${title}`}
 				className="absolute inset-0 z-10 rounded-sm focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden"
 				params={{ movieId: id }}
-				to="/movies/$movieId"
+				to="/movie/$movieId"
 			>
 				<span className="sr-only">Open details for {title}</span>
 			</Link>

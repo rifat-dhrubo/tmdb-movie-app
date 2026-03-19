@@ -80,7 +80,7 @@ function RecommendationCard({ movie }: RecommendationCardProps) {
 	if (!movieId) return null;
 
 	return (
-		<Link className="group block" params={{ movieId }} to="/movies/$movieId">
+		<Link className="group block" params={{ movieId }} to="/movie/$movieId">
 			<div className="relative aspect-[2/3] overflow-hidden rounded-sm bg-muted">
 				{posterUrl ? (
 					<img

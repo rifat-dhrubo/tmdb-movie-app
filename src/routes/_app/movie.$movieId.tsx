@@ -10,7 +10,7 @@ const movieDetailSchema = z.object({
 	movieId: z.coerce.number().positive(),
 });
 
-export const Route = createFileRoute('/_app/movies/$movieId')({
+export const Route = createFileRoute('/_app/movie/$movieId')({
 	component: MovieDetailPage,
 	params: {
 		parse: (params) => movieDetailSchema.parse(params),
@@ -56,7 +56,7 @@ export const Route = createFileRoute('/_app/movies/$movieId')({
 				path: movie.poster_path,
 				size: 'w780',
 			}) ?? `${env.VITE_PUBLIC_SITE_URL}/og-image.svg`;
-		const url = `${env.VITE_PUBLIC_SITE_URL}/movies/${movie.id}`;
+		const url = `${env.VITE_PUBLIC_SITE_URL}/movie/${movie.id}`;
 
 		return {
 			meta: [
