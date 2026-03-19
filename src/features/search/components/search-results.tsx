@@ -25,13 +25,14 @@ interface SearchResultsProps {
 	hasNextPage: boolean;
 	onLoadMore: () => void;
 	onRetry: () => void;
-	savedIds: Set<number>;
 	onToggleSave: (id: number) => void;
+	genreMap: Map<number, string>;
 }
 
 export function SearchResults({
 	committedQuery,
 	data,
+	genreMap,
 	hasNextPage,
 	isError,
 	isFetchingNextPage,
@@ -43,7 +44,6 @@ export function SearchResults({
 	onToggleSave,
 	onYearChange,
 	query,
-	savedIds,
 	year,
 }: SearchResultsProps) {
 	const allResults = data?.pages.flatMap((page) => page.results ?? []) ?? [];
@@ -84,10 +84,12 @@ export function SearchResults({
 						<SearchResultsList
 							committedQuery={committedQuery}
 							data={data}
+							genreMap={genreMap}
 							hasNextPage={hasNextPage}
+							isError={isError}
 							isFetchingNextPage={isFetchingNextPage}
-							savedIds={savedIds}
 							onLoadMore={onLoadMore}
+							onRetry={onRetry}
 							onToggleSave={onToggleSave}
 						/>
 					)}

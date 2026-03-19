@@ -1,12 +1,11 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import { z } from 'zod';
 
 import { SearchResults } from '@/features/search/components/search-results';
 import { useSearchMovies } from '@/features/search/hooks/use-search-movies';
-import {
-	useToggleWatchlistItemMutation,
-	useWatchlistSavedIds,
-} from '@/features/watchlist';
+import { useToggleWatchlistItemMutation } from '@/features/watchlist';
+import { useGenreMovieList } from '@/generated/tmdb/default/default';
 import { useDebouncedSearchParam } from '@/hooks/use-debounced-search-param';
 
 const searchSchema = z.object({
@@ -30,8 +29,19 @@ function SearchPage() {
 		setValue: setQuery,
 	} = useDebouncedSearchParam(Route, 'q');
 
-	const { savedIds } = useWatchlistSavedIds();
 	const { toggle } = useToggleWatchlistItemMutation();
+	const { data: genresData } = useGenreMovieList();
+
+	const genreMap = React.useMemo(() => {
+		const map = new Map<number, string>();
+		if (!genresData?.genres) return map;
+		for (const genre of genresData.genres) {
+			if (genre.id !== undefined && genre.name) {
+				map.set(genre.id, genre.name);
+			}
+		}
+		return map;
+	}, [genresData]);
 
 	const {
 		data,
@@ -80,12 +90,12 @@ function SearchPage() {
 			<SearchResults
 				committedQuery={committedQuery}
 				data={data}
+				genreMap={genreMap}
 				hasNextPage={hasNextPage}
 				isError={isError}
 				isFetchingNextPage={isFetchingNextPage}
 				isLoading={isLoading}
 				query={query}
-				savedIds={savedIds}
 				year={year}
 				onLoadMore={() => void fetchNextPage()}
 				onQueryChange={setQuery}
