@@ -1,6 +1,5 @@
 export { AuthContext } from './context/auth-context';
 export { AuthContextProvider } from './context/auth-provider';
-export { AuthLayout } from './components/auth-layout';
 export { AuthPosterStack as PosterStack } from './components/auth-poster-stack';
 export { ForgotPasswordForm } from './components/forgot-password-form';
 export { ResetPasswordForm } from './components/reset-password-form';
