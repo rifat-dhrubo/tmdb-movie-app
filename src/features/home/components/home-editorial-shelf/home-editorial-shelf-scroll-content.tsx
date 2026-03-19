@@ -1,8 +1,7 @@
 import { motion } from 'motion/react';
 import type { Variants } from 'motion/react';
 
-import { PosterCard } from '../poster-card';
-
+import { MovieCard } from '@/components/movie-card';
 import type { Shelf } from '@/features/home/constants';
 
 interface HomeEditorialShelfScrollContentProps {
@@ -21,13 +20,21 @@ export function HomeEditorialShelfScrollContent({
 		>
 			{movies.map((movie) => (
 				<motion.div key={movie.id} className="snap-start" variants={variants}>
-					<PosterCard
-						id={movie.id}
+					<MovieCard
+						catalogNumber={movie.catalogNumber}
+						director={movie.director}
+						genres={movie.genres}
 						posterPath={movie.posterPath}
 						rating={movie.rating}
-						size="xl"
+						size="lg"
 						title={movie.title}
 						year={movie.year}
+						onAddToWatchlist={() => {
+							console.log('Add to watchlist:', movie.id);
+						}}
+						onTitleClick={() => {
+							window.location.href = `/movie/${movie.id}`;
+						}}
 					/>
 				</motion.div>
 			))}

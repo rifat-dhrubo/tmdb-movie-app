@@ -8,6 +8,8 @@ export const iconNames = [
 	'warning_circle_bold',
 	'warning_bold',
 	'translate_bold',
+	'star_fill',
+	'star_bold',
 	'spinner_bold',
 	'question_bold',
 	'pencil_bold',

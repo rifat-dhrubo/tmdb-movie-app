@@ -1,5 +1,4 @@
 import { motion, useReducedMotion } from 'motion/react';
-import type { Variants } from 'motion/react';
 
 import {
 	DESKTOP_PRIMARY_POSTERS,
@@ -11,30 +10,10 @@ import { HomeCtaSectionPosterRail } from './home-cta-section-poster-rail';
 import type { CtaContent } from './types';
 
 import { useAuth } from '@/features/auth';
+import { homeVariants } from '@/features/home/lib/motion';
 import { cn } from '@/lib/utils';
 
-const containerVariants: Variants = {
-	hidden: { opacity: 1 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.1,
-			delayChildren: 0.05,
-		},
-	},
-};
-
-const itemVariants: Variants = {
-	hidden: { opacity: 0, y: 20 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			duration: 0.5,
-			ease: [0.23, 1, 0.32, 1] as [number, number, number, number],
-		},
-	},
-};
+const { container: containerVariants, item: itemVariants } = homeVariants.cta;
 
 function getCtaContent(user: ReturnType<typeof useAuth>['user']): CtaContent {
 	return user

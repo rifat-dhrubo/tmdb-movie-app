@@ -1,36 +1,17 @@
-import { motion, useReducedMotion } from 'motion/react';
-import type { Variants } from 'motion/react';
+import { motion } from 'motion/react';
 
-const containerVariants: Variants = {
-	hidden: { opacity: 1 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.08,
-			delayChildren: 0.1,
-		},
-	},
-};
+import { homeVariants, useReducedMotionInitial } from '../lib/motion';
 
-const itemVariants: Variants = {
-	hidden: { opacity: 0, y: 30 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			duration: 0.5,
-			ease: [0.23, 1, 0.32, 1] as [number, number, number, number],
-		},
-	},
-};
+const { container: containerVariants, item: itemVariants } =
+	homeVariants.section;
 
 export function ValuePropsSection() {
-	const shouldReduceMotion = useReducedMotion();
+	const initial = useReducedMotionInitial();
 
 	return (
 		<motion.div
 			className="grid gap-12 md:grid-cols-[1fr_auto_1fr] md:gap-16"
-			initial={shouldReduceMotion ? 'visible' : 'hidden'}
+			initial={initial}
 			variants={containerVariants}
 			viewport={{ amount: 0.2, once: true }}
 			whileInView="visible"

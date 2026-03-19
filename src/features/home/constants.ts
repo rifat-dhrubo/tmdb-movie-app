@@ -48,12 +48,12 @@ export interface CascadePosition {
 export const CASCADE_ORIGIN_X = 300;
 
 export const CASCADE_POSITIONS: Array<CascadePosition> = [
-	{ x: 0, y: 20, rotate: -6, zIndex: 1 },
-	{ x: 100, y: 0, rotate: -3, zIndex: 2 },
-	{ x: 200, y: 10, rotate: 0, zIndex: 3 },
-	{ x: 300, y: -5, rotate: 2, zIndex: 4 },
-	{ x: 400, y: 5, rotate: 4, zIndex: 5 },
-	{ x: 500, y: -10, rotate: 5, zIndex: 6 },
+	{ x: 0, y: 25, rotate: -10, zIndex: 1 },
+	{ x: 65, y: 10, rotate: -5, zIndex: 2 },
+	{ x: 130, y: 0, rotate: -1, zIndex: 3 },
+	{ x: 195, y: 0, rotate: 2, zIndex: 4 },
+	{ x: 260, y: 8, rotate: 5, zIndex: 5 },
+	{ x: 325, y: 20, rotate: 8, zIndex: 6 },
 ];
 
 export interface ShelfMovie {
@@ -61,7 +61,10 @@ export interface ShelfMovie {
 	title: string;
 	year: number;
 	posterPath: string;
-	rating?: number;
+	rating: number;
+	director: string;
+	genres: Array<string>;
+	catalogNumber?: string;
 }
 
 export interface Shelf {
@@ -82,6 +85,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2007,
 				posterPath: '/fa0RDkAlCec0STeMNAhPaF89q6U.jpg',
 				rating: 8.2,
+				director: 'Paul Thomas Anderson',
+				genres: ['Drama', 'History'],
+				catalogNumber: '001A',
 			},
 			{
 				id: 2,
@@ -89,6 +95,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2007,
 				posterPath: '/6d5XOczc226jECq0LIX0siKtgHR.jpg',
 				rating: 8.2,
+				director: 'Joel Coen, Ethan Coen',
+				genres: ['Crime', 'Thriller'],
+				catalogNumber: '002A',
 			},
 			{
 				id: 3,
@@ -96,6 +105,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2012,
 				posterPath: '/rUSjbyvYWN9H4az8xt0tDtU7I6v.jpg',
 				rating: 7.2,
+				director: 'Paul Thomas Anderson',
+				genres: ['Drama'],
+				catalogNumber: '003A',
 			},
 			{
 				id: 4,
@@ -103,6 +115,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2007,
 				posterPath: '/6YmeO4pB7XTh8P8F960O1uA14JO.jpg',
 				rating: 7.7,
+				director: 'David Fincher',
+				genres: ['Crime', 'Drama', 'Mystery'],
+				catalogNumber: '004A',
 			},
 			{
 				id: 5,
@@ -110,6 +125,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2013,
 				posterPath: '/jsS3a3ep2KyBVmmiwaz3LvK49b1.jpg',
 				rating: 8.2,
+				director: 'Denis Villeneuve',
+				genres: ['Crime', 'Drama', 'Thriller'],
+				catalogNumber: '005A',
 			},
 			{
 				id: 6,
@@ -117,6 +135,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2014,
 				posterPath: '/j9HrX8f7GbZQm1BrBiR40uFQZSb.jpg',
 				rating: 7.8,
+				director: 'Dan Gilroy',
+				genres: ['Crime', 'Drama', 'Thriller'],
+				catalogNumber: '006A',
 			},
 			{
 				id: 7,
@@ -124,6 +145,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2011,
 				posterPath: '/602vevIURmpDfzbnv5Ubi6wIkQm.jpg',
 				rating: 7.8,
+				director: 'Nicolas Winding Refn',
+				genres: ['Action', 'Crime', 'Drama'],
+				catalogNumber: '007A',
 			},
 			{
 				id: 8,
@@ -131,6 +155,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2014,
 				posterPath: '/7fn624j5lj3xTme2SgiLCeuedmO.jpg',
 				rating: 8.5,
+				director: 'Damien Chazelle',
+				genres: ['Drama', 'Music'],
+				catalogNumber: '008A',
 			},
 		],
 	},
@@ -144,6 +171,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 1995,
 				posterPath: '/kf1Jb1c2JAOqjuzA3H4oDM263uB.jpg',
 				rating: 8.1,
+				director: 'Richard Linklater',
+				genres: ['Drama', 'Romance'],
+				catalogNumber: '009A',
 			},
 			{
 				id: 10,
@@ -151,6 +181,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2014,
 				posterPath: '/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg',
 				rating: 8.1,
+				director: 'Wes Anderson',
+				genres: ['Adventure', 'Comedy', 'Crime'],
+				catalogNumber: '010A',
 			},
 			{
 				id: 11,
@@ -158,6 +191,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2001,
 				posterPath: '/nSxDa3M9aMvGVLoItzWTepQ5h5d.jpg',
 				rating: 8.3,
+				director: 'Jean-Pierre Jeunet',
+				genres: ['Comedy', 'Romance'],
+				catalogNumber: '011A',
 			},
 			{
 				id: 12,
@@ -165,6 +201,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2016,
 				posterPath: '/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg',
 				rating: 8.0,
+				director: 'Damien Chazelle',
+				genres: ['Comedy', 'Drama', 'Music'],
+				catalogNumber: '012A',
 			},
 			{
 				id: 13,
@@ -172,6 +211,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2011,
 				posterPath: '/4wBG5kbfagTQclETblPRRGihk0I.jpg',
 				rating: 7.7,
+				director: 'Woody Allen',
+				genres: ['Comedy', 'Fantasy', 'Romance'],
+				catalogNumber: '013A',
 			},
 			{
 				id: 14,
@@ -179,6 +221,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2013,
 				posterPath: '/eCOtqtfvn7mxGl6nfmq4b1exJRc.jpg',
 				rating: 8.0,
+				director: 'Spike Jonze',
+				genres: ['Drama', 'Romance', 'Sci-Fi'],
+				catalogNumber: '014A',
 			},
 			{
 				id: 15,
@@ -186,6 +231,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2003,
 				posterPath: '/3jCLmYDIIiSMPujbwygNpqdpM8N.jpg',
 				rating: 7.7,
+				director: 'Sofia Coppola',
+				genres: ['Comedy', 'Drama'],
+				catalogNumber: '015A',
 			},
 			{
 				id: 16,
@@ -193,6 +241,9 @@ export const SHELVES: Array<Shelf> = [
 				year: 2004,
 				posterPath: '/5MwkWH9tYHv3mV9OdYTMR5qreIz.jpg',
 				rating: 8.3,
+				director: 'Michel Gondry',
+				genres: ['Drama', 'Romance', 'Sci-Fi'],
+				catalogNumber: '016A',
 			},
 		],
 	},
