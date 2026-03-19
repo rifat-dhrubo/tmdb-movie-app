@@ -47,7 +47,7 @@ export function HomeCtaSection() {
 			className="relative overflow-hidden bg-(--card-dark)"
 			initial={shouldReduceMotion ? 'visible' : 'hidden'}
 			variants={containerVariants}
-			viewport={{ amount: 0.3, once: true }}
+			viewport={{ amount: 0.3, once: false }}
 			whileInView="visible"
 		>
 			<div

@@ -8,6 +8,7 @@ import { routeTree } from './routeTree.gen.ts';
 
 import { RouterErrorComponent } from '@/components/route-error-component';
 import { AuthContextProvider } from '@/features/auth';
+import { WatchlistLiveSyncProvider } from '@/features/watchlist';
 
 // Create a new router instance
 export const getRouter = () => {
@@ -25,7 +26,9 @@ export const getRouter = () => {
 			return (
 				<AuthContextProvider>
 					<TanStackQueryProvider.Provider {...rqContext}>
-						{props.children}
+						<WatchlistLiveSyncProvider>
+							{props.children}
+						</WatchlistLiveSyncProvider>
 					</TanStackQueryProvider.Provider>
 				</AuthContextProvider>
 			);

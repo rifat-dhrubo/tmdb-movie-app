@@ -27,7 +27,7 @@ export function HomeHero() {
 						className="flex flex-col justify-center"
 						initial={initial}
 						variants={containerVariants}
-						viewport={{ amount: 0.3, once: true }}
+						viewport={{ amount: 0.3, once: false }}
 						whileInView="visible"
 					>
 						<motion.div

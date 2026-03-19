@@ -5,9 +5,9 @@ import React from 'react';
 
 import { Icon } from '@/components/icon';
 import { Spacer } from '@/components/spacer';
-import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
+import { WatchlistToggleButton } from '@/features/watchlist/components/watchlist-toggle-button';
 import { buildTmdbImageUrl } from '@/lib/tmdb/image-config';
 import { cn } from '@/lib/utils';
 
@@ -42,7 +42,9 @@ interface MovieCardProps extends Omit<
 	year: number;
 	genres?: Array<string>;
 	catalogNumber?: string;
-	onAddToWatchlist: () => void;
+	isPending?: boolean;
+	isSaved?: boolean;
+	onToggleWatchlist: () => void;
 	isLoading?: boolean;
 	size?: MovieCardSize;
 }
@@ -83,7 +85,9 @@ export function MovieCard({
 	director,
 	genres,
 	id,
-	onAddToWatchlist,
+	isPending = false,
+	isSaved = false,
+	onToggleWatchlist,
 	posterPath,
 	rating,
 	size = 'md',
@@ -114,7 +118,11 @@ export function MovieCard({
 
 	return (
 		<div
-			className={cn(movieCardVariants({ size }))}
+			data-saved={isSaved}
+			className={cn(
+				movieCardVariants({ size }),
+				isSaved && 'border-accent/60 shadow-md',
+			)}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
@@ -153,22 +161,19 @@ export function MovieCard({
 
 				<div
 					className={cn(
-						'absolute top-3 right-3 transition-all duration-300 ease-out',
-						isHovered
-							? 'translate-y-0 scale-100 opacity-100'
-							: '-translate-y-2 scale-90 opacity-0',
+						'absolute top-3 right-3 opacity-100 transition-all duration-300 ease-out md:opacity-0',
+						isHovered || isSaved
+							? 'md:translate-y-0 md:scale-100 md:opacity-100'
+							: 'md:-translate-y-2 md:scale-90 md:opacity-0',
 					)}
 				>
-					<Button
-						className="rounded-full"
-						size="icon"
-						title="Add to watchlist"
-						type="button"
-						variant="default"
-						onClick={onAddToWatchlist}
-					>
-						<Icon className="size-4" name="bookmark_bold" />
-					</Button>
+					<WatchlistToggleButton
+						mode="card"
+						movieTitle={title}
+						pending={isPending}
+						saved={isSaved}
+						onClick={onToggleWatchlist}
+					/>
 				</div>
 			</div>
 

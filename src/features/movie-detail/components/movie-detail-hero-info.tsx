@@ -2,10 +2,12 @@ import { Icon } from '@/components/icon';
 import { Spacer } from '@/components/spacer';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { WatchlistToggleButton } from '@/features/watchlist';
 import type { MovieDetails200 } from '@/generated/tmdb/tmdbApi.schemas';
 import { formatRuntime } from '@/lib/utils';
 
 interface MovieDetailHeroInfoProps {
+	isPending: boolean;
 	movie: MovieDetails200;
 	homepage?: string;
 	saved: boolean;
@@ -14,6 +16,7 @@ interface MovieDetailHeroInfoProps {
 
 export function MovieDetailHeroInfo({
 	homepage,
+	isPending,
 	movie,
 	onToggleSave,
 	saved,
@@ -84,23 +87,13 @@ export function MovieDetailHeroInfo({
 			<Spacer size={24} />
 
 			<div className="flex flex-wrap gap-3">
-				<Button
-					size="lg"
-					variant={saved ? 'default' : 'contrast'}
+				<WatchlistToggleButton
+					mode="hero"
+					movieTitle={movie.title ?? undefined}
+					pending={isPending}
+					saved={saved}
 					onClick={onToggleSave}
-				>
-					{saved ? (
-						<>
-							<Icon className="mr-2 size-4" name="check" />
-							In Watchlist
-						</>
-					) : (
-						<>
-							<Icon className="mr-2 size-4" name="plus_bold" />
-							Add to Watchlist
-						</>
-					)}
-				</Button>
+				/>
 
 				{homepage ? (
 					<Button asChild size="lg" variant="outline">

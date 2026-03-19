@@ -84,13 +84,11 @@ export function PosterCard({
 					{year}
 				</div>
 
-				{/* Rating overlay - bottom right */}
 				<div className="absolute right-2 bottom-2 flex items-center gap-0.5 text-xs font-medium text-white/90 drop-shadow-md">
 					<Icon className="size-3" name="star_fill" />
 					{rating.toFixed(1)}
 				</div>
 
-				{/* Saved badge - top left */}
 				{isSaved ? (
 					<div className="absolute top-2 left-2 rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-medium text-accent-foreground">
 						Saved

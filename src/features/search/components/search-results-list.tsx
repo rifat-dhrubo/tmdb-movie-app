@@ -12,12 +12,14 @@ interface SearchResultsListProps {
 	committedQuery: string;
 	data: InfiniteData<SearchMovie200> | undefined;
 	hasNextPage: boolean;
+	isTogglingMovie: (id: number) => boolean;
 	isFetchingNextPage: boolean;
 	isError: boolean;
 	onLoadMore: () => void;
 	onToggleSave: (id: number) => void;
 	onRetry: () => void;
 	genreMap: Map<number, string>;
+	savedIds: ReadonlySet<number>;
 }
 
 function getGenresFromIds(
@@ -37,9 +39,11 @@ export function SearchResultsList({
 	hasNextPage,
 	isError,
 	isFetchingNextPage,
+	isTogglingMovie,
 	onLoadMore,
 	onRetry,
 	onToggleSave,
+	savedIds,
 }: SearchResultsListProps) {
 	const { inView, ref: sentinelRef } = useInView({
 		rootMargin: '200px',
@@ -71,6 +75,8 @@ export function SearchResultsList({
 							key={movie.id}
 							genres={getGenresFromIds(movie.genre_ids, genreMap)}
 							id={movie.id ?? 0}
+							isPending={isTogglingMovie(movie.id ?? 0)}
+							isSaved={savedIds.has(movie.id ?? 0)}
 							posterPath={movie.poster_path ?? null}
 							rating={movie.vote_average ?? 0}
 							title={movie.title ?? 'Unknown'}
@@ -79,7 +85,7 @@ export function SearchResultsList({
 									? new Date(movie.release_date).getFullYear()
 									: 0
 							}
-							onAddToWatchlist={() => onToggleSave(movie.id ?? 0)}
+							onToggleWatchlist={() => onToggleSave(movie.id ?? 0)}
 						/>
 					))}
 				</MovieGrid>
