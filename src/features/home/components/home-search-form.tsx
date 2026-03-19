@@ -2,8 +2,12 @@ import { useNavigate } from '@tanstack/react-router';
 import React from 'react';
 
 import { Icon } from '@/components/icon';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+} from '@/components/ui/input-group';
 
 export function HomeSearchForm() {
 	const navigate = useNavigate();
@@ -20,23 +24,26 @@ export function HomeSearchForm() {
 	};
 
 	return (
-		<form className="flex gap-2" onSubmit={handleSubmit}>
-			<div className="relative flex-1">
-				<Icon
-					className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-					name="magnifying_glass_bold"
-				/>
-				<Input
-					className="rounded-md border-border/60 bg-background pl-10"
+		<form className="w-full" onSubmit={handleSubmit}>
+			<InputGroup className="h-11">
+				<InputGroupInput
 					placeholder="Search for films..."
 					type="text"
 					value={query}
 					onChange={(e) => setQuery(e.target.value)}
 				/>
-			</div>
-			<Button className="motion-pressable" type="submit" variant="default">
-				Search
-			</Button>
+				<InputGroupAddon align="inline-start">
+					<Icon
+						className="size-4 text-muted-foreground"
+						name="magnifying_glass_bold"
+					/>
+				</InputGroupAddon>
+				<InputGroupAddon align="inline-end">
+					<InputGroupButton size="sm" type="submit" variant="default">
+						Search
+					</InputGroupButton>
+				</InputGroupAddon>
+			</InputGroup>
 		</form>
 	);
 }

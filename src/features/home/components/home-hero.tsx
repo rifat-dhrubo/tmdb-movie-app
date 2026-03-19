@@ -54,7 +54,7 @@ export function HomeHero() {
 							A personal journal for the films that matter
 						</motion.p>
 
-						<motion.div className="mt-8 max-w-md" variants={itemVariants}>
+						<motion.div className="mt-8 max-w-2xl" variants={itemVariants}>
 							<HomeSearchForm />
 						</motion.div>
 					</motion.div>
