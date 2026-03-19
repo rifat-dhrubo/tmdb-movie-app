@@ -25,6 +25,7 @@ export const iconNames = [
 	'eye_closed_bold',
 	'eye_bold',
 	'copy_bold',
+	'checks',
 	'check',
 	'check_circle_bold',
 	'check_bold',
