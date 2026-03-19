@@ -7,11 +7,13 @@ import {
 	EmptyTitle,
 } from '@/components/ui/empty';
 
-interface SearchNoResultsProps {
+interface SearchResultsListNoResultsProps {
 	query: string;
 }
 
-export function SearchNoResults({ query }: SearchNoResultsProps) {
+export function SearchResultsListNoResults({
+	query,
+}: SearchResultsListNoResultsProps) {
 	return (
 		<div className="mx-auto mt-16 max-w-md text-center">
 			<Empty className="border border-dashed border-border/40">
