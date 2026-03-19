@@ -1,3 +1,5 @@
+import { Link } from '@tanstack/react-router';
+
 import { Spacer } from '@/components/spacer';
 import type { MovieCredits200CastItem } from '@/generated/tmdb/tmdbApi.schemas';
 import { buildTmdbImageUrl } from '@/lib/tmdb/image-config';
@@ -49,9 +51,14 @@ function CastMember({ person }: CastMemberProps) {
 	});
 
 	const initials = getInitials(person.name ?? '');
+	const castId = person.id ?? 0;
 
 	return (
-		<div className="group shrink-0">
+		<Link
+			className="group shrink-0 cursor-pointer"
+			params={{ castId }}
+			to="/cast/$castId"
+		>
 			<div className="relative size-16 overflow-hidden rounded-full bg-muted md:size-20">
 				{imageUrl ? (
 					<img
@@ -69,7 +76,7 @@ function CastMember({ person }: CastMemberProps) {
 				)}
 			</div>
 			<div className="mt-2 w-16 text-center md:w-20">
-				<p className="truncate text-xs font-medium text-foreground">
+				<p className="truncate text-xs font-medium text-foreground group-hover:text-primary">
 					{person.name}
 				</p>
 				{person.character ? (
@@ -78,6 +85,6 @@ function CastMember({ person }: CastMemberProps) {
 					</p>
 				) : null}
 			</div>
-		</div>
+		</Link>
 	);
 }
