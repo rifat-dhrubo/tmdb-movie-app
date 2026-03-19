@@ -21,6 +21,8 @@ export const env = createEnv({
 		VITE_PUBLIC_FIREBASE_STORAGE_BUCKET: z.string().min(1),
 		VITE_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().min(1),
 		VITE_PUBLIC_FIREBASE_APP_ID: z.string().min(1),
+		VITE_PUBLIC_SITE_URL: z.string().min(1),
+		VITE_PUBLIC_DEFAULT_OG_IMAGE: z.string().min(1),
 	},
 
 	/**

@@ -1,10 +1,35 @@
 import { Link, createFileRoute } from '@tanstack/react-router';
 
 import { Spacer } from '@/components/spacer';
+import { env } from '@/env';
 import { AuthLayout, ForgotPasswordForm } from '@/features/auth';
 
 export const Route = createFileRoute('/forgot-password')({
 	component: ForgotPasswordPage,
+	head: () => ({
+		meta: [
+			{ title: 'Forgot Password — Cine' },
+			{
+				name: 'description',
+				content: 'Reset your Cine account password.',
+			},
+			{ property: 'og:title', content: 'Forgot Password — Cine' },
+			{
+				property: 'og:description',
+				content: 'Reset your Cine account password.',
+			},
+			{ property: 'og:type', content: 'website' },
+			{
+				property: 'og:url',
+				content: `${env.VITE_PUBLIC_SITE_URL}/forgot-password`,
+			},
+			{ name: 'twitter:title', content: 'Forgot Password — Cine' },
+			{
+				name: 'twitter:description',
+				content: 'Reset your Cine account password.',
+			},
+		],
+	}),
 });
 
 function ForgotPasswordPage() {
