@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
 import React from 'react';
@@ -42,7 +43,6 @@ interface MovieCardProps extends Omit<
 	year: number;
 	genres: Array<string>;
 	catalogNumber?: string;
-	onTitleClick: () => void;
 	onAddToWatchlist: () => void;
 	isLoading?: boolean;
 	size?: MovieCardSize;
@@ -83,14 +83,14 @@ export function MovieCard({
 	catalogNumber,
 	director,
 	genres,
+	id,
 	onAddToWatchlist,
-	onTitleClick,
 	posterPath,
 	rating,
 	size = 'md',
 	title,
 	year,
-}: Omit<MovieCardProps, 'id'>) {
+}: MovieCardProps) {
 	const [isHovered, setIsHovered] = React.useState(false);
 
 	const config = ticketConfig[size];
@@ -173,10 +173,10 @@ export function MovieCard({
 					config.padding,
 				)}
 			>
-				<button
+				<Link
 					className="group/title relative w-full text-left"
-					type="button"
-					onClick={onTitleClick}
+					params={{ movieId: id }}
+					to="/movies/$movieId"
 				>
 					<h3
 						className={cn(
@@ -187,7 +187,7 @@ export function MovieCard({
 						{title}
 					</h3>
 					<span className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-primary/60 transition-transform duration-300 ease-out group-hover/title:scale-x-100" />
-				</button>
+				</Link>
 				<Spacer size={4}></Spacer>
 
 				<div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">

@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { SiteHeader } from '@/components/site';
 import { HomeCtaSection } from '@/features/home/components/home-cta-section';
 import { HomeEditorialShelf } from '@/features/home/components/home-editorial-shelf';
 import { HomeFooter } from '@/features/home/components/home-footer';
@@ -8,14 +7,13 @@ import { HomeHero } from '@/features/home/components/home-hero';
 import { ValuePropsSection } from '@/features/home/components/value-props-section';
 import { SHELVES } from '@/features/home/constants';
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_app/')({
 	component: HomePage,
 });
 
 function HomePage() {
 	return (
-		<div className="min-h-screen bg-background">
-			<SiteHeader />
+		<>
 			<main>
 				<HomeHero />
 
@@ -41,6 +39,6 @@ function HomePage() {
 			</main>
 
 			<HomeFooter />
-		</div>
+		</>
 	);
 }

@@ -5,7 +5,6 @@ import {
 } from '@tanstack/react-router';
 import { z } from 'zod';
 
-import { SiteHeader } from '@/components/site';
 import { SearchResults } from '@/features/search/components/search-results';
 import { useSearchMovies } from '@/features/search/hooks/use-search-movies';
 import { useDebouncedSearchParam } from '@/hooks/use-debounced-search-param';
@@ -16,14 +15,14 @@ const searchSchema = z.object({
 	year: z.string().optional(),
 });
 
-export const Route = createFileRoute('/search')({
+export const Route = createFileRoute('/_app/search')({
 	component: SearchPage,
 	validateSearch: searchSchema,
 });
 
 function SearchPage() {
-	const navigate = useNavigate({ from: '/search' });
-	const params = useSearch({ from: '/search' });
+	const navigate = useNavigate();
+	const params = useSearch({ from: '/_app/search' });
 
 	const { year } = params;
 	const {
@@ -77,27 +76,24 @@ function SearchPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-background">
-			<SiteHeader />
-			<main className="pb-16">
-				<SearchResults
-					committedQuery={committedQuery}
-					data={data}
-					hasNextPage={hasNextPage}
-					isError={isError}
-					isFetchingNextPage={isFetchingNextPage}
-					isLoading={isLoading}
-					query={query}
-					savedIds={savedIds}
-					year={year}
-					onLoadMore={() => void fetchNextPage()}
-					onQueryChange={setQuery}
-					onRetry={handleRetry}
-					onSubmit={handleSubmit}
-					onToggleSave={toggleSave}
-					onYearChange={handleYearChange}
-				/>
-			</main>
-		</div>
+		<main className="pb-16">
+			<SearchResults
+				committedQuery={committedQuery}
+				data={data}
+				hasNextPage={hasNextPage}
+				isError={isError}
+				isFetchingNextPage={isFetchingNextPage}
+				isLoading={isLoading}
+				query={query}
+				savedIds={savedIds}
+				year={year}
+				onLoadMore={() => void fetchNextPage()}
+				onQueryChange={setQuery}
+				onRetry={handleRetry}
+				onSubmit={handleSubmit}
+				onToggleSave={toggleSave}
+				onYearChange={handleYearChange}
+			/>
+		</main>
 	);
 }
