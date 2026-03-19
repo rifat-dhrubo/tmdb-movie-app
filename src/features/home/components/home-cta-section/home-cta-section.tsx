@@ -1,13 +1,9 @@
 import { motion, useReducedMotion } from 'motion/react';
 
-import {
-	DESKTOP_PRIMARY_POSTERS,
-	DESKTOP_SECONDARY_POSTERS,
-	MOBILE_RAIL_POSTERS,
-} from './home-cta-section-constants';
+import { buildCtaPosterRails } from './home-cta-section-constants';
 import { HomeCtaSectionContent } from './home-cta-section-content';
 import { HomeCtaSectionPosterRail } from './home-cta-section-poster-rail';
-import type { CtaContent } from './types';
+import type { CtaContent, PosterSource } from './types';
 
 import { useAuth } from '@/features/auth';
 import { homeVariants } from '@/features/home/lib/motion';
@@ -37,10 +33,15 @@ function getCtaContent(user: ReturnType<typeof useAuth>['user']): CtaContent {
 			};
 }
 
-export function HomeCtaSection() {
+interface HomeCtaSectionProps {
+	posters?: Array<PosterSource>;
+}
+
+export function HomeCtaSection({ posters = [] }: HomeCtaSectionProps) {
 	const { user } = useAuth();
 	const shouldReduceMotion = useReducedMotion() ?? false;
 	const content = getCtaContent(user);
+	const posterRails = buildCtaPosterRails(posters);
 
 	return (
 		<motion.section
@@ -78,7 +79,7 @@ export function HomeCtaSection() {
 						className="opacity-70 saturate-[0.85]"
 						direction="forward"
 						disableAnimation={shouldReduceMotion}
-						posters={MOBILE_RAIL_POSTERS}
+						posters={posterRails.mobile}
 						seed={0}
 						size="sm"
 					/>
@@ -93,7 +94,7 @@ export function HomeCtaSection() {
 					<HomeCtaSectionPosterRail
 						direction="forward"
 						disableAnimation={shouldReduceMotion}
-						posters={DESKTOP_PRIMARY_POSTERS}
+						posters={posterRails.desktopPrimary}
 						seed={1}
 						size="md"
 					/>
@@ -102,7 +103,7 @@ export function HomeCtaSection() {
 							className="opacity-75 saturate-[0.88]"
 							direction="reverse"
 							disableAnimation={shouldReduceMotion}
-							posters={DESKTOP_SECONDARY_POSTERS}
+							posters={posterRails.desktopSecondary}
 							seed={3}
 							size="sm"
 						/>
