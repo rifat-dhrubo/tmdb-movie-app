@@ -2,9 +2,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "tmdb-movie-app",
 	"compatibility_date": "2025-09-02",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
+	"compatibility_flags": ["nodejs_compat"],
 	"main": "@tanstack/react-start/server-entry",
 	"vars": {
 		"VITE_PUBLIC_FIREBASE_API_KEY": "AIzaSyDLNg9EmcsZbLzjmc-YM0kpXVAnAaQLyXI",
