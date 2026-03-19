@@ -4,10 +4,11 @@ import type { VariantProps } from 'class-variance-authority';
 import React from 'react';
 
 import { Icon } from '@/components/icon';
+import { MovieCardStampOverlay } from '@/components/movie-card-stamp-overlay';
 import { Spacer } from '@/components/spacer';
+import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import { Skeleton } from '@/components/ui/skeleton';
-import { WatchlistToggleButton } from '@/features/watchlist/components/watchlist-toggle-button';
 import { buildTmdbImageUrl } from '@/lib/tmdb/image-config';
 import { cn } from '@/lib/utils';
 
@@ -95,6 +96,20 @@ export function MovieCard({
 	year,
 }: MovieCardProps) {
 	const [isHovered, setIsHovered] = React.useState(false);
+	const [showStamp, setShowStamp] = React.useState(false);
+	const previousSavedRef = React.useRef(isSaved);
+
+	// Trigger stamp animation when saved changes from false to true
+	React.useEffect(() => {
+		if (isSaved && !previousSavedRef.current) {
+			setShowStamp(true);
+		}
+		previousSavedRef.current = isSaved;
+	}, [isSaved]);
+
+	const handleStampComplete = React.useCallback(() => {
+		setShowStamp(false);
+	}, []);
 
 	const config = ticketConfig[size];
 
@@ -121,7 +136,7 @@ export function MovieCard({
 			data-saved={isSaved}
 			className={cn(
 				movieCardVariants({ size }),
-				isSaved && 'border-accent/60 shadow-md',
+				isSaved && 'border-primary border-r-primary border-l-primary shadow-sm',
 			)}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
@@ -159,21 +174,48 @@ export function MovieCard({
 					</div>
 				) : null}
 
+				{/* Stamp overlay on save */}
+				<MovieCardStampOverlay
+					visible={showStamp}
+					onAnimationComplete={handleStampComplete}
+				/>
+
 				<div
 					className={cn(
-						'absolute top-3 right-3 opacity-100 transition-all duration-300 ease-out md:opacity-0',
+						'absolute top-3 right-3 transition-all duration-300 ease-out md:opacity-0',
 						isHovered || isSaved
 							? 'md:translate-y-0 md:scale-100 md:opacity-100'
 							: 'md:-translate-y-2 md:scale-90 md:opacity-0',
 					)}
 				>
-					<WatchlistToggleButton
-						mode="card"
-						movieTitle={title}
-						pending={isPending}
-						saved={isSaved}
+					<Button
+						aria-pressed={isSaved}
+						disabled={isPending}
+						size="icon"
+						title={isSaved ? 'Remove from watchlist' : 'Add to watchlist'}
+						type="button"
+						variant={isSaved ? 'default' : 'default'}
+						aria-label={
+							isSaved
+								? `Remove ${title} from watchlist`
+								: `Add ${title} to watchlist`
+						}
+						className={cn({
+							'bg-primary/50': isSaved,
+						})}
 						onClick={onToggleWatchlist}
-					/>
+					>
+						{isPending ? (
+							<Icon
+								className="size-3.5 animate-spin md:size-4"
+								name="spinner_bold"
+							/>
+						) : isSaved ? (
+							<Icon className="size-3.5 md:size-4" name="checks" />
+						) : (
+							<Icon className="size-3.5 md:size-4" name="bookmark_bold" />
+						)}
+					</Button>
 				</div>
 			</div>
 
