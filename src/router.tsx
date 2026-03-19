@@ -7,6 +7,8 @@ import * as TanStackQueryProvider from './integrations/tanstack-query/root-provi
 import { routeTree } from './routeTree.gen.ts';
 
 import { RouterErrorComponent } from '@/components/route-error-component';
+import { RouteLoadingComponent } from '@/components/route-loading-component';
+import { RouteNotFoundComponent } from '@/components/route-not-found-component';
 import { AuthContextProvider } from '@/features/auth';
 import { WatchlistLiveSyncProvider } from '@/features/watchlist';
 
@@ -22,6 +24,8 @@ export const getRouter = () => {
 		defaultErrorComponent: (errorProps) => (
 			<RouterErrorComponent {...errorProps} />
 		),
+		defaultPendingComponent: () => <RouteLoadingComponent />,
+		defaultNotFoundComponent: () => <RouteNotFoundComponent />,
 		Wrap: (props: { children: React.ReactNode }) => {
 			return (
 				<AuthContextProvider>
