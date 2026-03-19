@@ -37,7 +37,7 @@ export function HomeEditorialShelf({
 			className="py-8 md:py-12"
 			initial={initial}
 			variants={containerVariants}
-			viewport={{ amount: 0.2, once: true }}
+			viewport={{ amount: 0.2, once: false }}
 			whileInView="visible"
 		>
 			<div className="flex flex-col gap-6 md:hidden">

@@ -13,7 +13,7 @@ export function ValuePropsSection() {
 			className="grid gap-12 md:grid-cols-[1fr_auto_1fr] md:gap-16"
 			initial={initial}
 			variants={containerVariants}
-			viewport={{ amount: 0.2, once: true }}
+			viewport={{ amount: 0.2, once: false }}
 			whileInView="visible"
 		>
 			<motion.div
