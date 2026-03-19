@@ -1,5 +1,4 @@
-import { motion, useReducedMotion } from 'motion/react';
-import type { Variants } from 'motion/react';
+import { motion } from 'motion/react';
 import React from 'react';
 
 import {
@@ -7,38 +6,18 @@ import {
 	CASCADE_ORIGIN_X,
 	CASCADE_POSITIONS,
 } from '../constants';
+import { homeVariants, useReducedMotionInitial } from '../lib/motion';
 
 import { CascadePoster } from './home-cascade-poster';
 import { HomeSearchForm } from './home-search-form';
 
 import { Badge } from '@/components/ui/badge';
 
-const containerVariants: Variants = {
-	hidden: { opacity: 1 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.1,
-			delayChildren: 0.1,
-		},
-	},
-};
-
-const itemVariants: Variants = {
-	hidden: { opacity: 0, y: 30 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			duration: 0.5,
-			ease: [0.23, 1, 0.32, 1] as [number, number, number, number],
-		},
-	},
-};
+const { container: containerVariants, item: itemVariants } = homeVariants.hero;
 
 export function HomeHero() {
 	const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
-	const shouldReduceMotion = useReducedMotion();
+	const initial = useReducedMotionInitial();
 
 	return (
 		<section className="relative overflow-hidden py-20 md:py-28 lg:py-32">
@@ -46,7 +25,7 @@ export function HomeHero() {
 				<div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-12">
 					<motion.div
 						className="flex flex-col justify-center"
-						initial={shouldReduceMotion ? 'visible' : 'hidden'}
+						initial={initial}
 						variants={containerVariants}
 						viewport={{ amount: 0.3, once: true }}
 						whileInView="visible"

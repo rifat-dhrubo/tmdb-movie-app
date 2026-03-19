@@ -9,6 +9,7 @@ export const iconNames = [
 	'warning_bold',
 	'translate_bold',
 	'star_fill',
+	'star_bold',
 	'spinner_bold',
 	'share_network_bold',
 	'question_bold',

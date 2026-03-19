@@ -3,12 +3,13 @@ import type { TargetAndTransition, Transition } from 'motion/react';
 import React from 'react';
 
 import type { CascadeFilm, CascadePosition } from '../constants';
+import { EASE_OUT_EXPO, EASE_OUT_QUART, EASE_OUT_QUINT } from '../lib/motion';
 
 import { buildTmdbImageUrl } from '@/lib/tmdb/image-config';
 
-const ENTRY_EASE = [0.23, 1, 0.32, 1] as const;
-const HOVER_EASE = [0.22, 1, 0.36, 1] as const;
-const FLOAT_EASE = [0.77, 0, 0.175, 1] as const;
+const ENTRY_EASE = EASE_OUT_QUINT;
+const HOVER_EASE = EASE_OUT_EXPO;
+const FLOAT_EASE = EASE_OUT_QUART;
 
 interface CascadePosterProps {
 	film: CascadeFilm;
@@ -30,14 +31,13 @@ function getRelativeIndex(
 function getHoverMotion(
 	relativeIndex: number | null,
 	rotate: number,
-): { lift: number; rotate: number; shift: number } {
+): { rotate: number; shift: number } {
 	if (relativeIndex == null) {
-		return { lift: 0, rotate, shift: 0 };
+		return { rotate, shift: 0 };
 	}
 
 	if (relativeIndex === 0) {
 		return {
-			lift: -16,
 			rotate: rotate * 0.35,
 			shift: 0,
 		};
@@ -46,10 +46,9 @@ function getHoverMotion(
 	const direction = relativeIndex > 0 ? 1 : -1;
 	const distance = Math.abs(relativeIndex);
 	const shift = direction > 0 ? 120 + (distance - 1) * 24 : relativeIndex * 14;
-	const lift = distance === 1 ? -5 : 0;
 	const rotateDelta = direction * Math.min(distance * 0.5, 1.5);
 
-	return { lift, rotate: rotate + rotateDelta, shift };
+	return { rotate: rotate + rotateDelta, shift };
 }
 
 function getPosterTransition(
@@ -132,7 +131,7 @@ export function CascadePoster({
 			animate={{
 				opacity: 1,
 				x: position.x + hoverMotion.shift,
-				y: position.y + hoverMotion.lift,
+				y: position.y,
 				rotate: hoverMotion.rotate,
 			}}
 			initial={{

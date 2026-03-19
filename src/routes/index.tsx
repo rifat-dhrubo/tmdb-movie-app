@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { SiteHeader } from '@/components/site/site-header';
+import { SiteHeader } from '@/components/site';
 import { HomeCtaSection } from '@/features/home/components/home-cta-section';
 import { HomeEditorialShelf } from '@/features/home/components/home-editorial-shelf';
 import { HomeFooter } from '@/features/home/components/home-footer';
@@ -16,7 +16,6 @@ function HomePage() {
 	return (
 		<div className="min-h-screen bg-background">
 			<SiteHeader />
-
 			<main>
 				<HomeHero />
 
