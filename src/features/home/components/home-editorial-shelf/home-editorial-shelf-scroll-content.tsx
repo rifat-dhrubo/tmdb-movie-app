@@ -24,6 +24,7 @@ export function HomeEditorialShelfScrollContent({
 						catalogNumber={movie.catalogNumber}
 						director={movie.director}
 						genres={movie.genres}
+						id={movie.id}
 						posterPath={movie.posterPath}
 						rating={movie.rating}
 						size="lg"
@@ -31,9 +32,6 @@ export function HomeEditorialShelfScrollContent({
 						year={movie.year}
 						onAddToWatchlist={() => {
 							console.log('Add to watchlist:', movie.id);
-						}}
-						onTitleClick={() => {
-							window.location.href = `/movie/${movie.id}`;
 						}}
 					/>
 				</motion.div>
