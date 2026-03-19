@@ -239,7 +239,7 @@ export function MovieCard({
 					>
 						{title}
 					</h3>
-					<span className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-primary/60 transition-transform duration-300 ease-out group-hover/title:scale-x-100" />
+					<span className="absolute bottom-0 left-0 h-0.5 w-full origin-right scale-x-0 bg-primary/60 transition-transform duration-300 ease-out group-hover/title:origin-left group-hover/title:scale-x-100" />
 				</Link>
 				<Spacer size={4}></Spacer>
 

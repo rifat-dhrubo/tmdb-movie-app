@@ -24,6 +24,7 @@ interface HomeEditorialShelfProps {
 	savedIds: ReadonlySet<number>;
 	isLoading?: boolean;
 	isError?: boolean;
+	seeAllHref: string;
 }
 
 export function HomeEditorialShelf({
@@ -33,6 +34,7 @@ export function HomeEditorialShelf({
 	layout,
 	onToggleWatchlist,
 	savedIds,
+	seeAllHref,
 	shelf,
 }: HomeEditorialShelfProps) {
 	const initial = useReducedMotionInitial();
@@ -49,6 +51,7 @@ export function HomeEditorialShelf({
 			<div className="flex flex-col gap-6 md:hidden">
 				<HomeEditorialShelfTextContent
 					badge={shelf.badge}
+					seeAllHref={seeAllHref}
 					subtitle={shelf.subtitle}
 					title={shelf.title}
 					variants={textVariants}
@@ -74,6 +77,7 @@ export function HomeEditorialShelf({
 					<>
 						<HomeEditorialShelfTextContent
 							badge={shelf.badge}
+							seeAllHref={seeAllHref}
 							subtitle={shelf.subtitle}
 							title={shelf.title}
 							variants={textVariants}
@@ -101,6 +105,7 @@ export function HomeEditorialShelf({
 						/>
 						<HomeEditorialShelfTextContent
 							badge={shelf.badge}
+							seeAllHref={seeAllHref}
 							subtitle={shelf.subtitle}
 							title={shelf.title}
 							variants={textVariants}

@@ -73,6 +73,7 @@ function HomePage() {
 							isTogglingMovie={isPending}
 							layout="text-left"
 							savedIds={savedIds}
+							seeAllHref="/discover?sort=newest"
 							shelf={trendingShelf}
 							onToggleWatchlist={(movieId) => {
 								void toggle(movieId);
@@ -90,6 +91,7 @@ function HomePage() {
 							isTogglingMovie={isPending}
 							layout="text-right"
 							savedIds={savedIds}
+							seeAllHref="/discover?sort=popularity"
 							shelf={popularShelf}
 							onToggleWatchlist={(movieId) => {
 								void toggle(movieId);
