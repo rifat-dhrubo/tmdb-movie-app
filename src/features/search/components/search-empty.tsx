@@ -19,7 +19,7 @@ export function SearchEmpty() {
 						Find a <span className="text-primary italic">film</span>
 					</EmptyTitle>
 					<EmptyDescription className="text-base">
-						Search for movies by title, actor, or director
+						Search for movies by title
 					</EmptyDescription>
 				</EmptyHeader>
 				<EmptyContent className="gap-3">

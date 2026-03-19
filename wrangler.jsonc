@@ -2,8 +2,21 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "tmdb-movie-app",
 	"compatibility_date": "2025-09-02",
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
 	"main": "@tanstack/react-start/server-entry",
+	"vars": {
+		"VITE_PUBLIC_FIREBASE_API_KEY": "AIzaSyDLNg9EmcsZbLzjmc-YM0kpXVAnAaQLyXI",
+		"VITE_PUBLIC_FIREBASE_AUTH_DOMAIN": "tmdb-movie-watchlist.firebaseapp.com",
+		"VITE_PUBLIC_FIREBASE_PROJECT_ID": "tmdb-movie-watchlist",
+		"VITE_PUBLIC_FIREBASE_STORAGE_BUCKET": "tmdb-movie-watchlist.firebasestorage.app",
+		"VITE_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "785619695405",
+		"VITE_PUBLIC_FIREBASE_APP_ID": "1:785619695405:web:5a76fee1a427e77a0a85a4",
+		"VITE_TMDB_API_KEY": "453e062e7f9df15a74091027fb952469",
+		"VITE_PUBLIC_SITE_URL": "https://movies.rifathossain.dev",
+		"VITE_PUBLIC_DEFAULT_OG_IMAGE": "https://movies.rifathossain.dev/og-image.svg",
+	},
 	"routes": [
 		{
 			"pattern": "movies.rifathossain.dev",
