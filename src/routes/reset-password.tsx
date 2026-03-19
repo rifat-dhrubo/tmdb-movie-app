@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import { Icon } from '@/components/icon';
 import { Spacer } from '@/components/spacer';
+import { env } from '@/env';
 import { AuthLayout, ResetPasswordForm } from '@/features/auth';
 import { auth } from '@/lib/firebase/config';
 
@@ -15,6 +16,30 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/reset-password')({
 	component: ResetPasswordPage,
 	validateSearch: searchSchema,
+	head: () => ({
+		meta: [
+			{ title: 'Reset Password — Cine' },
+			{
+				name: 'description',
+				content: 'Create a new password for your Cine account.',
+			},
+			{ property: 'og:title', content: 'Reset Password — Cine' },
+			{
+				property: 'og:description',
+				content: 'Create a new password for your Cine account.',
+			},
+			{ property: 'og:type', content: 'website' },
+			{
+				property: 'og:url',
+				content: `${env.VITE_PUBLIC_SITE_URL}/reset-password`,
+			},
+			{ name: 'twitter:title', content: 'Reset Password — Cine' },
+			{
+				name: 'twitter:description',
+				content: 'Create a new password for your Cine account.',
+			},
+		],
+	}),
 });
 
 function ResetPasswordPage() {

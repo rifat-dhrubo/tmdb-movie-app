@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { z } from 'zod';
 
+import { env } from '@/env';
 import { SearchResults } from '@/features/search/components/search-results';
 import { useSearchMovies } from '@/features/search/hooks/use-search-movies';
 import {
@@ -19,6 +20,36 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/_app/search')({
 	component: SearchPage,
 	validateSearch: searchSchema,
+	head: () => ({
+		meta: [
+			{ title: 'Search Movies — Cine' },
+			{
+				name: 'description',
+				content:
+					'Search for movies, filter by year, and discover your next favorite film on Cine.',
+			},
+			{
+				property: 'og:title',
+				content: 'Search Movies — Cine',
+			},
+			{
+				property: 'og:description',
+				content:
+					'Search for movies, filter by year, and discover your next favorite film on Cine.',
+			},
+			{ property: 'og:type', content: 'website' },
+			{ property: 'og:url', content: `${env.VITE_PUBLIC_SITE_URL}/search` },
+			{
+				name: 'twitter:title',
+				content: 'Search Movies — Cine',
+			},
+			{
+				name: 'twitter:description',
+				content:
+					'Search for movies, filter by year, and discover your next favorite film on Cine.',
+			},
+		],
+	}),
 });
 
 function SearchPage() {

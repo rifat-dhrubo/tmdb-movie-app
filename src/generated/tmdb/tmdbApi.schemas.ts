@@ -2033,7 +2033,7 @@ export type MovieDetails200SpokenLanguagesItem = {
 export type MovieDetails200 = {
 	adult?: boolean;
 	backdrop_path?: string;
-	belongs_to_collection?: unknown;
+	belongs_to_collection?: any;
 	budget?: number;
 	genres?: MovieDetails200GenresItem[];
 	homepage?: string;
@@ -4586,9 +4586,9 @@ export type PersonDetails200 = {
 	also_known_as?: string[];
 	biography?: string;
 	birthday?: string;
-	deathday?: unknown;
+	deathday?: any;
 	gender?: number;
-	homepage?: unknown;
+	homepage?: any;
 	id?: number;
 	imdb_id?: string;
 	known_for_department?: string;
